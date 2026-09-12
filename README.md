@@ -24,7 +24,14 @@ scripts/
 
 ## Using it
 
-Browse `index.json` directly, or — inside Claude Code with this repo checked out — just ask for what you need ("find me a rugged, trustworthy hero section" or "show me every testimonials section") and the `section-library` skill will search and pull the matching `section.html` files.
+**To browse visually:** open [gallery.html](gallery.html) in a browser (double-click it, or `open gallery.html`) — every section renders as a live, scaled-down thumbnail with filter chips for type and feel, plus search. Click a card to open the real section full-size.
+
+**To search or pull sections programmatically:** `index.json` at the repo root has the same data as one array — filter it with `jq`, or just ask inside Claude Code with this repo checked out ("find me a rugged, trustworthy hero section" or "show me every testimonials section") and the `section-library` skill will search and pull the matching `section.html` files.
+
+After adding or editing any section, regenerate both:
+```bash
+python3 scripts/build_index.py && python3 scripts/build_gallery.py
+```
 
 To add a section, see **Adding a new section** in [docs/schema.md](docs/schema.md).
 

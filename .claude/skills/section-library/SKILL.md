@@ -17,7 +17,9 @@ If it exists, `git pull` before relying on it — Owen or another session may ha
 
 ## Finding sections
 
-Everything is indexed in `index.json` at the repo root — one JSON array entry per section, with `path` pointing at its `section.html`. Read the whole file (it's small) or filter it:
+For Owen to browse visually, open `gallery.html` in a browser (or point him to the published Artifact if one exists) — it renders every section as a live scaled thumbnail with type/feel filter chips and search, regenerated via `python3 scripts/build_gallery.py`.
+
+For search/filtering by you, everything is indexed in `index.json` at the repo root — one JSON array entry per section, with `path` pointing at its `section.html`. Read the whole file (it's small) or filter it:
 
 ```bash
 cd "/Users/owen/Downloads/Claude Programs/The-Library"
@@ -58,7 +60,7 @@ Use this whenever a section built for a client site (or an original) is worth ke
 3. `mkdir sections/0012`
 4. Extract the section as a **self-contained** `sections/0012/section.html`: inline all its CSS in a `<style>` tag (pull only the rules that actually apply — check for a shared `:root` variables block), include any Google Fonts `<link>` it needs, and drop any dependency on the parent site's shared nav/footer/JS. It should render correctly opened on its own in a browser.
 5. Write `sections/0012/meta.json` following `docs/schema.md` exactly — reuse existing `type`/`emotions`/`features` vocabulary from `index.json` where it genuinely fits, rather than inventing near-duplicates.
-6. `python3 scripts/build_index.py` — regenerates `index.json` and fails loudly on any structural mistake (missing file, mismatched id). Fix anything it flags.
+6. `python3 scripts/build_index.py && python3 scripts/build_gallery.py` — regenerates `index.json` (fails loudly on any structural mistake — missing file, mismatched id) and `gallery.html`. Fix anything build_index flags.
 7. Commit and push (per [[feedback-auto-push-940digital]], push once verified — no need to ask first; this repo is 940Digital-owned so set `git config user.name "940Digital"` / `user.email "940Digital@gmail.com"` locally first if not already set).
 
 ## Notes
