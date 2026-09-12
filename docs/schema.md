@@ -26,6 +26,7 @@ Real client photos aren't kept in this library. Every section's `<img>`/`<source
 | `brutalist-concrete.jpg` | Raw monolithic concrete building | Brutalist/industrial-register heroes |
 | `luxury-marble.jpg` | Dark marble interior, warm brass lighting | Luxury/high-end heroes |
 | `dynamic-sprint.jpg` | Sprinters bursting from starting blocks | Dynamic/high-energy heroes |
+| `brutalist-terracotta.jpg` | Graphic terracotta roofline against sky | Brutalist/industrial heroes wanting a warmer, second option |
 
 When adding a section, point its images at whichever of these fits best (relative path from `sections/000X/` is `../../assets/placeholders/<name>.jpg`) instead of the original site's now-broken asset path — add a new one only if nothing existing fits the vibe at all (the first 5 are deliberately generic/reusable across many trades; the last 3 are vibe-specific, added for a specific tone rather than a specific trade). Always mark it with an HTML comment (`<!-- LIBRARY PLACEHOLDER: swap for the target site's own photo -->`) so it's obvious this isn't the real content. Whoever pulls a section into a real build swaps in that site's own photo before shipping.
 

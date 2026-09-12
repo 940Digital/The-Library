@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — ACME Everything (Brutalist, Mobile-Fit)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  /* ---- Color: paper + ink, warm terracotta as the one signal ---- */
+  --paper:      #f1ece0;   /* unbleached paper — light, not stark white */
+  --ink:        #17130f;   /* near-black, warm cast */
+  --stone:      #8b8272;   /* muted secondary text */
+  --signal:     #c85a2e;   /* terracotta — the one accent, sampled from the photo */
+
+  --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --font-body:    'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --border-w: 1.5px;
+}
+
+* { border-radius: 0 !important; }
+
+.hero {
+  position: relative;
+  height: 100svh;
+  max-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--border-w) solid var(--ink);
+  overflow: hidden;
+}
+
+.hero__bar {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4svh 1rem;
+  border-bottom: var(--border-w) solid var(--ink);
+}
+
+.hero__mark {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.hero__mark-box {
+  width: 1.6rem;
+  height: 1.6rem;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+
+.hero__mark-word {
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-size: .68rem;
+}
+
+.hero__index {
+  font-family: var(--font-body);
+  font-size: .64rem;
+  letter-spacing: .04em;
+  color: var(--stone);
+}
+
+.hero__media {
+  position: relative;
+  flex: 0 0 clamp(140px, 28svh, 320px);
+  overflow: hidden;
+  border-bottom: var(--border-w) solid var(--ink);
+}
+
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(.4) sepia(.25) contrast(1.15) saturate(1.3);
+}
+
+.hero__tag {
+  position: absolute;
+  bottom: .6rem;
+  left: .6rem;
+  background: var(--signal);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .62rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .28rem .5rem;
+}
+
+.hero__copy {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(.6rem, 1.6svh, 1.1rem);
+  padding: clamp(.85rem, 2.2svh, 1.5rem) 1rem;
+  min-height: 0;
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  font-family: var(--font-body);
+  font-size: .64rem;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+
+.hero__eyebrow::before {
+  content: '';
+  width: 1.5rem;
+  height: var(--border-w);
+  background: var(--signal);
+  display: block;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 6.4svh, 3.4rem);
+  line-height: .92;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+}
+
+.hero h1 .pop {
+  color: var(--signal);
+}
+
+.hero__dek {
+  max-width: 40ch;
+  font-size: clamp(.72rem, 1.7svh, .92rem);
+  line-height: 1.45;
+  color: var(--stone);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(.66rem, 1.5svh, .78rem);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  padding: clamp(.55rem, 1.5svh, .8rem) clamp(.85rem, 2vw, 1.2rem);
+  border: var(--border-w) solid var(--ink);
+  text-decoration: none;
+  transition: background-color .12s linear, color .12s linear;
+  color: var(--ink);
+}
+
+.btn--primary {
+  background: var(--signal);
+  color: var(--paper);
+  border-color: var(--signal);
+}
+
+.btn--primary:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.btn--ghost:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.hero__stats {
+  flex: 0 0 auto;
+  display: flex;
+  border-top: var(--border-w) solid var(--ink);
+}
+
+.hero__stat {
+  flex: 1;
+  padding: clamp(.4rem, 1.2svh, .7rem) .75rem;
+  font-family: var(--font-body);
+}
+
+.hero__stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2.6svh, 1.5rem);
+  color: var(--signal);
+  line-height: 1;
+}
+
+.hero__stat span {
+  display: block;
+  font-size: .58rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-top: .15rem;
+}
+
+/* small comfort margin on genuinely tall/wide viewports so this doesn't
+   look like a phone screen stretched across a desktop monitor */
+@media (min-width: 700px) {
+  .hero__copy { padding-left: clamp(1.5rem, 4vw, 3rem); padding-right: clamp(1.5rem, 4vw, 3rem); }
+  .hero__bar, .hero__stats { padding-left: clamp(1rem, 3vw, 2rem); padding-right: clamp(1rem, 3vw, 2rem); }
+}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero__bar">
+    <div class="hero__mark">
+      <span class="hero__mark-box">A</span>
+      <span class="hero__mark-word">Acme Everything</span>
+    </div>
+    <span class="hero__index">N&deg;02 / STUDIO</span>
+  </div>
+
+  <div class="hero__media">
+    <!-- LIBRARY PLACEHOLDER: swap for the target site's own photo -->
+    <img src="../../assets/placeholders/brutalist-terracotta.jpg" alt="Placeholder graphic architectural roofline photo — swap for the target site's own image">
+    <span class="hero__tag">Est. Raw</span>
+  </div>
+
+  <div class="hero__copy">
+    <span class="hero__eyebrow">Built To Last, Not To Impress</span>
+    <h1>Structure <span class="pop">First.</span></h1>
+    <p class="hero__dek">Every choice earns its place or it doesn't make the cut. That's the whole method.</p>
+    <div class="hero__actions">
+      <a href="#work" class="btn btn--primary">See the Work</a>
+      <a href="#contact" class="btn btn--ghost">Start a Project</a>
+    </div>
+  </div>
+
+  <div class="hero__stats">
+    <div class="hero__stat"><b>140+</b><span>Projects Shipped</span></div>
+    <div class="hero__stat"><b>0</b><span>Wasted Meetings</span></div>
+    <div class="hero__stat"><b>100%</b><span>Load-Bearing</span></div>
+  </div>
+</section>
+</body>
+</html>

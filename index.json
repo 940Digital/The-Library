@@ -1,5 +1,5 @@
 {
-  "count": 14,
+  "count": 15,
   "sections": [
     {
       "id": "0001",
@@ -476,6 +476,45 @@
       "file": "section.html",
       "notes": "Original build for the library, not adapted from a client site \u2014 built for a startup/fitness/events-type brand that wants to feel fast rather than trustworthy-and-steady. Every skewed element (badges, buttons, media tag) uses the same -8deg transform with an inner un-skewed span so the text itself stays readable \u2014 copy that exact pattern rather than skewing text directly, which garbles it. The clip-path on .hero__media only applies above 900px; below that it's a plain full-width image, since an angled clip on a short mobile viewport just crops the photo awkwardly. Three-stop diagonal gradient (violet\u2192magenta\u2192orange) is the accent system here instead of a single accent color \u2014 keep all three stops if reusing, dropping to two reads flatter and less 'in motion.'",
       "path": "sections/0014/section.html"
+    },
+    {
+      "id": "0015",
+      "number": 15,
+      "name": "Brutalist hero (mobile-fit): paper + terracotta, no-scroll on any device",
+      "website": "ACME Everything",
+      "type": "hero",
+      "emotions": [
+        "raw",
+        "uncompromising",
+        "warm-industrial",
+        "confident",
+        "grounded"
+      ],
+      "features": [
+        "fits-100svh-no-scroll",
+        "hard-bordered-grid",
+        "condensed-display-type",
+        "sharp-corners-no-radius",
+        "signal-color-accent",
+        "duotone-image-filter",
+        "dual-cta-buttons",
+        "stat-row"
+      ],
+      "colorMode": "light",
+      "palette": [
+        "#f1ece0",
+        "#17130f",
+        "#c85a2e",
+        "#8b8272"
+      ],
+      "fonts": [
+        "Bebas Neue",
+        "IBM Plex Mono"
+      ],
+      "dateAdded": "2026-09-12",
+      "file": "section.html",
+      "notes": "Second brutalist hero \u2014 paired with 0012 as the same design language in a different register: light paper ground instead of black, terracotta signal instead of safety-yellow, condensed Bebas Neue instead of blocky Archivo Black, a different real photo (a graphic architectural roofline, not a concrete building). Built specifically so every element \u2014 header, image, headline, dek, CTAs, stat row \u2014 is visible on one mobile screen with zero scrolling: the whole layout is a single-column flex column pinned to height:100svh, and every font-size/padding/gap uses a clamp() with an svh component so it scales down on short viewports instead of overflowing. Tested down to 375\u00d7667 (iPhone SE-class, the shortest common phone viewport) with room to spare; taller/wider viewports just get more breathing room via justify-content:center, not more content. If you add copy, keep the headline to one short line plus one accent word, and the dek to 1-2 short sentences \u2014 this layout has no scroll fallback, so it depends on staying terse.",
+      "path": "sections/0015/section.html"
     }
   ]
 }

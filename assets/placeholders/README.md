@@ -14,5 +14,6 @@ All sourced from [Pexels](https://www.pexels.com) (free for commercial use, no a
 | `brutalist-concrete.jpg` | pexels.com/photo/4328661 |
 | `luxury-marble.jpg` | pexels.com/photo/33599113 |
 | `dynamic-sprint.jpg` | pexels.com/photo/19787364 |
+| `brutalist-terracotta.jpg` | pexels.com/photo/16600110 |
 
-First 5 added 2026-09-12 (seed batch). Last 3 added 2026-09-12 for the brutalist/luxury/dynamic original heroes (0012–0014) — these are vibe-specific rather than shared-generic, so reuse them only for sections in that same register.
+First 5 added 2026-09-12 (seed batch). Next 3 added 2026-09-12 for the brutalist/luxury/dynamic original heroes (0012–0014) — these are vibe-specific rather than shared-generic, so reuse them only for sections in that same register. `brutalist-terracotta.jpg` added 2026-09-12 for the second brutalist hero (0015) — a different building/photo and a warmer palette than `brutalist-concrete.jpg`, so the two brutalist sections don't read as reskins of each other.

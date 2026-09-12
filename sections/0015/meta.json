@@ -1,0 +1,24 @@
+{
+  "id": "0015",
+  "number": 15,
+  "name": "Brutalist hero (mobile-fit): paper + terracotta, no-scroll on any device",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["raw", "uncompromising", "warm-industrial", "confident", "grounded"],
+  "features": [
+    "fits-100svh-no-scroll",
+    "hard-bordered-grid",
+    "condensed-display-type",
+    "sharp-corners-no-radius",
+    "signal-color-accent",
+    "duotone-image-filter",
+    "dual-cta-buttons",
+    "stat-row"
+  ],
+  "colorMode": "light",
+  "palette": ["#f1ece0", "#17130f", "#c85a2e", "#8b8272"],
+  "fonts": ["Bebas Neue", "IBM Plex Mono"],
+  "dateAdded": "2026-09-12",
+  "file": "section.html",
+  "notes": "Second brutalist hero — paired with 0012 as the same design language in a different register: light paper ground instead of black, terracotta signal instead of safety-yellow, condensed Bebas Neue instead of blocky Archivo Black, a different real photo (a graphic architectural roofline, not a concrete building). Built specifically so every element — header, image, headline, dek, CTAs, stat row — is visible on one mobile screen with zero scrolling: the whole layout is a single-column flex column pinned to height:100svh, and every font-size/padding/gap uses a clamp() with an svh component so it scales down on short viewports instead of overflowing. Tested down to 375×667 (iPhone SE-class, the shortest common phone viewport) with room to spare; taller/wider viewports just get more breathing room via justify-content:center, not more content. If you add copy, keep the headline to one short line plus one accent word, and the dek to 1-2 short sentences — this layout has no scroll fallback, so it depends on staying terse."
+}
