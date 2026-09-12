@@ -1,0 +1,712 @@
+<!doctype html>
+<title>The Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#211c16; --ink-dim:#5b5346; --paper:#f6f2ea; --paper-raised:#ffffff;
+  --paper-line:#e2dac9; --accent:#3194e0; --accent-ink:#0d3a5c;
+  --amber:#c1591d; --mono-chip:#efe9d8; --shadow:0 1px 2px rgba(33,28,22,.08), 0 8px 20px rgba(33,28,22,.06);
+  --font-display:'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#eee7d9; --ink-dim:#a89e8b; --paper:#181510; --paper-raised:#211c17;
+    --paper-line:#3a332a; --accent:#4fa8ea; --accent-ink:#bfe0fa;
+    --amber:#e8874a; --mono-chip:#2b2620; --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 28px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#eee7d9; --ink-dim:#a89e8b; --paper:#181510; --paper-raised:#211c17;
+  --paper-line:#3a332a; --accent:#4fa8ea; --accent-ink:#bfe0fa;
+  --amber:#e8874a; --mono-chip:#2b2620; --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 28px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--font-display);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;}
+
+.topbar{
+  position:sticky; top:0; z-index:20;
+  background:var(--paper); border-bottom:1px solid var(--paper-line);
+  padding:1.1rem clamp(1rem,3vw,2.25rem);
+  display:flex; flex-wrap:wrap; align-items:center; gap:1rem 1.5rem;
+}
+.brand{display:flex; align-items:baseline; gap:.55rem; margin-right:auto;}
+.brand .mark{font-family:var(--font-mono); font-weight:700; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim); border:1px solid var(--paper-line); border-radius:3px; padding:.2rem .45rem;}
+.brand h1{font-size:1.15rem; font-weight:800; margin:0; letter-spacing:-.01em;}
+.brand .count{font-family:var(--font-mono); font-size:.78rem; color:var(--ink-dim);}
+
+.search{
+  flex:1 1 220px; max-width:340px; position:relative;
+}
+.search input{
+  width:100%; font-family:var(--font-display); font-size:.9rem;
+  background:var(--paper-raised); border:1px solid var(--paper-line); border-radius:6px;
+  padding:.55rem .7rem .55rem 2rem; color:var(--ink);
+}
+.search input:focus{outline:2px solid var(--accent); outline-offset:1px;}
+.search::before{
+  content:'⌕'; position:absolute; left:.65rem; top:50%; transform:translateY(-50%);
+  color:var(--ink-dim); font-size:1rem; pointer-events:none;
+}
+
+.filter-group{display:flex; align-items:center; gap:.4rem; flex-wrap:wrap;}
+.filter-label{font-family:var(--font-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-dim); margin-right:.15rem;}
+.chip{
+  font-family:var(--font-mono); font-size:.72rem; letter-spacing:.02em;
+  background:var(--mono-chip); border:1px solid var(--paper-line); color:var(--ink-dim);
+  border-radius:100px; padding:.32rem .65rem; cursor:pointer; user-select:none;
+  transition:background .15s ease, color .15s ease, border-color .15s ease;
+  white-space:nowrap;
+}
+.chip:hover{border-color:var(--accent);}
+.chip.active{background:var(--accent); color:#fff; border-color:var(--accent);}
+:root[data-theme="dark"] .chip.active, @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.active{color:#0b1720;}}
+
+.emo-scroll{display:flex; gap:.4rem; overflow-x:auto; padding-bottom:.15rem; max-width:min(560px,60vw); scrollbar-width:thin;}
+
+.clear-btn{
+  font-family:var(--font-mono); font-size:.7rem; color:var(--ink-dim);
+  background:none; border:none; cursor:pointer; text-decoration:underline;
+  text-underline-offset:2px; padding:.3rem .2rem; visibility:hidden;
+}
+.clear-btn.show{visibility:visible;}
+
+main{padding:1.75rem clamp(1rem,3vw,2.25rem) 4rem;}
+.empty{
+  display:none; text-align:center; padding:4rem 1rem; color:var(--ink-dim);
+  font-size:.95rem;
+}
+.empty.show{display:block;}
+
+.grid{
+  display:grid; gap:1.5rem;
+  grid-template-columns:repeat(auto-fill, minmax(300px,1fr));
+}
+.card{
+  background:var(--paper-raised); border:1px solid var(--paper-line); border-radius:10px;
+  overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column;
+}
+.thumb-wrap{
+  position:relative; width:100%; aspect-ratio:4/3; overflow:hidden;
+  background:var(--mono-chip); border-bottom:1px solid var(--paper-line);
+}
+.thumb-wrap iframe{
+  position:absolute; top:0; left:0; border:0; pointer-events:none;
+  width:1280px; height:960px;
+  transform-origin:top left;
+}
+.thumb-id{
+  position:absolute; top:.5rem; left:.5rem; z-index:2;
+  font-family:var(--font-mono); font-size:.68rem; font-weight:700;
+  background:rgba(20,17,13,.72); color:#f6f2ea; letter-spacing:.06em;
+  border-radius:4px; padding:.2rem .45rem;
+}
+.thumb-mode{
+  position:absolute; top:.5rem; right:.5rem; z-index:2;
+  width:.55rem; height:.55rem; border-radius:50%;
+  box-shadow:0 0 0 2px rgba(20,17,13,.35);
+}
+.thumb-mode.dark{background:#211c17;}
+.thumb-mode.light{background:#f6f2ea;}
+.thumb-overlay{
+  position:absolute; inset:0; z-index:3; display:flex; align-items:center; justify-content:center;
+  gap:.5rem; opacity:0; transition:opacity .15s ease; background:rgba(24,21,16,.42);
+}
+.card:hover .thumb-overlay{opacity:1;}
+.thumb-overlay a{
+  font-family:var(--font-mono); font-size:.72rem; font-weight:600; letter-spacing:.02em;
+  background:var(--paper-raised); color:var(--ink); border-radius:6px; padding:.5rem .8rem;
+  text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,.25);
+}
+.thumb-overlay a.primary{background:var(--accent); color:#fff;}
+
+.card-body{padding:1rem 1.1rem 1.15rem; display:flex; flex-direction:column; gap:.55rem;}
+.card-top{display:flex; justify-content:space-between; align-items:baseline; gap:.5rem;}
+.card-type{
+  font-family:var(--font-mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--accent-ink); background:color-mix(in srgb, var(--accent) 16%, transparent);
+  border-radius:4px; padding:.15rem .4rem;
+}
+.card-website{font-size:.74rem; color:var(--ink-dim); text-align:right;}
+.card-name{font-size:.96rem; font-weight:700; line-height:1.3; margin:0;}
+.tag-row{display:flex; flex-wrap:wrap; gap:.35rem;}
+.tag{
+  font-family:var(--font-mono); font-size:.66rem; color:var(--ink-dim);
+  background:var(--mono-chip); border-radius:100px; padding:.2rem .5rem;
+}
+.tag.feat{background:transparent; border:1px dashed var(--paper-line);}
+
+footer{
+  text-align:center; padding:2rem 1rem 3rem; color:var(--ink-dim);
+  font-family:var(--font-mono); font-size:.72rem;
+}
+
+@media (max-width: 620px){
+  .search{max-width:none; flex-basis:100%;}
+  .emo-scroll{max-width:100%;}
+}
+</style>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="mark">940D</span>
+    <h1>The Library</h1>
+    <span class="count" id="countLabel"></span>
+  </div>
+  <div class="search">
+    <input id="searchInput" type="text" placeholder="Search name, notes, website…" autocomplete="off">
+  </div>
+  <div class="filter-group" id="typeFilters">
+    <span class="filter-label">Type</span>
+  </div>
+  <div class="filter-group">
+    <span class="filter-label">Feel</span>
+    <div class="emo-scroll" id="emoFilters"></div>
+  </div>
+  <button class="clear-btn" id="clearBtn">clear filters</button>
+</div>
+
+<main>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="emptyState">No sections match those filters.</div>
+</main>
+
+<footer>git@github-940digital:940Digital/The-Library.git — restyle before you ship it</footer>
+
+<script>
+const SECTIONS = [
+  {
+    "id": "0001",
+    "number": 1,
+    "name": "Full-bleed roofing hero, parallax image + staggered headline",
+    "website": "Brick by Brick General Contracting",
+    "websiteUrl": "https://brick-by-brick-contracting.vercel.app/",
+    "sourceProject": "brick-by-brick-contracting",
+    "type": "hero",
+    "emotions": [
+      "rugged",
+      "trustworthy",
+      "bold",
+      "accountable",
+      "warm"
+    ],
+    "features": [
+      "full-bleed-background-image",
+      "parallax-image",
+      "gradient-overlay",
+      "staggered-text-reveal",
+      "eyebrow-label",
+      "dual-cta-buttons",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#241c17",
+      "#f16f24",
+      "#f3ead8",
+      "#5f6a72"
+    ],
+    "fonts": [
+      "Arvo",
+      "Work Sans"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Fixed-position hero image creates a parallax effect as the page scrolls under it (JS toggles .is-past once scrolled out of the viewport \u2014 not included here, degrades gracefully to a static bg). Headline lines and CTAs fade/slide in via .intro-in class added on load; .no-js fallback keeps everything visible with no JS. Image path is a placeholder \u2014 swap in your own asset.",
+    "path": "sections/0001/section.html"
+  },
+  {
+    "id": "0002",
+    "number": 2,
+    "name": "Draggable horizontal review carousel with reply cards",
+    "website": "Brick by Brick General Contracting",
+    "websiteUrl": "https://brick-by-brick-contracting.vercel.app/",
+    "sourceProject": "brick-by-brick-contracting",
+    "type": "testimonials",
+    "emotions": [
+      "trustworthy",
+      "warm",
+      "credible",
+      "personable"
+    ],
+    "features": [
+      "testimonial-carousel",
+      "star-ratings",
+      "drag-to-scroll",
+      "edge-fade-mask",
+      "owner-reply-quote",
+      "cta-button",
+      "no-scrollbar"
+    ],
+    "colorMode": "light",
+    "palette": [
+      "#f3ead8",
+      "#f16f24",
+      "#241a10",
+      "#5f6a72"
+    ],
+    "fonts": [
+      "Arvo",
+      "Work Sans"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Real Google reviews for a live client, kept verbatim as a content pattern reference (swap in the target business's own reviews before reuse). The reply line under each card \u2014 owner responding by name \u2014 is the standout trust device here; worth reusing even without the carousel. Horizontal scroll uses a CSS mask to fade the edges instead of hard-clipping cards; JS drag-to-scroll (grab/grabbing cursor) not included but the CSS supports it as pure scroll-snap too.",
+    "path": "sections/0002/section.html"
+  },
+  {
+    "id": "0003",
+    "number": 3,
+    "name": "Featured-service spotlight + compact grid of secondary services",
+    "website": "Brick by Brick General Contracting",
+    "websiteUrl": "https://brick-by-brick-contracting.vercel.app/",
+    "sourceProject": "brick-by-brick-contracting",
+    "type": "services",
+    "emotions": [
+      "capable",
+      "thorough",
+      "trustworthy",
+      "grounded"
+    ],
+    "features": [
+      "featured-item-plus-grid",
+      "image-with-copy",
+      "bulleted-capability-list",
+      "per-service-deep-link",
+      "eyebrow-label",
+      "asymmetric-layout"
+    ],
+    "colorMode": "light",
+    "palette": [
+      "#f3ead8",
+      "#f16f24",
+      "#241a10",
+      "#5f6a72"
+    ],
+    "fonts": [
+      "Arvo",
+      "Work Sans"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Two-tier services pattern: one large 'specialty' feature card (image + long copy + capability list + link to its own page) alongside a compact grid of the remaining services as smaller cards. Good reference whenever a business has one flagship service worth showcasing and several supporting ones that don't need equal real estate.",
+    "path": "sections/0003/section.html"
+  },
+  {
+    "id": "0004",
+    "number": 4,
+    "name": "Split hero with rotating slide gallery and botanical line-art accents",
+    "website": "Lilylynne Photography",
+    "websiteUrl": "https://lilylynne-photography.vercel.app/",
+    "sourceProject": "lilylynne-photography",
+    "type": "hero",
+    "emotions": [
+      "elegant",
+      "soft",
+      "romantic",
+      "personal",
+      "airy"
+    ],
+    "features": [
+      "split-layout",
+      "hero-carousel",
+      "responsive-picture-srcset",
+      "svg-line-art-accents",
+      "italic-word-emphasis",
+      "primary-plus-quiet-link-ctas"
+    ],
+    "colorMode": "light",
+    "palette": [
+      "#f6f1ea",
+      "#2c2620",
+      "#c98a5e"
+    ],
+    "fonts": [
+      "Fraunces",
+      "Jost"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Copy sits left, a fading slideshow of portrait-orientation photos sits right \u2014 good pattern for photographers/creatives where the images ARE the pitch. Inline SVG botanical sprigs (referenced via <use href=\"#bot-...\">) are decorative flourishes defined once in a sprite sheet elsewhere on the page; this fragment references them by id but doesn't include the sprite defs. Uses <picture>/srcset for responsive art direction.",
+    "path": "sections/0004/section.html"
+  },
+  {
+    "id": "0005",
+    "number": 5,
+    "name": "Segmented pricing packages by client type (tiers within categories)",
+    "website": "Lilylynne Photography",
+    "websiteUrl": "https://lilylynne-photography.vercel.app/",
+    "sourceProject": "lilylynne-photography",
+    "type": "pricing",
+    "emotions": [
+      "elegant",
+      "approachable",
+      "clear",
+      "soft"
+    ],
+    "features": [
+      "pricing-cards",
+      "grouped-tiers-per-category",
+      "centered-section-head",
+      "scroll-reveal-hooks",
+      "svg-icon-accents"
+    ],
+    "colorMode": "light",
+    "palette": [
+      "#f6f1ea",
+      "#2c2620",
+      "#c98a5e"
+    ],
+    "fonts": [
+      "Fraunces",
+      "Jost"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Not a single price ladder \u2014 instead groups by WHO the client is (Families, Solos & Graduates, etc.) and shows 1-2 price tiers inside each group. Good reference for service businesses whose pricing varies more by customer segment than by feature tier. data-reveal attributes hook into an intersection-observer fade-in (script not included).",
+    "path": "sections/0005/section.html"
+  },
+  {
+    "id": "0006",
+    "number": 6,
+    "name": "Split hero with trust badge, overlapping stat card, and plank texture accent",
+    "website": "Denton Fence",
+    "websiteUrl": "https://denton-fence.vercel.app/",
+    "sourceProject": "denton-fence",
+    "type": "hero",
+    "emotions": [
+      "rugged",
+      "trustworthy",
+      "no-nonsense",
+      "established"
+    ],
+    "features": [
+      "split-layout",
+      "trust-badge-with-stars",
+      "responsive-picture-avif",
+      "overlapping-stat-card",
+      "animated-counter-hooks",
+      "decorative-texture-accent",
+      "dual-cta-buttons"
+    ],
+    "colorMode": "light",
+    "fonts": [
+      "system-ui (no webfont load)"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Stat card (years in business / review count / rating) overlaps the hero image corner rather than living in its own section \u2014 keeps proof visible without adding vertical scroll. data-count-to attributes are hooks for a count-up-on-scroll script (not included, degrades to static numbers). No webfont dependency \u2014 deliberately system-font for a fast, plain-spoken feel matching the trade.",
+    "path": "sections/0006/section.html"
+  },
+  {
+    "id": "0007",
+    "number": 7,
+    "name": "Minimal centered dark CTA banner",
+    "website": "Denton Fence",
+    "websiteUrl": "https://denton-fence.vercel.app/",
+    "sourceProject": "denton-fence",
+    "type": "cta",
+    "emotions": [
+      "direct",
+      "urgent",
+      "confident",
+      "plain-spoken"
+    ],
+    "features": [
+      "centered-layout",
+      "dark-band",
+      "dual-cta-buttons",
+      "phone-tel-link",
+      "minimal-copy"
+    ],
+    "colorMode": "dark",
+    "fonts": [
+      "system-ui (no webfont load)"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "About as simple as a closing CTA gets: headline, one line of support copy, a phone-call button and a secondary quote-request button. Useful as a mid-page or pre-footer breather section when a full contact form section would be too heavy. Smallest file in the library \u2014 good starting point to restyle rather than strip down.",
+    "path": "sections/0007/section.html"
+  },
+  {
+    "id": "0008",
+    "number": 8,
+    "name": "Full-bleed hero with animated line-by-line headline and live open/closed status",
+    "website": "Samuel's Tree Service",
+    "websiteUrl": "https://samuels-tree-service.vercel.app/",
+    "sourceProject": "samuels-tree-service",
+    "type": "hero",
+    "emotions": [
+      "bold",
+      "seasoned",
+      "confident",
+      "action-oriented"
+    ],
+    "features": [
+      "full-bleed-background-image",
+      "video-background-ready",
+      "staggered-text-reveal",
+      "review-count-chip",
+      "live-open-closed-status",
+      "inline-svg-icons",
+      "dual-cta-buttons",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "fonts": [
+      "Fraunces",
+      "Space Grotesk"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Three one-word headline lines ('Climbed.' 'Cut.' 'Cleared.') each animate in on their own line \u2014 punchy rhythm pattern worth reusing for trades with a clear step-by-step process. Has a commented-out slot for swapping the still image for a looping background video once the client supplies footage. data-status/data-status-text hooks are for a live business-hours widget (JS not included, static fallback text shown as-is).",
+    "path": "sections/0008/section.html"
+  },
+  {
+    "id": "0009",
+    "number": 9,
+    "name": "Combined proof section: animated stat row + award plaque + Google rating summary",
+    "website": "Samuel's Tree Service",
+    "websiteUrl": "https://samuels-tree-service.vercel.app/",
+    "sourceProject": "samuels-tree-service",
+    "type": "testimonials",
+    "emotions": [
+      "credible",
+      "established",
+      "reassuring",
+      "authoritative"
+    ],
+    "features": [
+      "animated-counter-hooks",
+      "award-plaque-with-photo",
+      "achievement-list",
+      "google-rating-summary",
+      "scroll-reveal-hooks",
+      "live-widget-slot-comment"
+    ],
+    "colorMode": "light",
+    "fonts": [
+      "Fraunces",
+      "Space Grotesk"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Stacks three proof devices in one section instead of spreading them thin: a stat row (years/reviews/rating/awards, count-up-on-scroll hooks via data-count), a photographed award plaque with a bulleted achievement list, and a Google-rating summary block (real G logo SVG inlined) with an HTML comment marking where to drop in a live Elfsight/Trustindex/Featurable review-widget embed later. Heaviest file in the library \u2014 good candidate to split back into 2-3 smaller sections if only one device is needed.",
+    "path": "sections/0009/section.html"
+  },
+  {
+    "id": "0010",
+    "number": 10,
+    "name": "Luxury full-bleed hero with badge, glow overlay, and location pin",
+    "website": "Gunnar Galvan Mobile Detailing",
+    "websiteUrl": "https://gunnar-galvan.vercel.app/",
+    "sourceProject": "gunnar-galvan",
+    "type": "hero",
+    "emotions": [
+      "premium",
+      "sleek",
+      "aspirational",
+      "convenient"
+    ],
+    "features": [
+      "full-bleed-background-image",
+      "gradient-overlay",
+      "radial-glow-accent",
+      "location-badge",
+      "italic-word-emphasis",
+      "dual-cta-buttons",
+      "image-placeholder-comment"
+    ],
+    "colorMode": "dark",
+    "fonts": [
+      "Inter"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Layers a subtle radial 'glow' div over the standard image+gradient hero for extra shine \u2014 cheap way to make a dark hero feel premium/detailing-shop rather than flat. HTML comment marks exactly what the hero image should be before an asset existed yet, worth keeping as a habit when spec-building ahead of client photos.",
+    "path": "sections/0010/section.html"
+  },
+  {
+    "id": "0011",
+    "number": 11,
+    "name": "Simple centered CTA banner with label tag and phone/book buttons",
+    "website": "Gunnar Galvan Mobile Detailing",
+    "websiteUrl": "https://gunnar-galvan.vercel.app/",
+    "sourceProject": "gunnar-galvan",
+    "type": "cta",
+    "emotions": [
+      "confident",
+      "premium",
+      "direct"
+    ],
+    "features": [
+      "centered-layout",
+      "label-tag",
+      "fade-up-on-scroll-hooks",
+      "dual-cta-buttons",
+      "phone-tel-link",
+      "inline-svg-icon"
+    ],
+    "colorMode": "dark",
+    "fonts": [
+      "Inter"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Same job as 0007 (Denton Fence CTA) but with a small uppercase label-tag above the headline and .fade-up scroll-reveal hooks \u2014 compare the two side by side for 'plain trade CTA' vs 'polished premium-service CTA' at nearly the same structure.",
+    "path": "sections/0011/section.html"
+  }
+];
+
+const state = { type: null, emotion: null, q: '' };
+
+const grid = document.getElementById('grid');
+const typeFilters = document.getElementById('typeFilters');
+const emoFilters = document.getElementById('emoFilters');
+const emptyState = document.getElementById('emptyState');
+const countLabel = document.getElementById('countLabel');
+const clearBtn = document.getElementById('clearBtn');
+const searchInput = document.getElementById('searchInput');
+
+const allTypes = [...new Set(SECTIONS.map(s => s.type))].sort();
+const allEmotions = [...new Set(SECTIONS.flatMap(s => s.emotions || []))].sort();
+
+function chip(label, group, value){
+  const el = document.createElement('button');
+  el.className = 'chip';
+  el.textContent = label;
+  el.dataset.group = group;
+  el.dataset.value = value;
+  el.addEventListener('click', () => {
+    state[group] = state[group] === value ? null : value;
+    render();
+  });
+  return el;
+}
+
+allTypes.forEach(t => typeFilters.appendChild(chip(t, 'type', t)));
+allEmotions.forEach(e => emoFilters.appendChild(chip(e, 'emotion', e)));
+
+searchInput.addEventListener('input', () => { state.q = searchInput.value.trim().toLowerCase(); render(); });
+clearBtn.addEventListener('click', () => {
+  state.type = null; state.emotion = null; state.q = '';
+  searchInput.value = '';
+  render();
+});
+
+function scaleFor(el){
+  const w = el.getBoundingClientRect().width;
+  return w > 0 ? w / 1280 : 0.27;
+}
+
+function card(s){
+  const el = document.createElement('article');
+  el.className = 'card';
+
+  const thumbWrap = document.createElement('div');
+  thumbWrap.className = 'thumb-wrap';
+
+  const idBadge = document.createElement('span');
+  idBadge.className = 'thumb-id';
+  idBadge.textContent = '#' + s.id;
+  thumbWrap.appendChild(idBadge);
+
+  const modeDot = document.createElement('span');
+  modeDot.className = 'thumb-mode ' + (s.colorMode || 'light');
+  modeDot.title = s.colorMode + ' section';
+  thumbWrap.appendChild(modeDot);
+
+  const iframe = document.createElement('iframe');
+  iframe.src = s.path;
+  iframe.loading = 'lazy';
+  iframe.setAttribute('tabindex', '-1');
+  thumbWrap.appendChild(iframe);
+
+  const overlay = document.createElement('div');
+  overlay.className = 'thumb-overlay';
+  overlay.innerHTML =
+    '<a class="primary" href="' + s.path + '" target="_blank" rel="noopener">Open live</a>';
+  thumbWrap.appendChild(overlay);
+
+  el.appendChild(thumbWrap);
+
+  requestAnimationFrame(() => { iframe.style.transform = 'scale(' + scaleFor(thumbWrap) + ')'; });
+
+  const body = document.createElement('div');
+  body.className = 'card-body';
+
+  const top = document.createElement('div');
+  top.className = 'card-top';
+  top.innerHTML =
+    '<span class="card-type">' + s.type + '</span>' +
+    '<span class="card-website">' + s.website + '</span>';
+  body.appendChild(top);
+
+  const name = document.createElement('h3');
+  name.className = 'card-name';
+  name.textContent = s.name;
+  body.appendChild(name);
+
+  const emoRow = document.createElement('div');
+  emoRow.className = 'tag-row';
+  (s.emotions || []).slice(0, 4).forEach(e => {
+    const t = document.createElement('span');
+    t.className = 'tag';
+    t.textContent = e;
+    emoRow.appendChild(t);
+  });
+  body.appendChild(emoRow);
+
+  const featRow = document.createElement('div');
+  featRow.className = 'tag-row';
+  (s.features || []).slice(0, 3).forEach(f => {
+    const t = document.createElement('span');
+    t.className = 'tag feat';
+    t.textContent = f;
+    featRow.appendChild(t);
+  });
+  body.appendChild(featRow);
+
+  el.appendChild(body);
+  return el;
+}
+
+function render(){
+  const q = state.q;
+  const filtered = SECTIONS.filter(s => {
+    if (state.type && s.type !== state.type) return false;
+    if (state.emotion && !(s.emotions || []).includes(state.emotion)) return false;
+    if (q){
+      const hay = (s.name + ' ' + s.website + ' ' + (s.notes||'') + ' ' + (s.features||[]).join(' ') + ' ' + (s.emotions||[]).join(' ')).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  grid.innerHTML = '';
+  filtered.forEach(s => grid.appendChild(card(s)));
+
+  emptyState.classList.toggle('show', filtered.length === 0);
+  countLabel.textContent = filtered.length + ' / ' + SECTIONS.length + ' sections';
+
+  [...typeFilters.querySelectorAll('.chip')].forEach(c => c.classList.toggle('active', state.type === c.dataset.value));
+  [...emoFilters.querySelectorAll('.chip')].forEach(c => c.classList.toggle('active', state.emotion === c.dataset.value));
+  clearBtn.classList.toggle('show', !!(state.type || state.emotion || state.q));
+}
+
+render();
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.thumb-wrap').forEach(w => {
+    const f = w.querySelector('iframe');
+    if (f) f.style.transform = 'scale(' + scaleFor(w) + ')';
+  });
+});
+</script>

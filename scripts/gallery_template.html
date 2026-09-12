@@ -1,0 +1,330 @@
+<!doctype html>
+<title>The Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#211c16; --ink-dim:#5b5346; --paper:#f6f2ea; --paper-raised:#ffffff;
+  --paper-line:#e2dac9; --accent:#3194e0; --accent-ink:#0d3a5c;
+  --amber:#c1591d; --mono-chip:#efe9d8; --shadow:0 1px 2px rgba(33,28,22,.08), 0 8px 20px rgba(33,28,22,.06);
+  --font-display:'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#eee7d9; --ink-dim:#a89e8b; --paper:#181510; --paper-raised:#211c17;
+    --paper-line:#3a332a; --accent:#4fa8ea; --accent-ink:#bfe0fa;
+    --amber:#e8874a; --mono-chip:#2b2620; --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 28px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#eee7d9; --ink-dim:#a89e8b; --paper:#181510; --paper-raised:#211c17;
+  --paper-line:#3a332a; --accent:#4fa8ea; --accent-ink:#bfe0fa;
+  --amber:#e8874a; --mono-chip:#2b2620; --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 28px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--font-display);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;}
+
+.topbar{
+  position:sticky; top:0; z-index:20;
+  background:var(--paper); border-bottom:1px solid var(--paper-line);
+  padding:1.1rem clamp(1rem,3vw,2.25rem);
+  display:flex; flex-wrap:wrap; align-items:center; gap:1rem 1.5rem;
+}
+.brand{display:flex; align-items:baseline; gap:.55rem; margin-right:auto;}
+.brand .mark{font-family:var(--font-mono); font-weight:700; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim); border:1px solid var(--paper-line); border-radius:3px; padding:.2rem .45rem;}
+.brand h1{font-size:1.15rem; font-weight:800; margin:0; letter-spacing:-.01em;}
+.brand .count{font-family:var(--font-mono); font-size:.78rem; color:var(--ink-dim);}
+
+.search{
+  flex:1 1 220px; max-width:340px; position:relative;
+}
+.search input{
+  width:100%; font-family:var(--font-display); font-size:.9rem;
+  background:var(--paper-raised); border:1px solid var(--paper-line); border-radius:6px;
+  padding:.55rem .7rem .55rem 2rem; color:var(--ink);
+}
+.search input:focus{outline:2px solid var(--accent); outline-offset:1px;}
+.search::before{
+  content:'⌕'; position:absolute; left:.65rem; top:50%; transform:translateY(-50%);
+  color:var(--ink-dim); font-size:1rem; pointer-events:none;
+}
+
+.filter-group{display:flex; align-items:center; gap:.4rem; flex-wrap:wrap;}
+.filter-label{font-family:var(--font-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-dim); margin-right:.15rem;}
+.chip{
+  font-family:var(--font-mono); font-size:.72rem; letter-spacing:.02em;
+  background:var(--mono-chip); border:1px solid var(--paper-line); color:var(--ink-dim);
+  border-radius:100px; padding:.32rem .65rem; cursor:pointer; user-select:none;
+  transition:background .15s ease, color .15s ease, border-color .15s ease;
+  white-space:nowrap;
+}
+.chip:hover{border-color:var(--accent);}
+.chip.active{background:var(--accent); color:#fff; border-color:var(--accent);}
+:root[data-theme="dark"] .chip.active, @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.active{color:#0b1720;}}
+
+.emo-scroll{display:flex; gap:.4rem; overflow-x:auto; padding-bottom:.15rem; max-width:min(560px,60vw); scrollbar-width:thin;}
+
+.clear-btn{
+  font-family:var(--font-mono); font-size:.7rem; color:var(--ink-dim);
+  background:none; border:none; cursor:pointer; text-decoration:underline;
+  text-underline-offset:2px; padding:.3rem .2rem; visibility:hidden;
+}
+.clear-btn.show{visibility:visible;}
+
+main{padding:1.75rem clamp(1rem,3vw,2.25rem) 4rem;}
+.empty{
+  display:none; text-align:center; padding:4rem 1rem; color:var(--ink-dim);
+  font-size:.95rem;
+}
+.empty.show{display:block;}
+
+.grid{
+  display:grid; gap:1.5rem;
+  grid-template-columns:repeat(auto-fill, minmax(300px,1fr));
+}
+.card{
+  background:var(--paper-raised); border:1px solid var(--paper-line); border-radius:10px;
+  overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column;
+}
+.thumb-wrap{
+  position:relative; width:100%; aspect-ratio:4/3; overflow:hidden;
+  background:var(--mono-chip); border-bottom:1px solid var(--paper-line);
+}
+.thumb-wrap iframe{
+  position:absolute; top:0; left:0; border:0; pointer-events:none;
+  width:1280px; height:960px;
+  transform-origin:top left;
+}
+.thumb-id{
+  position:absolute; top:.5rem; left:.5rem; z-index:2;
+  font-family:var(--font-mono); font-size:.68rem; font-weight:700;
+  background:rgba(20,17,13,.72); color:#f6f2ea; letter-spacing:.06em;
+  border-radius:4px; padding:.2rem .45rem;
+}
+.thumb-mode{
+  position:absolute; top:.5rem; right:.5rem; z-index:2;
+  width:.55rem; height:.55rem; border-radius:50%;
+  box-shadow:0 0 0 2px rgba(20,17,13,.35);
+}
+.thumb-mode.dark{background:#211c17;}
+.thumb-mode.light{background:#f6f2ea;}
+.thumb-overlay{
+  position:absolute; inset:0; z-index:3; display:flex; align-items:center; justify-content:center;
+  gap:.5rem; opacity:0; transition:opacity .15s ease; background:rgba(24,21,16,.42);
+}
+.card:hover .thumb-overlay{opacity:1;}
+.thumb-overlay a{
+  font-family:var(--font-mono); font-size:.72rem; font-weight:600; letter-spacing:.02em;
+  background:var(--paper-raised); color:var(--ink); border-radius:6px; padding:.5rem .8rem;
+  text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,.25);
+}
+.thumb-overlay a.primary{background:var(--accent); color:#fff;}
+
+.card-body{padding:1rem 1.1rem 1.15rem; display:flex; flex-direction:column; gap:.55rem;}
+.card-top{display:flex; justify-content:space-between; align-items:baseline; gap:.5rem;}
+.card-type{
+  font-family:var(--font-mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--accent-ink); background:color-mix(in srgb, var(--accent) 16%, transparent);
+  border-radius:4px; padding:.15rem .4rem;
+}
+.card-website{font-size:.74rem; color:var(--ink-dim); text-align:right;}
+.card-name{font-size:.96rem; font-weight:700; line-height:1.3; margin:0;}
+.tag-row{display:flex; flex-wrap:wrap; gap:.35rem;}
+.tag{
+  font-family:var(--font-mono); font-size:.66rem; color:var(--ink-dim);
+  background:var(--mono-chip); border-radius:100px; padding:.2rem .5rem;
+}
+.tag.feat{background:transparent; border:1px dashed var(--paper-line);}
+
+footer{
+  text-align:center; padding:2rem 1rem 3rem; color:var(--ink-dim);
+  font-family:var(--font-mono); font-size:.72rem;
+}
+
+@media (max-width: 620px){
+  .search{max-width:none; flex-basis:100%;}
+  .emo-scroll{max-width:100%;}
+}
+</style>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="mark">940D</span>
+    <h1>The Library</h1>
+    <span class="count" id="countLabel"></span>
+  </div>
+  <div class="search">
+    <input id="searchInput" type="text" placeholder="Search name, notes, website…" autocomplete="off">
+  </div>
+  <div class="filter-group" id="typeFilters">
+    <span class="filter-label">Type</span>
+  </div>
+  <div class="filter-group">
+    <span class="filter-label">Feel</span>
+    <div class="emo-scroll" id="emoFilters"></div>
+  </div>
+  <button class="clear-btn" id="clearBtn">clear filters</button>
+</div>
+
+<main>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="emptyState">No sections match those filters.</div>
+</main>
+
+<footer>git@github-940digital:940Digital/The-Library.git — restyle before you ship it</footer>
+
+<script>
+const SECTIONS = __SECTIONS_JSON__;
+
+const state = { type: null, emotion: null, q: '' };
+
+const grid = document.getElementById('grid');
+const typeFilters = document.getElementById('typeFilters');
+const emoFilters = document.getElementById('emoFilters');
+const emptyState = document.getElementById('emptyState');
+const countLabel = document.getElementById('countLabel');
+const clearBtn = document.getElementById('clearBtn');
+const searchInput = document.getElementById('searchInput');
+
+const allTypes = [...new Set(SECTIONS.map(s => s.type))].sort();
+const allEmotions = [...new Set(SECTIONS.flatMap(s => s.emotions || []))].sort();
+
+function chip(label, group, value){
+  const el = document.createElement('button');
+  el.className = 'chip';
+  el.textContent = label;
+  el.dataset.group = group;
+  el.dataset.value = value;
+  el.addEventListener('click', () => {
+    state[group] = state[group] === value ? null : value;
+    render();
+  });
+  return el;
+}
+
+allTypes.forEach(t => typeFilters.appendChild(chip(t, 'type', t)));
+allEmotions.forEach(e => emoFilters.appendChild(chip(e, 'emotion', e)));
+
+searchInput.addEventListener('input', () => { state.q = searchInput.value.trim().toLowerCase(); render(); });
+clearBtn.addEventListener('click', () => {
+  state.type = null; state.emotion = null; state.q = '';
+  searchInput.value = '';
+  render();
+});
+
+function scaleFor(el){
+  const w = el.getBoundingClientRect().width;
+  return w > 0 ? w / 1280 : 0.27;
+}
+
+function card(s){
+  const el = document.createElement('article');
+  el.className = 'card';
+
+  const thumbWrap = document.createElement('div');
+  thumbWrap.className = 'thumb-wrap';
+
+  const idBadge = document.createElement('span');
+  idBadge.className = 'thumb-id';
+  idBadge.textContent = '#' + s.id;
+  thumbWrap.appendChild(idBadge);
+
+  const modeDot = document.createElement('span');
+  modeDot.className = 'thumb-mode ' + (s.colorMode || 'light');
+  modeDot.title = s.colorMode + ' section';
+  thumbWrap.appendChild(modeDot);
+
+  const iframe = document.createElement('iframe');
+  iframe.src = s.path;
+  iframe.loading = 'lazy';
+  iframe.setAttribute('tabindex', '-1');
+  thumbWrap.appendChild(iframe);
+
+  const overlay = document.createElement('div');
+  overlay.className = 'thumb-overlay';
+  overlay.innerHTML =
+    '<a class="primary" href="' + s.path + '" target="_blank" rel="noopener">Open live</a>';
+  thumbWrap.appendChild(overlay);
+
+  el.appendChild(thumbWrap);
+
+  requestAnimationFrame(() => { iframe.style.transform = 'scale(' + scaleFor(thumbWrap) + ')'; });
+
+  const body = document.createElement('div');
+  body.className = 'card-body';
+
+  const top = document.createElement('div');
+  top.className = 'card-top';
+  top.innerHTML =
+    '<span class="card-type">' + s.type + '</span>' +
+    '<span class="card-website">' + s.website + '</span>';
+  body.appendChild(top);
+
+  const name = document.createElement('h3');
+  name.className = 'card-name';
+  name.textContent = s.name;
+  body.appendChild(name);
+
+  const emoRow = document.createElement('div');
+  emoRow.className = 'tag-row';
+  (s.emotions || []).slice(0, 4).forEach(e => {
+    const t = document.createElement('span');
+    t.className = 'tag';
+    t.textContent = e;
+    emoRow.appendChild(t);
+  });
+  body.appendChild(emoRow);
+
+  const featRow = document.createElement('div');
+  featRow.className = 'tag-row';
+  (s.features || []).slice(0, 3).forEach(f => {
+    const t = document.createElement('span');
+    t.className = 'tag feat';
+    t.textContent = f;
+    featRow.appendChild(t);
+  });
+  body.appendChild(featRow);
+
+  el.appendChild(body);
+  return el;
+}
+
+function render(){
+  const q = state.q;
+  const filtered = SECTIONS.filter(s => {
+    if (state.type && s.type !== state.type) return false;
+    if (state.emotion && !(s.emotions || []).includes(state.emotion)) return false;
+    if (q){
+      const hay = (s.name + ' ' + s.website + ' ' + (s.notes||'') + ' ' + (s.features||[]).join(' ') + ' ' + (s.emotions||[]).join(' ')).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  grid.innerHTML = '';
+  filtered.forEach(s => grid.appendChild(card(s)));
+
+  emptyState.classList.toggle('show', filtered.length === 0);
+  countLabel.textContent = filtered.length + ' / ' + SECTIONS.length + ' sections';
+
+  [...typeFilters.querySelectorAll('.chip')].forEach(c => c.classList.toggle('active', state.type === c.dataset.value));
+  [...emoFilters.querySelectorAll('.chip')].forEach(c => c.classList.toggle('active', state.emotion === c.dataset.value));
+  clearBtn.classList.toggle('show', !!(state.type || state.emotion || state.q));
+}
+
+render();
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.thumb-wrap').forEach(w => {
+    const f = w.querySelector('iframe');
+    if (f) f.style.transform = 'scale(' + scaleFor(w) + ')';
+  });
+});
+</script>
