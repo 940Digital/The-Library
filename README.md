@@ -24,7 +24,7 @@ scripts/
 
 ## Using it
 
-**To browse visually:** open [gallery.html](gallery.html) in a browser (double-click it, or `open gallery.html`) — every section renders as a live, scaled-down thumbnail with filter chips for type and feel, plus search. Click a card to open the real section full-size.
+**To browse visually:** open [index.html](index.html) in a browser (double-click it, `open index.html`, or the site's live Vercel URL — it's the homepage) — every section renders as a live, scaled-down thumbnail with filter chips for type and feel, plus search. Click a card to open the real section full-size.
 
 **To search or pull sections programmatically:** `index.json` at the repo root has the same data as one array — filter it with `jq`, or just ask inside Claude Code with this repo checked out ("find me a rugged, trustworthy hero section" or "show me every testimonials section") and the `section-library` skill will search and pull the matching `section.html` files.
 

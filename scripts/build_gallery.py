@@ -5,9 +5,11 @@ Regenerate gallery.html from index.json + scripts/gallery_template.html.
 Run after build_index.py (or anytime a section changes):
     python3 scripts/build_index.py && python3 scripts/build_gallery.py
 
-gallery.html is a self-contained, visual, filterable browser for the
-library — open it directly in a browser (double-click, or `open gallery.html`)
-to see every section as a live rendered thumbnail instead of reading JSON.
+index.html is a self-contained, visual, filterable browser for the
+library — it's the site's homepage (so it loads at the repo's Vercel/root
+URL with no path needed), and also opens directly from disk (double-click,
+or `open index.html`) to see every section as a live rendered thumbnail
+instead of reading JSON.
 """
 import json
 import os
@@ -15,7 +17,7 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INDEX_PATH = os.path.join(ROOT, "index.json")
 TEMPLATE_PATH = os.path.join(ROOT, "scripts", "gallery_template.html")
-OUT_PATH = os.path.join(ROOT, "gallery.html")
+OUT_PATH = os.path.join(ROOT, "index.html")
 
 
 def main():
@@ -30,7 +32,7 @@ def main():
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         f.write(out)
 
-    print(f"Wrote gallery.html with {len(index['sections'])} sections.")
+    print(f"Wrote index.html with {len(index['sections'])} sections.")
 
 
 if __name__ == "__main__":
