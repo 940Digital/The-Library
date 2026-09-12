@@ -27,7 +27,7 @@
   --font-display: 'Archivo Black', 'Arial Black', sans-serif;
   --font-body:    'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  --border-w: 3px;
+  --border-w: 1.5px;
 }
 
 * { border-radius: 0 !important; }
@@ -244,7 +244,9 @@
   display: flex;
   gap: 0;
   border-top: var(--border-w) solid var(--paper);
+  border-bottom: var(--border-w) solid var(--paper);
   margin-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .hero__stat {
@@ -254,7 +256,6 @@
 }
 
 .hero__stat + .hero__stat {
-  border-left: var(--border-w) solid var(--paper);
   padding-left: 1.2rem;
 }
 
