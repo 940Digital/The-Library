@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hero Split — Denton Fence</title>
-
+<title>Hero Split — ACME Everything</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap">
 <style>
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -14,6 +14,35 @@
     -webkit-font-smoothing: antialiased;
   }
   img { max-width: 100%; display: block; }
+
+/* --- restored :root — the source stylesheet defines these behind an
+   @import that this library's extraction step dropped; without them every
+   var(--...) below resolved to nothing --- */
+:root {
+  --ink:        #142A1E;
+  --ink-soft:   #1D3527;
+  --paper:      #FBF6EA;
+  --paper-line: #E6DFC7;
+  --wood-tint:  #F1E3CC;
+  --green:      #1F5C3B;
+  --green-hi:   #276E48;
+  --wood:       #9C6B3E;
+  --wood-deep:  #7A4F2C;
+  --muted:      #675E4C;
+  --star:       #B08A3E;
+  --star-on-light: #836227;
+
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+
+  --space-s:  clamp(1.25rem, 4vw, 1.5rem);
+  --space-m:  clamp(2rem, 4vw, 3rem);
+  --space-l:  clamp(3rem, 7vh, 5.5rem);
+  --space-xl: clamp(4.5rem, 11vh, 8rem);
+
+  --container: 1240px;
+  --radius: 4px;
+}
 
 .btn {
   display: inline-flex; align-items: center; gap: .5em;
@@ -163,11 +192,15 @@
 <body class="no-js">
 <section class="hero-split">
     <div class="hero-panel">
-      <span class="trust-badge"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.9 from 81 Google reviews</span>
+      <div style="display:flex; align-items:center; gap:.5rem; margin-bottom:1.1rem;">
+        <span style="width:1.6rem; height:1.6rem; border:2px solid var(--green); border-radius:2px; display:inline-flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:900; font-size:.85rem; color:var(--green);">A</span>
+        <span style="font-family:var(--font-body); font-weight:700; letter-spacing:.02em; font-size:.95rem; color:#fff;">Acme Everything</span>
+      </div>
+      <span class="trust-badge"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.9 from 80+ reviews</span>
       <h1>Every Fence, Built Right.</h1>
-      <p class="lede">We&rsquo;ve been building and repairing wood, iron, chain link, ranch rail, and vinyl fences across Denton County for 35+ years.</p>
+      <p class="lede">We build and repair wood, iron, chain link, ranch rail, and vinyl fences — straight quotes, solid materials, no surprises on installation day.</p>
       <div class="hero-actions">
-        <a href="tel:+19403913338" class="btn btn-primary">Call (940) 391-3338</a>
+        <a href="tel:+15550100" class="btn btn-primary">Call (555) 010-0100</a>
         <a href="services.html" class="btn btn-ghost">See the Work</a>
       </div>
     </div>
@@ -176,8 +209,8 @@
       <img src="../../assets/placeholders/exterior-home.jpg" width="2560" height="1920" alt="Placeholder exterior photo — swap for the target site's own image" fetchpriority="high">
     </div>
     <div class="hero-stat-card">
-      <div class="stat"><span class="num" data-count-to="35">0</span><span class="label">Years in Denton County</span></div>
-      <div class="stat"><span class="num" data-count-to="81">0</span><span class="label">Real Google reviews</span></div>
+      <div class="stat"><span class="num" data-count-to="20">0</span><span class="label">Years in business</span></div>
+      <div class="stat"><span class="num" data-count-to="80">0</span><span class="label">Verified reviews</span></div>
       <div class="stat"><span class="num">4.9&#9733;</span><span class="label">Average rating</span></div>
     </div>
     <div class="plank-wrap" aria-hidden="true">

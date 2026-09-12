@@ -2,11 +2,14 @@
   "id": "0002",
   "number": 2,
   "name": "Draggable horizontal review carousel with reply cards",
-  "website": "Brick by Brick General Contracting",
-  "websiteUrl": "https://brick-by-brick-contracting.vercel.app/",
-  "sourceProject": "brick-by-brick-contracting",
+  "website": "ACME Everything",
   "type": "testimonials",
-  "emotions": ["trustworthy", "warm", "credible", "personable"],
+  "emotions": [
+    "trustworthy",
+    "warm",
+    "credible",
+    "personable"
+  ],
   "features": [
     "testimonial-carousel",
     "star-ratings",
@@ -17,9 +20,17 @@
     "no-scrollbar"
   ],
   "colorMode": "light",
-  "palette": ["#f3ead8", "#f16f24", "#241a10", "#5f6a72"],
-  "fonts": ["Arvo", "Work Sans"],
+  "palette": [
+    "#f3ead8",
+    "#f16f24",
+    "#241a10",
+    "#5f6a72"
+  ],
+  "fonts": [
+    "Arvo",
+    "Work Sans"
+  ],
   "dateAdded": "2026-09-12",
   "file": "section.html",
-  "notes": "Real Google reviews for a live client, kept verbatim as a content pattern reference (swap in the target business's own reviews before reuse). The reply line under each card — owner responding by name — is the standout trust device here; worth reusing even without the carousel. Horizontal scroll uses a CSS mask to fade the edges instead of hard-clipping cards; JS drag-to-scroll (grab/grabbing cursor) not included but the CSS supports it as pure scroll-snap too."
+  "notes": "Reviews are fabricated for this library \u2014 de-identified from the original client build and rewritten as fake, generic testimonials (swap in the target business's own real reviews before reuse). The reply line under each card \u2014 owner responding by name \u2014 is the standout trust device here; worth reusing even without the carousel. Horizontal scroll uses a CSS mask to fade the edges instead of hard-clipping cards; JS drag-to-scroll (grab/grabbing cursor) not included but the CSS supports it as pure scroll-snap too."
 }

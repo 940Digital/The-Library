@@ -2,11 +2,14 @@
   "id": "0003",
   "number": 3,
   "name": "Featured-service spotlight + compact grid of secondary services",
-  "website": "Brick by Brick General Contracting",
-  "websiteUrl": "https://brick-by-brick-contracting.vercel.app/",
-  "sourceProject": "brick-by-brick-contracting",
+  "website": "ACME Everything",
   "type": "services",
-  "emotions": ["capable", "thorough", "trustworthy", "grounded"],
+  "emotions": [
+    "capable",
+    "thorough",
+    "trustworthy",
+    "grounded"
+  ],
   "features": [
     "featured-item-plus-grid",
     "image-with-copy",
@@ -16,8 +19,16 @@
     "asymmetric-layout"
   ],
   "colorMode": "light",
-  "palette": ["#f3ead8", "#f16f24", "#241a10", "#5f6a72"],
-  "fonts": ["Arvo", "Work Sans"],
+  "palette": [
+    "#f3ead8",
+    "#f16f24",
+    "#241a10",
+    "#5f6a72"
+  ],
+  "fonts": [
+    "Arvo",
+    "Work Sans"
+  ],
   "dateAdded": "2026-09-12",
   "file": "section.html",
   "notes": "Two-tier services pattern: one large 'specialty' feature card (image + long copy + capability list + link to its own page) alongside a compact grid of the remaining services as smaller cards. Good reference whenever a business has one flagship service worth showcasing and several supporting ones that don't need equal real estate."

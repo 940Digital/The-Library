@@ -2,11 +2,14 @@
   "id": "0010",
   "number": 10,
   "name": "Luxury full-bleed hero with badge, glow overlay, and location pin",
-  "website": "Gunnar Galvan Mobile Detailing",
-  "websiteUrl": "https://gunnar-galvan.vercel.app/",
-  "sourceProject": "gunnar-galvan",
+  "website": "ACME Everything",
   "type": "hero",
-  "emotions": ["premium", "sleek", "aspirational", "convenient"],
+  "emotions": [
+    "premium",
+    "sleek",
+    "aspirational",
+    "convenient"
+  ],
   "features": [
     "full-bleed-background-image",
     "gradient-overlay",
@@ -17,8 +20,10 @@
     "image-placeholder-comment"
   ],
   "colorMode": "dark",
-  "fonts": ["Inter"],
+  "fonts": [
+    "Inter"
+  ],
   "dateAdded": "2026-09-12",
   "file": "section.html",
-  "notes": "Layers a subtle radial 'glow' div over the standard image+gradient hero for extra shine — cheap way to make a dark hero feel premium/detailing-shop rather than flat. HTML comment marks exactly what the hero image should be before an asset existed yet, worth keeping as a habit when spec-building ahead of client photos."
+  "notes": "Layers a subtle radial 'glow' div over the standard image+gradient hero for extra shine \u2014 cheap way to make a dark hero feel premium/detailing-shop rather than flat. HTML comment marks exactly what the hero image should be before an asset existed yet, worth keeping as a habit when spec-building ahead of client photos."
 }

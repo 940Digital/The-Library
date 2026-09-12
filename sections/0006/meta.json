@@ -2,11 +2,14 @@
   "id": "0006",
   "number": 6,
   "name": "Split hero with trust badge, overlapping stat card, and plank texture accent",
-  "website": "Denton Fence",
-  "websiteUrl": "https://denton-fence.vercel.app/",
-  "sourceProject": "denton-fence",
+  "website": "ACME Everything",
   "type": "hero",
-  "emotions": ["rugged", "trustworthy", "no-nonsense", "established"],
+  "emotions": [
+    "rugged",
+    "trustworthy",
+    "no-nonsense",
+    "established"
+  ],
   "features": [
     "split-layout",
     "trust-badge-with-stars",
@@ -17,8 +20,10 @@
     "dual-cta-buttons"
   ],
   "colorMode": "light",
-  "fonts": ["system-ui (no webfont load)"],
+  "fonts": [
+    "system-ui (no webfont load)"
+  ],
   "dateAdded": "2026-09-12",
   "file": "section.html",
-  "notes": "Stat card (years in business / review count / rating) overlaps the hero image corner rather than living in its own section — keeps proof visible without adding vertical scroll. data-count-to attributes are hooks for a count-up-on-scroll script (not included, degrades to static numbers). No webfont dependency — deliberately system-font for a fast, plain-spoken feel matching the trade."
+  "notes": "Stat card (years in business / review count / rating) overlaps the hero image corner rather than living in its own section \u2014 keeps proof visible without adding vertical scroll. data-count-to attributes are hooks for a count-up-on-scroll script (not included, degrades to static numbers). No webfont dependency \u2014 deliberately system-font for a fast, plain-spoken feel matching the trade."
 }

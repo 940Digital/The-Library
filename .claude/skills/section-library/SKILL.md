@@ -5,7 +5,9 @@ description: Search, browse, and pull sections from Owen's 940Digital section li
 
 # Section Library
 
-A local checkout of `git@github.com:940Digital/The-Library.git` — a growing collection of real website sections, each stored as a self-contained `section.html` plus a `meta.json` describing what it is, where it came from, and what it's built to feel like.
+A local checkout of `git@github.com:940Digital/The-Library.git` — a growing collection of real website sections, each stored as a self-contained `section.html` plus a `meta.json` describing what it is and what it's built to feel like.
+
+**This repo is public.** Every section is fully de-identified: the company name everywhere is the shared placeholder brand "Acme Everything," reviews/testimonials are entirely fabricated, and nothing (real business name, owner's name, phone number, location, founding year, real award) ties a section back to the client it was adapted from. `meta.json`'s `website` field is always `"ACME Everything"` — it never names the real source.
 
 **Local path:** `/Users/owen/Downloads/Claude Programs/The-Library`
 
@@ -30,8 +32,6 @@ jq '.sections[] | select(.type=="hero")' index.json
 jq '.sections[] | select(.emotions | index("rugged"))' index.json
 # by feature
 jq '.sections[] | select(.features | index("testimonial-carousel"))' index.json
-# by source website
-jq '.sections[] | select(.website | test("Brick"; "i"))' index.json
 # free-text across name/notes
 jq '.sections[] | select((.name + " " + .notes) | test("parallax"; "i"))' index.json
 ```
@@ -59,12 +59,13 @@ Use this whenever a section built for a client site (or an original) is worth ke
 2. `python3 scripts/next_id.py` → next id, e.g. `0012`
 3. `mkdir sections/0012`
 4. Extract the section as a **self-contained** `sections/0012/section.html`: inline all its CSS in a `<style>` tag (pull only the rules that actually apply — check for a shared `:root` variables block), include any Google Fonts `<link>` it needs, and drop any dependency on the parent site's shared nav/footer/JS. Point any `<img>`/`<source>` at the best-fitting file in `assets/placeholders/` (relative path from `sections/0012/` is `../../assets/placeholders/<name>.jpg`) rather than the original site's asset path, and leave an HTML comment marking it as a placeholder to swap. It should render correctly opened on its own in a browser.
-5. Write `sections/0012/meta.json` following `docs/schema.md` exactly — reuse existing `type`/`emotions`/`features` vocabulary from `index.json` where it genuinely fits, rather than inventing near-duplicates.
-6. `python3 scripts/build_index.py && python3 scripts/build_gallery.py` — regenerates `index.json` (fails loudly on any structural mistake — missing file, mismatched id) and `index.html`. Fix anything build_index flags.
-7. Commit and push (per [[feedback-auto-push-940digital]], push once verified — no need to ask first; this repo is 940Digital-owned so set `git config user.name "940Digital"` / `user.email "940Digital@gmail.com"` locally first if not already set).
+5. **De-identify it** — follow "De-identifying a pulled section" in `docs/schema.md` exactly: swap the real company name for "Acme Everything" everywhere (copy, `<title>`, CSS comments), add a small text logo mark styled to that section's own fonts/palette, fabricate any reviews from scratch, strip real phone numbers/locations/owner names/founding years/awards (fake `(555) 010-01xx` numbers are fine), and rewrite the surrounding copy so it isn't a lightly-edited copy of the source.
+6. Write `sections/0012/meta.json` following `docs/schema.md` exactly — reuse existing `type`/`emotions`/`features` vocabulary from `index.json` where it genuinely fits, rather than inventing near-duplicates. `website` is always `"ACME Everything"`.
+7. `python3 scripts/build_index.py && python3 scripts/build_gallery.py` — regenerates `index.json` (fails loudly on any structural mistake — missing file, mismatched id) and `index.html`. Fix anything build_index flags.
+8. Commit and push (per [[feedback-auto-push-940digital]], push once verified — no need to ask first; this repo is 940Digital-owned so set `git config user.name "940Digital"` / `user.email "940Digital@gmail.com"` locally first if not already set).
 
 ## Notes
 
 - This is a reference/inspiration library, not a component framework — sections are deliberately NOT built to be dropped in unmodified. Restyling is the point.
-- Real client names/reviews/photos-as-alt-text appear in some sections verbatim (they're already public on the live sites) — fine to reuse the pattern, but swap in the target business's own content before shipping anything to a real client.
+- Every section is de-identified (see above) — the fake reviews, placeholder phone numbers, and "Acme Everything" branding are the point, not a gap to fill in. Swap in the target business's own real content before shipping anything to a real client.
 - Every section's images point at one of 5 shared placeholders in `assets/placeholders/` (`exterior-home.jpg`, `portrait-lifestyle.jpg`, `nature-outdoor.jpg`, `team-work.jpg`, `vehicle-car.jpg`) — real, generic stock photos picked to roughly match each section's subject so nothing 404s and the section still reads correctly. Always swap in the target site's own photo before shipping; when adding a new section, reuse one of these 5 rather than adding a 6th unless nothing fits.

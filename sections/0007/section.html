@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CTA Dark — Denton Fence</title>
-
+<title>CTA Dark — ACME Everything</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap">
 <style>
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -14,6 +14,33 @@
     -webkit-font-smoothing: antialiased;
   }
   img { max-width: 100%; display: block; }
+
+/* --- restored :root — see sections/0006 for why this was missing --- */
+:root {
+  --ink:        #142A1E;
+  --ink-soft:   #1D3527;
+  --paper:      #FBF6EA;
+  --paper-line: #E6DFC7;
+  --wood-tint:  #F1E3CC;
+  --green:      #1F5C3B;
+  --green-hi:   #276E48;
+  --wood:       #9C6B3E;
+  --wood-deep:  #7A4F2C;
+  --muted:      #675E4C;
+  --star:       #B08A3E;
+  --star-on-light: #836227;
+
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+
+  --space-s:  clamp(1.25rem, 4vw, 1.5rem);
+  --space-m:  clamp(2rem, 4vw, 3rem);
+  --space-l:  clamp(3rem, 7vh, 5.5rem);
+  --space-xl: clamp(4.5rem, 11vh, 8rem);
+
+  --container: 1240px;
+  --radius: 4px;
+}
 
 .muted { color: var(--muted); }
 
@@ -70,10 +97,14 @@
 <body class="no-js">
 <section class="section-dark section-tight">
     <div class="container" style="text-align:center;">
+      <div style="display:inline-flex; align-items:center; gap:.5rem; margin-bottom:1.4rem;">
+        <span style="width:1.6rem; height:1.6rem; border:2px solid var(--green); border-radius:2px; display:inline-flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:900; font-size:.85rem; color:var(--green);">A</span>
+        <span style="font-family:var(--font-body); font-weight:700; letter-spacing:.02em; font-size:.95rem; color:#fff;">Acme Everything</span>
+      </div>
       <h2>Ready to Get Your Fence Fixed or Built?</h2>
       <p class="muted" style="color:#D7E4DB; max-width:52ch; margin:0 auto 1.5rem;">Call now, or request a quote and we'll follow up during business hours.</p>
       <div class="hero-actions" style="justify-content:center;">
-        <a href="tel:+19403913338" class="btn btn-primary" style="background:#fff; color:var(--ink);">Call (940) 391-3338</a>
+        <a href="tel:+15550100" class="btn btn-primary" style="background:#fff; color:var(--ink);">Call (555) 010-0100</a>
         <a href="contact.html" class="btn btn-ghost" style="border-color:#fff; color:#fff;">Request Your Bid</a>
       </div>
     </div>

@@ -33,9 +33,7 @@ When adding a section, point its images at whichever of these 5 fits best (relat
 | `id` | string | yes | 4-digit, zero-padded, matches the folder name exactly (`"0001"`). |
 | `number` | number | yes | Same value as `id`, as an integer. Used for sort order. |
 | `name` | string | yes | Short, specific description of what the section IS, not just its type — "Full-bleed roofing hero, parallax image + staggered headline", not "Hero section". |
-| `website` | string | yes | The business/site the section was pulled from. Use `"Original"` if hand-built for the library rather than lifted from a real site. |
-| `websiteUrl` | string | no | Live URL of the source site, if it has one. |
-| `sourceProject` | string | no | Repo/folder slug for the source project, for finding the original file later. |
+| `website` | string | yes | Always `"ACME Everything"` — the shared fictional brand every section is written under. This repo is public, so no field anywhere stores which real client a section was actually pulled from, the real business name, real reviewer names, or any other identifying detail; all of that gets rewritten before a section is added (see **De-identifying a pulled section** below). |
 | `type` | string | yes | One category from the **type vocabulary** below. Pick the single best fit — this is the primary sort key. |
 | `emotions` | string[] | yes | 3-6 words describing the *feeling* the section is designed to produce. Free text, but reuse existing words across sections where they genuinely apply — check `index.json` before inventing a new one. |
 | `features` | string[] | yes | Functional/structural building blocks present in the section (see **feature vocabulary** below). This is what makes the library searchable by "does any section already do X" — be thorough. |
@@ -71,11 +69,24 @@ Common ones already in use: `full-bleed-background-image`, `split-layout`,
 
 Run `grep -h features -A5 sections/*/meta.json` or just read `index.json` to see the full current set before coining a duplicate under a different name.
 
+## De-identifying a pulled section
+
+This repo is public. Before a section pulled from a real client build gets added, strip everything that ties it back to that business or its owner:
+
+- **Company name** — replace with "Acme Everything" everywhere it appears (headline copy, footer/reply attributions, `<title>`, CSS comments).
+- **Logo/brand mark** — add a small text wordmark reading "Acme Everything," styled to match that section's own fonts/colors/palette rather than reused unchanged from another section — the point is every site-family in the library reads as its own brand, not a single reskinned template repeated 11 times.
+- **Reviews/testimonials** — fabricate them completely: invented reviewer names (not real people, not the real reviewers renamed), invented quotes. Real review platforms as a generic label ("Verified review") are fine; a real profile link, review count, or business-specific claim is not.
+- **Location, phone numbers, founding year, awards** — remove or replace with placeholders. Use `(555) 010-0100`-style numbers (the `555` prefix is reserved for fiction).
+- **Owner's first/last name** — never keep it, even in a CSS comment.
+- **`meta.json`** — `website` is always `"ACME Everything"`; do not add a field that names the real business, its real repo slug, or its real live URL.
+
+Then rewrite the surrounding copy freely — headlines, subheads, descriptions — so the section reads as its own thing rather than a lightly-edited copy of the source.
+
 ## Adding a new section
 
 1. `python3 scripts/next_id.py` → gives you the next id, e.g. `0012`.
 2. `mkdir sections/0012`
-3. Write `sections/0012/section.html` — self-contained, opens correctly on its own.
+3. Write `sections/0012/section.html` — self-contained, opens correctly on its own, fully de-identified per above.
 4. Write `sections/0012/meta.json` per this schema.
-5. `python3 scripts/build_index.py` — regenerates `index.json` and validates every section (fails loudly if a folder is missing a file, or an id doesn't match its folder).
+5. `python3 scripts/build_index.py && python3 scripts/build_gallery.py` — regenerates `index.json`/`index.html` and validates every section (fails loudly if a folder is missing a file, or an id doesn't match its folder).
 6. Commit and push.

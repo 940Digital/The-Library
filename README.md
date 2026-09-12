@@ -1,6 +1,8 @@
 # The Library
 
-A growing collection of website sections — heroes, testimonials, pricing blocks, CTAs, and more — pulled from real 940Digital builds (and eventually hand-built originals), each tagged with the website it came from, its type, and the emotions/features it's built around.
+A growing collection of website sections — heroes, testimonials, pricing blocks, CTAs, and more — adapted from real 940Digital builds (and eventually hand-built originals), each tagged with its type and the emotions/features it's built around.
+
+This repo is public, so every section is fully de-identified before it's added: real company names are replaced with a single shared placeholder brand ("Acme Everything," styled differently per section), reviews and testimonials are entirely fabricated, and nothing — phone numbers, locations, owner names — ties a section back to the real business it was adapted from. See **De-identifying a pulled section** in [docs/schema.md](docs/schema.md) before adding one.
 
 The point isn't a component kit to import wholesale. It's raw material: browse by feeling or by function, grab whatever's closest to what a site needs, and restyle it to fit — or just use it as a reference for a pattern instead of building one from scratch every time.
 
@@ -37,4 +39,4 @@ To add a section, see **Adding a new section** in [docs/schema.md](docs/schema.m
 
 ## Current count
 
-11 sections seeded from 5 real client builds (Brick by Brick, Lilylynne Photography, Denton Fence, Samuel's Tree Service, Gunnar Galvan). Meant to keep growing — every new site is a chance to pull 1-2 more sections in before moving on.
+11 sections, adapted and de-identified from 5 real client builds spanning a real range of tone — rugged trade, elegant/soft, plain-spoken, nature-toned, and premium/dark. Meant to keep growing — every new site is a chance to pull 1-2 more sections in before moving on.
