@@ -12,6 +12,20 @@ sections/0001/
                      # its own when opened directly in a browser.
 ```
 
+## Image placeholders
+
+Real client photos aren't kept in this library. Every section's `<img>`/`<source>` points at one of 5 shared, real stock photos in `/assets/placeholders/`, picked to roughly match what each section actually shows:
+
+| File | Subject | Used for |
+|---|---|---|
+| `exterior-home.jpg` | Finished house exterior, roofline + siding visible | Roofing, fencing, general-contracting heroes/services |
+| `portrait-lifestyle.jpg` | Outdoor portrait, golden-hour | Photography/lifestyle heroes |
+| `nature-outdoor.jpg` | Sunlit trees | Tree service, landscaping, outdoor-trade heroes |
+| `team-work.jpg` | People outdoors, team moment | Award/proof/about sections |
+| `vehicle-car.jpg` | Glossy car close-up | Auto detailing, mobile-service heroes |
+
+When adding a section, point its images at whichever of these 5 fits best (relative path from `sections/000X/` is `../../assets/placeholders/<name>.jpg`) instead of the original site's now-broken asset path — add a 6th only if none of the 5 fit at all. Always mark it with an HTML comment (`<!-- LIBRARY PLACEHOLDER: swap for the target site's own photo -->`) so it's obvious this isn't the real content. Whoever pulls a section into a real build swaps in that site's own photo before shipping.
+
 ## Fields
 
 | Field | Type | Required | Notes |
