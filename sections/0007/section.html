@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CTA Dark — Denton Fence</title>
+
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body, -apple-system, BlinkMacSystemFont, system-ui, sans-serif);
+    background: #12130f;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+.muted { color: var(--muted); }
+
+.container { max-width: var(--container); margin: 0 auto; padding: 0 var(--space-s); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: .5em;
+  font-weight: 700; font-size: .95rem; letter-spacing: .01em;
+  padding: .95em 1.7em; border-radius: 2px; border: 1px solid transparent;
+  cursor: pointer; white-space: nowrap;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.btn-primary { background: var(--green); color: #fff; box-shadow: 0 8px 20px -8px rgba(11,74,46,.55); }
+
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -8px rgba(11,74,46,.65); background: var(--green-hi); }
+
+.btn-ghost { background: transparent; border-color: currentColor; color: var(--ink); }
+
+.btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+.btn:active { transform: scale(.98); }
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+
+.hero-panel .btn-ghost { border-color: rgba(255,255,255,.55); color: #fff; }
+
+.hero-panel .btn-ghost:hover { background: #fff; color: var(--ink); }
+
+.section-tight { padding: var(--space-l) 0; }
+
+.section-dark { background: var(--ink); color: #fff; }
+
+.section-dark h2, .section-dark h3 { color: #fff; }
+
+.section-dark .kicker { color: #BFE0CC; }
+
+.quote-lead .attribution .muted { color: #B9B2A0; font-weight: 400; display: block; font-size: .85rem; margin-top: .2rem; }
+
+.quote-card .attribution .muted { font-weight: 400; display: block; font-size: .82rem; margin-top: .15rem; }
+
+/* --- library override: this file has no page JS, so force any
+   scroll/load-triggered reveal state to its visible end-state instead of
+   sitting at its JS-driven opacity:0 starting state. The target site's own
+   script still drives the real animation once this is pulled in. --- */
+.hero-line, .hero__dek, .hero__actions,
+[data-reveal], .reveal, .lift, .fade-up,
+.tier, .package, .service-feature, .stat {
+  opacity: 1 !important;
+  transform: none !important;
+}
+</style>
+</head>
+<body class="no-js">
+<section class="section-dark section-tight">
+    <div class="container" style="text-align:center;">
+      <h2>Ready to Get Your Fence Fixed or Built?</h2>
+      <p class="muted" style="color:#D7E4DB; max-width:52ch; margin:0 auto 1.5rem;">Call now, or request a quote and we'll follow up during business hours.</p>
+      <div class="hero-actions" style="justify-content:center;">
+        <a href="tel:+19403913338" class="btn btn-primary" style="background:#fff; color:var(--ink);">Call (940) 391-3338</a>
+        <a href="contact.html" class="btn btn-ghost" style="border-color:#fff; color:#fff;">Request Your Bid</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

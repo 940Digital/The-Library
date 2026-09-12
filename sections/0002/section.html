@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reviews — Brick by Brick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body, -apple-system, BlinkMacSystemFont, system-ui, sans-serif);
+    background: #f3ead8;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  /* ---- Color: sourced directly from Scott's real logo/business card ---- */
+  --color-charcoal: #241c17;        /* base dark surface — dark asphalt-shingle charcoal */
+  --color-charcoal-light: #332a23;  /* raised surface on dark sections (cards, nav) */
+  --color-charcoal-line: #4a3f36;   /* hairline borders on dark surfaces */
+
+  --color-kraft: #f3ead8;       /* base light surface — kraft-paper tone from the card stock */
+  --color-kraft-dim: #e6d6b3;   /* raised/bordered surface on light sections */
+  --color-ink: #241a10;           /* body text on light surfaces — warm near-black, not pure #000 */
+
+  --color-brick: #f16f24;     /* primary + CTA accent — sampled directly from the logo icon */
+  --color-brick-dark: #c1591d;/* hover/active state for brick orange */
+
+  --color-steel: #5f6a72;          /* secondary accent — standing-seam metal roofing gray */
+  --color-steel-dark: #454d54;
+
+  --color-kraft-mute: #a8987e;          /* muted support — dividers, secondary text on dark */
+
+  --color-white: #fbf7ee;
+
+  /* ---- Type: paired for structural gravity + everyday readability ---- */
+  --font-display: 'Arvo', Georgia, 'Times New Roman', serif;
+  --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  --fs-display-xl: clamp(2.75rem, 3.2vw + 2rem, 5.5rem);
+  --fs-display-lg: clamp(2.1rem, 2vw + 1.5rem, 3.25rem);
+  --fs-headline: clamp(1.5rem, 1vw + 1.25rem, 2rem);
+  --fs-title: 1.3125rem;
+  --fs-body-lg: 1.125rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-label: 0.8125rem;
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.35;
+  --lh-body: 1.6;
+
+  /* ---- Spacing: 4px grid, no off-grid values anywhere ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ---- Shape: small chamfered radius, not the rounded-SaaS default ---- */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+
+  /* ---- Elevation: warm-tinted shadows, never neutral black ---- */
+  --shadow-sm: 0 1px 2px rgba(20, 24, 18, 0.28);
+  --shadow-md: 0 8px 24px rgba(20, 24, 18, 0.32);
+  --shadow-lg: 0 20px 48px rgba(20, 24, 18, 0.38);
+
+  /* ---- Layout ---- */
+  --content-max: 1220px;
+  --content-pad: clamp(1.25rem, 4vw, 3rem);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1); /* overshoots past 1 then settles — the "pop" */
+  --dur-fast: 180ms;
+  --dur-med: 420ms;
+  --dur-slow: 800ms;
+}
+
+.wrap {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--content-pad);
+}
+
+.section {
+  position: relative;
+  z-index: 1;
+  padding-block: var(--space-24);
+  border-bottom: 1px solid transparent;
+}
+
+.section--dark .eyebrow {
+  color: var(--color-brick);
+}
+
+.section-head {
+  margin-bottom: var(--space-12);
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brick);
+  margin-bottom: var(--space-4);
+}
+
+h2.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-lg);
+  line-height: var(--lh-tight);
+  font-weight: 700;
+}
+
+.section-dek {
+  margin-top: var(--space-4);
+  font-size: var(--fs-body-lg);
+  color: var(--color-steel);
+  max-width: 38rem;
+}
+
+.section--dark .section-dek {
+  color: var(--color-kraft-mute);
+}
+
+.section-dek a {
+  color: var(--color-brick);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.section-dek a:hover {
+  text-decoration: underline;
+}
+
+.legal-content h2.section-title {
+  margin-top: var(--space-12);
+  font-size: var(--fs-headline);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: currentColor;
+  color: inherit;
+}
+
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.section--light .btn--ghost:hover,
+.btn--ghost.on-light:hover {
+  background: rgba(30, 43, 34, 0.06);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.review-stars {
+  color: var(--color-brick);
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-3);
+}
+
+.reviews-slider {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: var(--space-1);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  /* fade the edges so cards entering/leaving don't hard-clip */
+  mask-image: linear-gradient(to right, transparent 0, #000 var(--space-8), #000 calc(100% - var(--space-8)), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--space-8), #000 calc(100% - var(--space-8)), transparent 100%);
+}
+
+.reviews-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.reviews-slider.is-dragging {
+  cursor: grabbing;
+}
+
+.reviews-track {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  width: max-content;
+}
+
+.review-card {
+  flex: 0 0 auto;
+  width: 260px;
+  background: var(--color-white);
+  border: 1px solid var(--color-kraft-dim);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+@media (min-width: 560px) {
+.review-card {
+    width: 300px;
+  }
+}
+
+.review-card__quote {
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--color-ink);
+}
+
+.review-card__name {
+  font-weight: 700;
+  font-size: var(--fs-small);
+  color: var(--color-charcoal);
+}
+
+.review-card__name span {
+  font-weight: 400;
+  color: var(--color-steel);
+}
+
+.review-card__reply {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-kraft-dim);
+  font-size: var(--fs-label);
+  color: var(--color-steel);
+  font-style: italic;
+}
+
+.site-footer .wrap {
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.reviews-grid .review-card {
+  width: auto;
+}
+
+/* --- library override: this file has no page JS, so force any
+   scroll/load-triggered reveal state to its visible end-state instead of
+   sitting at its JS-driven opacity:0 starting state. The target site's own
+   script still drives the real animation once this is pulled in. --- */
+.hero-line, .hero__dek, .hero__actions,
+[data-reveal], .reveal, .lift, .fade-up,
+.tier, .package, .service-feature, .stat {
+  opacity: 1 !important;
+  transform: none !important;
+}
+</style>
+</head>
+<body class="no-js">
+<section class="section section--light" id="reviews">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">What Homeowners Say</span>
+        <h2 class="section-title">5.0 stars. 25 Google reviews.</h2>
+        <p class="section-dek">Real reviews from real jobs. <a href="https://maps.google.com/maps?cid=15010406816344606010" target="_blank" rel="noopener">Read more or leave your own on Google &rarr;</a></p>
+      </div>
+
+      <div class="reviews-slider" id="reviewsSlider">
+        <div class="reviews-track" id="reviewsTrack">
+          <article class="review-card">
+            <div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-card__quote">&ldquo;My roof got hail damage in the June 1st hailstorm. Scott inspected it right away and got to work fast. His crew tore off and replaced the whole roof the same day and cleaned up everything — you'd never know they'd been there.&rdquo;</p>
+            <p class="review-card__name">Google Review</p>
+            <p class="review-card__reply">&ldquo;Thanks so much, it was a pleasure doing business with you.&rdquo; &mdash; Brick by Brick</p>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-card__quote">&ldquo;Scott replaced my roof last year on my father's place. He was very professional and did a great job. Highly recommend his services and everyone.&rdquo;</p>
+            <p class="review-card__name">David Keirsey <span>&middot; Local Guide, 21 reviews</span></p>
+            <p class="review-card__reply">&ldquo;Thanks David. We appreciate your friendship and your business.&rdquo; &mdash; Brick by Brick</p>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-card__quote">&ldquo;Replaced our roof, gutters, and screens after hail damage. Our job was extra challenging because they had to take solar panels off and reinstall them after putting on the roof. Very professional, kept the job site clean and ran smoothly. Highly recommend!&rdquo;</p>
+            <p class="review-card__name">Russell Hill <span>&middot; 5 reviews</span></p>
+            <p class="review-card__reply">&ldquo;Thank you sir!&rdquo; &mdash; Brick by Brick</p>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-card__quote">&ldquo;We had a great experience working with Brick by Brick. Our roof experienced some shingle damage from a storm. Scott had his crew out in no time for a quick and quality fix.&rdquo;</p>
+            <p class="review-card__name">Ryan Flinchbaugh <span>&middot; 6 reviews</span></p>
+            <p class="review-card__reply">&ldquo;Thanks Ryan, it was our pleasure to repair your roof.&rdquo; &mdash; Brick by Brick</p>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-card__quote">&ldquo;Scott is trustworthy and his crews do quality work. It's not easy to find a roofer where both of those are true.&rdquo;</p>
+            <p class="review-card__name">Stephen White <span>&middot; Local Guide, 27 reviews</span></p>
+            <p class="review-card__reply">&ldquo;Thanks Stephen for your kind words. We appreciate you and your family.&rdquo; &mdash; Brick by Brick</p>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-card__quote">&ldquo;Brick and his crew were amazing and completed our new roof in one day! He walked us through the entire process from start to finish.&rdquo;</p>
+            <p class="review-card__name">Dannye Bell <span>&middot; 4 reviews</span></p>
+            <p class="review-card__reply">&ldquo;Thank you sir, it was our pleasure to do business with your family.&rdquo; &mdash; Brick by Brick</p>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-card__quote">&ldquo;Scott has helped us out twice on our home. Each time he set clear expectations regarding scope, price, and timeline. The work his crew does is excellent, and his price is fair. I would definitely reach out to Scott for our future needs.&rdquo;</p>
+            <p class="review-card__name">Chyuan Suen <span>&middot; Local Guide, 32 reviews</span></p>
+            <p class="review-card__reply">&ldquo;Thank you so much for the kind words.&rdquo; &mdash; Brick by Brick</p>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-card__quote">&ldquo;We hired Scott and his team to install gutters. The project was done quickly and his crews left our property clean. We are more than pleased with the work done and how quickly they got the job done!&rdquo;</p>
+            <p class="review-card__name">Heath Belcher <span>&middot; 2 reviews</span></p>
+            <p class="review-card__reply">&ldquo;Thank you sir for the kind review.&rdquo; &mdash; Brick by Brick</p>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-card__quote">&ldquo;Scott Reeves and team are truly great to work with. If you need someone who is responsive, gracious, provides quality work, and has real integrity, Brick by Brick is the company for you. He did my roof good and I am thankful!&rdquo;</p>
+            <p class="review-card__name">Lee Dodd <span>&middot; Local Guide, 12 reviews</span></p>
+            <p class="review-card__reply">&ldquo;Thanks so much Lee. It was our pleasure to serve your family.&rdquo; &mdash; Brick by Brick</p>
+          </article>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-10);">
+        <a href="/reviews" class="btn btn--ghost on-light">Read Every Review</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

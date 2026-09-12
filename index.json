@@ -1,0 +1,386 @@
+{
+  "count": 11,
+  "sections": [
+    {
+      "id": "0001",
+      "number": 1,
+      "name": "Full-bleed roofing hero, parallax image + staggered headline",
+      "website": "Brick by Brick General Contracting",
+      "websiteUrl": "https://brick-by-brick-contracting.vercel.app/",
+      "sourceProject": "brick-by-brick-contracting",
+      "type": "hero",
+      "emotions": [
+        "rugged",
+        "trustworthy",
+        "bold",
+        "accountable",
+        "warm"
+      ],
+      "features": [
+        "full-bleed-background-image",
+        "parallax-image",
+        "gradient-overlay",
+        "staggered-text-reveal",
+        "eyebrow-label",
+        "dual-cta-buttons",
+        "prefers-reduced-motion-fallback"
+      ],
+      "colorMode": "dark",
+      "palette": [
+        "#241c17",
+        "#f16f24",
+        "#f3ead8",
+        "#5f6a72"
+      ],
+      "fonts": [
+        "Arvo",
+        "Work Sans"
+      ],
+      "dateAdded": "2026-09-12",
+      "file": "section.html",
+      "notes": "Fixed-position hero image creates a parallax effect as the page scrolls under it (JS toggles .is-past once scrolled out of the viewport \u2014 not included here, degrades gracefully to a static bg). Headline lines and CTAs fade/slide in via .intro-in class added on load; .no-js fallback keeps everything visible with no JS. Image path is a placeholder \u2014 swap in your own asset.",
+      "path": "sections/0001/section.html"
+    },
+    {
+      "id": "0002",
+      "number": 2,
+      "name": "Draggable horizontal review carousel with reply cards",
+      "website": "Brick by Brick General Contracting",
+      "websiteUrl": "https://brick-by-brick-contracting.vercel.app/",
+      "sourceProject": "brick-by-brick-contracting",
+      "type": "testimonials",
+      "emotions": [
+        "trustworthy",
+        "warm",
+        "credible",
+        "personable"
+      ],
+      "features": [
+        "testimonial-carousel",
+        "star-ratings",
+        "drag-to-scroll",
+        "edge-fade-mask",
+        "owner-reply-quote",
+        "cta-button",
+        "no-scrollbar"
+      ],
+      "colorMode": "light",
+      "palette": [
+        "#f3ead8",
+        "#f16f24",
+        "#241a10",
+        "#5f6a72"
+      ],
+      "fonts": [
+        "Arvo",
+        "Work Sans"
+      ],
+      "dateAdded": "2026-09-12",
+      "file": "section.html",
+      "notes": "Real Google reviews for a live client, kept verbatim as a content pattern reference (swap in the target business's own reviews before reuse). The reply line under each card \u2014 owner responding by name \u2014 is the standout trust device here; worth reusing even without the carousel. Horizontal scroll uses a CSS mask to fade the edges instead of hard-clipping cards; JS drag-to-scroll (grab/grabbing cursor) not included but the CSS supports it as pure scroll-snap too.",
+      "path": "sections/0002/section.html"
+    },
+    {
+      "id": "0003",
+      "number": 3,
+      "name": "Featured-service spotlight + compact grid of secondary services",
+      "website": "Brick by Brick General Contracting",
+      "websiteUrl": "https://brick-by-brick-contracting.vercel.app/",
+      "sourceProject": "brick-by-brick-contracting",
+      "type": "services",
+      "emotions": [
+        "capable",
+        "thorough",
+        "trustworthy",
+        "grounded"
+      ],
+      "features": [
+        "featured-item-plus-grid",
+        "image-with-copy",
+        "bulleted-capability-list",
+        "per-service-deep-link",
+        "eyebrow-label",
+        "asymmetric-layout"
+      ],
+      "colorMode": "light",
+      "palette": [
+        "#f3ead8",
+        "#f16f24",
+        "#241a10",
+        "#5f6a72"
+      ],
+      "fonts": [
+        "Arvo",
+        "Work Sans"
+      ],
+      "dateAdded": "2026-09-12",
+      "file": "section.html",
+      "notes": "Two-tier services pattern: one large 'specialty' feature card (image + long copy + capability list + link to its own page) alongside a compact grid of the remaining services as smaller cards. Good reference whenever a business has one flagship service worth showcasing and several supporting ones that don't need equal real estate.",
+      "path": "sections/0003/section.html"
+    },
+    {
+      "id": "0004",
+      "number": 4,
+      "name": "Split hero with rotating slide gallery and botanical line-art accents",
+      "website": "Lilylynne Photography",
+      "websiteUrl": "https://lilylynne-photography.vercel.app/",
+      "sourceProject": "lilylynne-photography",
+      "type": "hero",
+      "emotions": [
+        "elegant",
+        "soft",
+        "romantic",
+        "personal",
+        "airy"
+      ],
+      "features": [
+        "split-layout",
+        "hero-carousel",
+        "responsive-picture-srcset",
+        "svg-line-art-accents",
+        "italic-word-emphasis",
+        "primary-plus-quiet-link-ctas"
+      ],
+      "colorMode": "light",
+      "palette": [
+        "#f6f1ea",
+        "#2c2620",
+        "#c98a5e"
+      ],
+      "fonts": [
+        "Fraunces",
+        "Jost"
+      ],
+      "dateAdded": "2026-09-12",
+      "file": "section.html",
+      "notes": "Copy sits left, a fading slideshow of portrait-orientation photos sits right \u2014 good pattern for photographers/creatives where the images ARE the pitch. Inline SVG botanical sprigs (referenced via <use href=\"#bot-...\">) are decorative flourishes defined once in a sprite sheet elsewhere on the page; this fragment references them by id but doesn't include the sprite defs. Uses <picture>/srcset for responsive art direction.",
+      "path": "sections/0004/section.html"
+    },
+    {
+      "id": "0005",
+      "number": 5,
+      "name": "Segmented pricing packages by client type (tiers within categories)",
+      "website": "Lilylynne Photography",
+      "websiteUrl": "https://lilylynne-photography.vercel.app/",
+      "sourceProject": "lilylynne-photography",
+      "type": "pricing",
+      "emotions": [
+        "elegant",
+        "approachable",
+        "clear",
+        "soft"
+      ],
+      "features": [
+        "pricing-cards",
+        "grouped-tiers-per-category",
+        "centered-section-head",
+        "scroll-reveal-hooks",
+        "svg-icon-accents"
+      ],
+      "colorMode": "light",
+      "palette": [
+        "#f6f1ea",
+        "#2c2620",
+        "#c98a5e"
+      ],
+      "fonts": [
+        "Fraunces",
+        "Jost"
+      ],
+      "dateAdded": "2026-09-12",
+      "file": "section.html",
+      "notes": "Not a single price ladder \u2014 instead groups by WHO the client is (Families, Solos & Graduates, etc.) and shows 1-2 price tiers inside each group. Good reference for service businesses whose pricing varies more by customer segment than by feature tier. data-reveal attributes hook into an intersection-observer fade-in (script not included).",
+      "path": "sections/0005/section.html"
+    },
+    {
+      "id": "0006",
+      "number": 6,
+      "name": "Split hero with trust badge, overlapping stat card, and plank texture accent",
+      "website": "Denton Fence",
+      "websiteUrl": "https://denton-fence.vercel.app/",
+      "sourceProject": "denton-fence",
+      "type": "hero",
+      "emotions": [
+        "rugged",
+        "trustworthy",
+        "no-nonsense",
+        "established"
+      ],
+      "features": [
+        "split-layout",
+        "trust-badge-with-stars",
+        "responsive-picture-avif",
+        "overlapping-stat-card",
+        "animated-counter-hooks",
+        "decorative-texture-accent",
+        "dual-cta-buttons"
+      ],
+      "colorMode": "light",
+      "fonts": [
+        "system-ui (no webfont load)"
+      ],
+      "dateAdded": "2026-09-12",
+      "file": "section.html",
+      "notes": "Stat card (years in business / review count / rating) overlaps the hero image corner rather than living in its own section \u2014 keeps proof visible without adding vertical scroll. data-count-to attributes are hooks for a count-up-on-scroll script (not included, degrades to static numbers). No webfont dependency \u2014 deliberately system-font for a fast, plain-spoken feel matching the trade.",
+      "path": "sections/0006/section.html"
+    },
+    {
+      "id": "0007",
+      "number": 7,
+      "name": "Minimal centered dark CTA banner",
+      "website": "Denton Fence",
+      "websiteUrl": "https://denton-fence.vercel.app/",
+      "sourceProject": "denton-fence",
+      "type": "cta",
+      "emotions": [
+        "direct",
+        "urgent",
+        "confident",
+        "plain-spoken"
+      ],
+      "features": [
+        "centered-layout",
+        "dark-band",
+        "dual-cta-buttons",
+        "phone-tel-link",
+        "minimal-copy"
+      ],
+      "colorMode": "dark",
+      "fonts": [
+        "system-ui (no webfont load)"
+      ],
+      "dateAdded": "2026-09-12",
+      "file": "section.html",
+      "notes": "About as simple as a closing CTA gets: headline, one line of support copy, a phone-call button and a secondary quote-request button. Useful as a mid-page or pre-footer breather section when a full contact form section would be too heavy. Smallest file in the library \u2014 good starting point to restyle rather than strip down.",
+      "path": "sections/0007/section.html"
+    },
+    {
+      "id": "0008",
+      "number": 8,
+      "name": "Full-bleed hero with animated line-by-line headline and live open/closed status",
+      "website": "Samuel's Tree Service",
+      "websiteUrl": "https://samuels-tree-service.vercel.app/",
+      "sourceProject": "samuels-tree-service",
+      "type": "hero",
+      "emotions": [
+        "bold",
+        "seasoned",
+        "confident",
+        "action-oriented"
+      ],
+      "features": [
+        "full-bleed-background-image",
+        "video-background-ready",
+        "staggered-text-reveal",
+        "review-count-chip",
+        "live-open-closed-status",
+        "inline-svg-icons",
+        "dual-cta-buttons",
+        "prefers-reduced-motion-fallback"
+      ],
+      "colorMode": "dark",
+      "fonts": [
+        "Fraunces",
+        "Space Grotesk"
+      ],
+      "dateAdded": "2026-09-12",
+      "file": "section.html",
+      "notes": "Three one-word headline lines ('Climbed.' 'Cut.' 'Cleared.') each animate in on their own line \u2014 punchy rhythm pattern worth reusing for trades with a clear step-by-step process. Has a commented-out slot for swapping the still image for a looping background video once the client supplies footage. data-status/data-status-text hooks are for a live business-hours widget (JS not included, static fallback text shown as-is).",
+      "path": "sections/0008/section.html"
+    },
+    {
+      "id": "0009",
+      "number": 9,
+      "name": "Combined proof section: animated stat row + award plaque + Google rating summary",
+      "website": "Samuel's Tree Service",
+      "websiteUrl": "https://samuels-tree-service.vercel.app/",
+      "sourceProject": "samuels-tree-service",
+      "type": "testimonials",
+      "emotions": [
+        "credible",
+        "established",
+        "reassuring",
+        "authoritative"
+      ],
+      "features": [
+        "animated-counter-hooks",
+        "award-plaque-with-photo",
+        "achievement-list",
+        "google-rating-summary",
+        "scroll-reveal-hooks",
+        "live-widget-slot-comment"
+      ],
+      "colorMode": "light",
+      "fonts": [
+        "Fraunces",
+        "Space Grotesk"
+      ],
+      "dateAdded": "2026-09-12",
+      "file": "section.html",
+      "notes": "Stacks three proof devices in one section instead of spreading them thin: a stat row (years/reviews/rating/awards, count-up-on-scroll hooks via data-count), a photographed award plaque with a bulleted achievement list, and a Google-rating summary block (real G logo SVG inlined) with an HTML comment marking where to drop in a live Elfsight/Trustindex/Featurable review-widget embed later. Heaviest file in the library \u2014 good candidate to split back into 2-3 smaller sections if only one device is needed.",
+      "path": "sections/0009/section.html"
+    },
+    {
+      "id": "0010",
+      "number": 10,
+      "name": "Luxury full-bleed hero with badge, glow overlay, and location pin",
+      "website": "Gunnar Galvan Mobile Detailing",
+      "websiteUrl": "https://gunnar-galvan.vercel.app/",
+      "sourceProject": "gunnar-galvan",
+      "type": "hero",
+      "emotions": [
+        "premium",
+        "sleek",
+        "aspirational",
+        "convenient"
+      ],
+      "features": [
+        "full-bleed-background-image",
+        "gradient-overlay",
+        "radial-glow-accent",
+        "location-badge",
+        "italic-word-emphasis",
+        "dual-cta-buttons",
+        "image-placeholder-comment"
+      ],
+      "colorMode": "dark",
+      "fonts": [
+        "Inter"
+      ],
+      "dateAdded": "2026-09-12",
+      "file": "section.html",
+      "notes": "Layers a subtle radial 'glow' div over the standard image+gradient hero for extra shine \u2014 cheap way to make a dark hero feel premium/detailing-shop rather than flat. HTML comment marks exactly what the hero image should be before an asset existed yet, worth keeping as a habit when spec-building ahead of client photos.",
+      "path": "sections/0010/section.html"
+    },
+    {
+      "id": "0011",
+      "number": 11,
+      "name": "Simple centered CTA banner with label tag and phone/book buttons",
+      "website": "Gunnar Galvan Mobile Detailing",
+      "websiteUrl": "https://gunnar-galvan.vercel.app/",
+      "sourceProject": "gunnar-galvan",
+      "type": "cta",
+      "emotions": [
+        "confident",
+        "premium",
+        "direct"
+      ],
+      "features": [
+        "centered-layout",
+        "label-tag",
+        "fade-up-on-scroll-hooks",
+        "dual-cta-buttons",
+        "phone-tel-link",
+        "inline-svg-icon"
+      ],
+      "colorMode": "dark",
+      "fonts": [
+        "Inter"
+      ],
+      "dateAdded": "2026-09-12",
+      "file": "section.html",
+      "notes": "Same job as 0007 (Denton Fence CTA) but with a small uppercase label-tag above the headline and .fade-up scroll-reveal hooks \u2014 compare the two side by side for 'plain trade CTA' vs 'polished premium-service CTA' at nearly the same structure.",
+      "path": "sections/0011/section.html"
+    }
+  ]
+}

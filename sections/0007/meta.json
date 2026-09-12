@@ -1,0 +1,22 @@
+{
+  "id": "0007",
+  "number": 7,
+  "name": "Minimal centered dark CTA banner",
+  "website": "Denton Fence",
+  "websiteUrl": "https://denton-fence.vercel.app/",
+  "sourceProject": "denton-fence",
+  "type": "cta",
+  "emotions": ["direct", "urgent", "confident", "plain-spoken"],
+  "features": [
+    "centered-layout",
+    "dark-band",
+    "dual-cta-buttons",
+    "phone-tel-link",
+    "minimal-copy"
+  ],
+  "colorMode": "dark",
+  "fonts": ["system-ui (no webfont load)"],
+  "dateAdded": "2026-09-12",
+  "file": "section.html",
+  "notes": "About as simple as a closing CTA gets: headline, one line of support copy, a phone-call button and a secondary quote-request button. Useful as a mid-page or pre-footer breather section when a full contact form section would be too heavy. Smallest file in the library — good starting point to restyle rather than strip down."
+}

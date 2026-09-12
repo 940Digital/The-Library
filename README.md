@@ -1,0 +1,33 @@
+# The Library
+
+A growing collection of website sections — heroes, testimonials, pricing blocks, CTAs, and more — pulled from real 940Digital builds (and eventually hand-built originals), each tagged with the website it came from, its type, and the emotions/features it's built around.
+
+The point isn't a component kit to import wholesale. It's raw material: browse by feeling or by function, grab whatever's closest to what a site needs, and restyle it to fit — or just use it as a reference for a pattern instead of building one from scratch every time.
+
+## Structure
+
+```
+sections/
+  0001/
+    meta.json      # id, website, type, emotions, features, notes...
+    section.html   # self-contained: opens directly in a browser, no
+                    # external stylesheet or shared nav required
+  0002/
+  ...
+index.json          # generated — every meta.json in one searchable file
+docs/schema.md       # the meta.json field reference + controlled vocab
+scripts/
+  build_index.py    # regenerate index.json after adding/editing a section
+  next_id.py        # get the next free section id
+.claude/skills/section-library/   # the Claude skill for browsing/pulling sections
+```
+
+## Using it
+
+Browse `index.json` directly, or — inside Claude Code with this repo checked out — just ask for what you need ("find me a rugged, trustworthy hero section" or "show me every testimonials section") and the `section-library` skill will search and pull the matching `section.html` files.
+
+To add a section, see **Adding a new section** in [docs/schema.md](docs/schema.md).
+
+## Current count
+
+11 sections seeded from 5 real client builds (Brick by Brick, Lilylynne Photography, Denton Fence, Samuel's Tree Service, Gunnar Galvan). Meant to keep growing — every new site is a chance to pull 1-2 more sections in before moving on.

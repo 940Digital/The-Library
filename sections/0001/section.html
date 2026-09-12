@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — Brick by Brick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body, -apple-system, BlinkMacSystemFont, system-ui, sans-serif);
+    background: #241c17;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  /* ---- Color: sourced directly from Scott's real logo/business card ---- */
+  --color-charcoal: #241c17;        /* base dark surface — dark asphalt-shingle charcoal */
+  --color-charcoal-light: #332a23;  /* raised surface on dark sections (cards, nav) */
+  --color-charcoal-line: #4a3f36;   /* hairline borders on dark surfaces */
+
+  --color-kraft: #f3ead8;       /* base light surface — kraft-paper tone from the card stock */
+  --color-kraft-dim: #e6d6b3;   /* raised/bordered surface on light sections */
+  --color-ink: #241a10;           /* body text on light surfaces — warm near-black, not pure #000 */
+
+  --color-brick: #f16f24;     /* primary + CTA accent — sampled directly from the logo icon */
+  --color-brick-dark: #c1591d;/* hover/active state for brick orange */
+
+  --color-steel: #5f6a72;          /* secondary accent — standing-seam metal roofing gray */
+  --color-steel-dark: #454d54;
+
+  --color-kraft-mute: #a8987e;          /* muted support — dividers, secondary text on dark */
+
+  --color-white: #fbf7ee;
+
+  /* ---- Type: paired for structural gravity + everyday readability ---- */
+  --font-display: 'Arvo', Georgia, 'Times New Roman', serif;
+  --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  --fs-display-xl: clamp(2.75rem, 3.2vw + 2rem, 5.5rem);
+  --fs-display-lg: clamp(2.1rem, 2vw + 1.5rem, 3.25rem);
+  --fs-headline: clamp(1.5rem, 1vw + 1.25rem, 2rem);
+  --fs-title: 1.3125rem;
+  --fs-body-lg: 1.125rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-label: 0.8125rem;
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.35;
+  --lh-body: 1.6;
+
+  /* ---- Spacing: 4px grid, no off-grid values anywhere ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ---- Shape: small chamfered radius, not the rounded-SaaS default ---- */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+
+  /* ---- Elevation: warm-tinted shadows, never neutral black ---- */
+  --shadow-sm: 0 1px 2px rgba(20, 24, 18, 0.28);
+  --shadow-md: 0 8px 24px rgba(20, 24, 18, 0.32);
+  --shadow-lg: 0 20px 48px rgba(20, 24, 18, 0.38);
+
+  /* ---- Layout ---- */
+  --content-max: 1220px;
+  --content-pad: clamp(1.25rem, 4vw, 3rem);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1); /* overshoots past 1 then settles — the "pop" */
+  --dur-fast: 180ms;
+  --dur-med: 420ms;
+  --dur-slow: 800ms;
+}
+
+.section--dark .eyebrow {
+  color: var(--color-brick);
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brick);
+  margin-bottom: var(--space-4);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--color-brick);
+  color: var(--color-white);
+}
+
+.btn--primary:hover {
+  background: var(--color-brick-dark);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: currentColor;
+  color: inherit;
+}
+
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.section--light .btn--ghost:hover,
+.btn--ghost.on-light:hover {
+  background: rgba(30, 43, 34, 0.06);
+}
+
+@media (max-width: 640px) {
+.nav-cta .btn--primary {
+    display: none;
+  }
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  color: var(--color-white);
+  overflow: hidden;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__media img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero__media img.is-past {
+  position: absolute;
+  top: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+.hero__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(15, 20, 15, 0.5) 0%,
+      rgba(15, 20, 15, 0) 22%
+    ),
+    linear-gradient(
+      to top,
+      rgba(15, 20, 15, 0.94) 0%,
+      rgba(15, 20, 15, 0.72) 45%,
+      rgba(15, 20, 15, 0.45) 75%,
+      rgba(15, 20, 15, 0.22) 100%
+    );
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  padding-top: var(--space-24);
+  padding-bottom: var(--space-24);
+  padding-left: var(--content-pad);
+  padding-right: var(--content-pad);
+  max-width: var(--content-max);
+  margin-inline: auto;
+  width: 100%;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-display-xl);
+  line-height: var(--lh-tight);
+  max-width: 18ch;
+  text-shadow: 0 2px 16px rgba(10, 8, 6, 0.5);
+}
+
+.hero-line {
+  display: block;
+  opacity: 0;
+  transform: translateX(-3rem);
+  transition: opacity 0.5s var(--ease-out), transform 0.6s var(--ease-pop);
+}
+
+.hero-line.intro-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hero-line--2 {
+  color: var(--color-brick);
+}
+
+.hero__dek {
+  margin-top: var(--space-6);
+  font-size: var(--fs-body-lg);
+  color: var(--color-kraft);
+  max-width: 46ch;
+  opacity: 0;
+  transform: translateY(0.6em);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  text-shadow: 0 1px 10px rgba(10, 8, 6, 0.45);
+}
+
+.hero__dek.intro-in {
+  opacity: 0.92;
+  transform: translateY(0);
+}
+
+.hero__actions {
+  margin-top: var(--space-8);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  opacity: 0;
+  transform: translateY(0.6em);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.hero__actions.intro-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.no-js .hero-line {
+  opacity: 1;
+  transform: none;
+}
+
+.no-js .hero__dek {
+  opacity: 0.92;
+  transform: none;
+}
+
+.no-js .hero__actions {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- library override: this file has no page JS, so force any
+   scroll/load-triggered reveal state to its visible end-state instead of
+   sitting at its JS-driven opacity:0 starting state. The target site's own
+   script still drives the real animation once this is pulled in. --- */
+.hero-line, .hero__dek, .hero__actions,
+[data-reveal], .reveal, .lift, .fade-up,
+.tier, .package, .service-feature, .stat {
+  opacity: 1 !important;
+  transform: none !important;
+}
+</style>
+</head>
+<body class="no-js">
+<section class="hero" id="hero">
+    <div class="hero__media">
+      <img id="heroParallaxImg" src="images/hero-roofing-finished.webp"
+           alt="Close-up of a finished standing-seam metal roof running alongside a white board-and-batten dormer, a recent Brick by Brick roofing project"
+           fetchpriority="high">
+    </div>
+    <div class="hero__content">
+      <h1><span class="eyebrow">Roofing &amp; General Contracting in Sanger, TX</span><span class="hero-line hero-line--1">Whatever the job,</span> <span class="hero-line hero-line--2">we've got you covered.</span></h1>
+      <p class="hero__dek">Scott personally inspects and quotes every roof — because your home is the priority. No salesperson, no handoffs, just the person accountable for getting it right.</p>
+      <div class="hero__actions">
+        <a href="#contact" class="btn btn--primary">Get a Free Consultation</a>
+        <a href="#projects" class="btn btn--ghost">See Our Roofing Work</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero Split — Denton Fence</title>
+
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body, -apple-system, BlinkMacSystemFont, system-ui, sans-serif);
+    background: #12130f;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: .5em;
+  font-weight: 700; font-size: .95rem; letter-spacing: .01em;
+  padding: .95em 1.7em; border-radius: 2px; border: 1px solid transparent;
+  cursor: pointer; white-space: nowrap;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.btn-primary { background: var(--green); color: #fff; box-shadow: 0 8px 20px -8px rgba(11,74,46,.55); }
+
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -8px rgba(11,74,46,.65); background: var(--green-hi); }
+
+.btn-ghost { background: transparent; border-color: currentColor; color: var(--ink); }
+
+.btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+.btn:active { transform: scale(.98); }
+
+.hero-split { position: relative; display: grid; grid-template-columns: 1.15fr 1fr; min-height: 82vh; background: var(--ink); }
+
+.hero-panel { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; padding: clamp(2.5rem, 6vw, 5rem); color: #fff; }
+
+.hero-panel .kicker { color: #BFE0CC; }
+
+.hero-panel h1, .hero-panel .lede { color: #fff; }
+
+.hero-panel h1 { font-size: clamp(2.75rem, 5.6vw, 5.2rem); line-height: .94; margin-bottom: .3em; }
+
+.hero-panel .lede { font-size: clamp(1.05rem, 1.4vw, 1.2rem); max-width: 42ch; margin-bottom: 1.75rem; color: #E9E4D6; }
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+
+.hero-panel .btn-ghost { border-color: rgba(255,255,255,.55); color: #fff; }
+
+.hero-panel .btn-ghost:hover { background: #fff; color: var(--ink); }
+
+.trust-badge {
+  display: inline-flex; align-items: center; gap: .6em; align-self: flex-start;
+  font-weight: 700; font-size: .82rem; letter-spacing: .02em;
+  padding: .5em 1em; border-radius: 999px; border: 1px solid rgba(255,255,255,.3);
+  background: rgba(255,255,255,.06); color: #fff; margin-bottom: 1.4rem;
+}
+
+.trust-badge .stars { color: var(--star); }
+
+.hero-media { position: relative; z-index: 1; overflow: hidden; }
+
+.hero-media img, .hero-media picture img { width: 100%; height: 100%; object-fit: cover; }
+
+.hero-stat-card {
+  position: relative; z-index: 3;
+  display: flex; justify-content: center; text-align: center;
+  gap: clamp(1.75rem, 4vw, 2.75rem);
+  margin-top: clamp(1.75rem, 4vw, 2.75rem);
+  width: 100%;
+}
+
+.hero-stat-card .stat { display: flex; flex-direction: column; align-items: center; }
+
+.hero-stat-card .stat .num { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.6rem, 2.6vw, 2.1rem); color: #BFE0CC; line-height: 1; display: block; }
+
+.hero-stat-card .stat:nth-child(2) .num { color: #D9BE97; }
+
+.hero-stat-card .stat .label { color: #B9C4BA; font-size: .78rem; margin-top: .3rem; display: block; max-width: 12ch; }
+
+.plank-wrap { position: absolute; inset: 0; z-index: 4; display: flex; pointer-events: none; }
+
+.plank { flex: 1 1 0; background: var(--ink); transform: translateY(0); animation: plank-lift .9s cubic-bezier(.65,0,.35,1) forwards; }
+
+.plank:nth-child(1) { animation-delay: .05s; }
+
+.plank:nth-child(2) { animation-delay: .12s; }
+
+.plank:nth-child(3) { animation-delay: .19s; }
+
+.plank:nth-child(4) { animation-delay: .26s; }
+
+.plank:nth-child(5) { animation-delay: .33s; }
+
+.plank:nth-child(6) { animation-delay: .40s; }
+
+.plank:nth-child(7) { animation-delay: .47s; }
+
+.plank:nth-child(8) { animation-delay: .54s; }
+
+@media (prefers-reduced-motion: reduce) {
+.plank-wrap { display: none; }
+}
+
+@media (max-width: 900px) {
+.hero-split { grid-template-columns: 1fr; min-height: auto; }
+.hero-media { height: 46vh; order: -1; }
+.hero-panel { padding: 2.25rem 1.5rem 2.5rem; }
+.hero-panel h1 { font-size: clamp(2.1rem, 9vw, 3rem); }
+.hero-stat-card { flex-wrap: wrap; }
+}
+
+.page-hero .hero-media { position: absolute; inset: 0; z-index: 0; }
+
+.page-hero .hero-content h1, .page-hero .hero-content .lede { color: #fff; }
+
+.page-hero .lede { font-size: 1.1rem; color: #E9E4D6; max-width: 50ch; }
+
+.feature-lead .label { position: absolute; left: 0; right: 0; bottom: 0; padding: 2rem; color: #fff; }
+
+.feature-lead .label h3 { color: #fff; font-size: clamp(1.5rem, 2.4vw, 2rem); margin-bottom: .3em; }
+
+.feature-lead .label p { color: #E9E4D6; max-width: 34ch; margin-bottom: .8em; }
+
+.feature-lead .label .card-link { color: #fff; }
+
+.feature-lead .label .card-link:hover { color: var(--wood-tint); }
+
+.feature-tile .label { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.1rem; color: #fff; }
+
+.feature-tile .label h3 { color: #fff; font-size: 1.05rem; margin: 0; }
+
+.stat { text-align: left; }
+
+.stat .num { font-family: var(--font-display); font-weight: 900; font-size: clamp(2.25rem, 4.5vw, 3.5rem); color: var(--green); line-height: 1; display: block; }
+
+.stat .label { color: var(--muted); font-size: .92rem; margin-top: .4rem; }
+
+.quote-lead .stars { color: var(--star); letter-spacing: .15em; margin-bottom: 1.2rem; font-size: 1rem; }
+
+.quote-card .stars { color: var(--star-on-light); letter-spacing: .15em; margin-bottom: 1rem; font-size: .9rem; }
+
+.service-card .label { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.5rem; color: #fff; }
+
+.service-card .label h3 { color: #fff; margin: 0; }
+
+@keyframes plank-lift { to { transform: translateY(-100%); } }
+
+/* --- library override: this file has no page JS, so force any
+   scroll/load-triggered reveal state to its visible end-state instead of
+   sitting at its JS-driven opacity:0 starting state. The target site's own
+   script still drives the real animation once this is pulled in. --- */
+.hero-line, .hero__dek, .hero__actions,
+[data-reveal], .reveal, .lift, .fade-up,
+.tier, .package, .service-feature, .stat {
+  opacity: 1 !important;
+  transform: none !important;
+}
+</style>
+</head>
+<body class="no-js">
+<section class="hero-split">
+    <div class="hero-panel">
+      <span class="trust-badge"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.9 from 81 Google reviews</span>
+      <h1>Every Fence, Built Right.</h1>
+      <p class="lede">We&rsquo;ve been building and repairing wood, iron, chain link, ranch rail, and vinyl fences across Denton County for 35+ years.</p>
+      <div class="hero-actions">
+        <a href="tel:+19403913338" class="btn btn-primary">Call (940) 391-3338</a>
+        <a href="services.html" class="btn btn-ghost">See the Work</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <picture>
+        <source type="image/avif" srcset="img/opt/board-on-board-with-cap-480.avif 480w, img/opt/board-on-board-with-cap-800.avif 800w, img/opt/board-on-board-with-cap-1200.avif 1200w, img/opt/board-on-board-with-cap-1920.avif 1920w" sizes="(max-width: 900px) 100vw, 45vw">
+        <source type="image/jpeg" srcset="img/opt/board-on-board-with-cap-480.jpg 480w, img/opt/board-on-board-with-cap-800.jpg 800w, img/opt/board-on-board-with-cap-1200.jpg 1200w, img/opt/board-on-board-with-cap-1920.jpg 1920w" sizes="(max-width: 900px) 100vw, 45vw">
+        <img src="img/opt/board-on-board-with-cap-1200.jpg" width="2560" height="1920" alt="Cedar board-on-board privacy fence with cap, Denton, TX" fetchpriority="high">
+      </picture>
+    </div>
+    <div class="hero-stat-card">
+      <div class="stat"><span class="num" data-count-to="35">0</span><span class="label">Years in Denton County</span></div>
+      <div class="stat"><span class="num" data-count-to="81">0</span><span class="label">Real Google reviews</span></div>
+      <div class="stat"><span class="num">4.9&#9733;</span><span class="label">Average rating</span></div>
+    </div>
+    <div class="plank-wrap" aria-hidden="true">
+      <div class="plank"></div><div class="plank"></div><div class="plank"></div><div class="plank"></div>
+      <div class="plank"></div><div class="plank"></div><div class="plank"></div><div class="plank"></div>
+    </div>
+  </section>
+
+</body>
+</html>

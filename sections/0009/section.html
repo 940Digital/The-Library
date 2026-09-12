@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reviews — Samuel's Tree Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body, -apple-system, BlinkMacSystemFont, system-ui, sans-serif);
+    background: #f4f1ea;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  /* -------- literal palette -------- */
+  --ink-hue:    #17200F;   /* near-black forest ink — dark sections + default text */
+  --ink-soft:   #202D18;   /* lifted dark surface, for cards inside dark sections */
+  --paper:      #F4EFE1;   /* warm parchment — default page background */
+  --paper-line: #E2D9C2;   /* hairline border on paper */
+  --wood-tint:  #EFE1C5;   /* tertiary warm section background */
+  --wood-line:  #DFCFA9;
+  --green:      #2E6B3E;   /* forest accent — buttons, links, icons */
+  --green-hi:   #3B7F4C;   /* hover */
+  --green-bright: #8FC98A; /* accent color when placed on dark ink */
+  --wood:       #8B5A2E;   /* bark-brown, used sparingly (dividers, texture) */
+  --wood-deep:  #6B4423;
+  --gold:       #B08A3E;   /* awards / stars on light */
+  --gold-dark:  #D9BE97;   /* awards / stars on dark ink */
+  --white:      #FFFFFF;
+
+  /* -------- contextual (flip inside .tone-dark / .tone-wood) -------- */
+  --bg:         var(--paper);
+  --surface:    var(--white);
+  --ink:        var(--ink-hue);
+  --ink-dim:    #4B4536;
+  --muted:      #6B6250;
+  --line:       var(--paper-line);
+  --leaf:       var(--green);
+  --leaf-deep:  var(--green-hi);
+  --amber:      var(--gold);
+
+  /* type */
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "General Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Space Grotesk", ui-monospace, "SF Mono", monospace;
+
+  /* rhythm */
+  --section-y: clamp(4.5rem, 10vh, 7.5rem);
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+  --maxw: 1280px;
+  --radius: 4px;
+  --radius-lg: 6px;
+
+  /* spacing scale — every gap/padding/margin in the file should reference
+     one of these instead of inventing its own clamp(). Keeps the whole
+     site on one rhythm instead of forty-three slightly different curves. */
+  --sp-3xs: .5rem;                          /* 8px  — icon-to-label gaps */
+  --sp-2xs: .75rem;                         /* 12px — tight inline gaps */
+  --sp-xs:  1rem;                           /* 16px — chip/badge gaps */
+  --sp-sm:  1.5rem;                         /* 24px — review-card gaps */
+  --sp-md:  clamp(1.75rem, 2.6vw, 2.25rem); /* 28-36px — card/tile padding */
+  --sp-grid: clamp(1rem, 1.6vw, 1.5rem);    /* card-grid gaps (svc/props/video) */
+  --sp-lg:  clamp(2rem, 3.4vw, 2.75rem);    /* 32-44px — g-summary gap, next-step */
+  --sp-xl:  clamp(2.5rem, 5vw, 4rem);       /* 40-64px — section-head margin */
+  --sp-2xl: clamp(3rem, 5.5vw, 5rem);       /* 48-80px — split/plaque column gap */
+  --sp-3xl: clamp(3.5rem, 6.5vw, 5.5rem);   /* 56-88px — cta-band, footer top */
+
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+
+.tone-wood {
+  --bg: var(--wood-tint);
+  --surface: var(--white);
+  --line: var(--wood-line);
+  background: var(--bg);
+}
+
+h2.section-title { font-size: clamp(2rem, 5vw, 3.75rem); letter-spacing: -.022em; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .78rem;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--green);
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+}
+
+.tone-dark .eyebrow { color: var(--green-bright); }
+
+.eyebrow::before {
+  content: "";
+  width: 30px; height: 1px;
+  background: currentColor;
+  display: inline-block;
+}
+
+.eyebrow.no-rule::before { display: none; }
+
+.eyebrow svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+.accent { color: var(--green); }
+
+.tone-dark .accent { color: var(--green-bright); }
+
+.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+
+.section-head { max-width: 760px; margin-bottom: var(--sp-xl); }
+
+.section-head .eyebrow { margin-bottom: 1.2rem; }
+
+.section-head p { margin-top: 1.1rem; max-width: 60ch; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: .92rem;
+  letter-spacing: .02em;
+  padding: 1rem 1.7rem;
+  border-radius: 2px;
+  min-height: 48px;
+  transition: transform .3s var(--ease), background .25s var(--ease), color .25s var(--ease), box-shadow .3s var(--ease);
+  will-change: transform;
+}
+
+.btn svg { width: 17px; height: 17px; transition: transform .3s var(--ease); }
+
+.btn-primary { background: var(--green); color: #fff; box-shadow: 0 8px 22px -10px rgba(23,32,15,.5); }
+
+.btn-primary:hover { background: var(--green-hi); transform: translateY(-2px); box-shadow: 0 14px 28px -10px rgba(23,32,15,.6); }
+
+.btn-primary:hover svg { transform: translateX(3px); }
+
+.hero .eyebrow { margin-bottom: 1.2rem; color: var(--green-bright); font-family: var(--display); font-style: italic; font-weight: 500; font-size: 1.15rem; letter-spacing: .01em; text-transform: none; }
+
+.hero .eyebrow::before { display: none; }
+
+.stat b { white-space: nowrap; }
+
+.hero-meta .hm b .accent { color: var(--green-bright); }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+
+.stat { background: var(--surface); padding: var(--sp-md); }
+
+.stat b { font-family: var(--display); font-weight: 500; font-size: clamp(2.6rem, 5vw, 4.4rem); line-height: 1; color: var(--green); letter-spacing: -.02em; display: block; }
+
+.stat b .accent { color: var(--green); }
+
+.stat .label { margin-top: .8rem; font-family: var(--mono); font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+
+.award-plaque { display: grid; grid-template-columns: 1fr 1.15fr; gap: var(--sp-2xl); margin-bottom: var(--sp-xl); min-height: 340px; }
+
+.award-photo { position: relative; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--line); }
+
+.award-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.award-achievements { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+
+.achieve { background: var(--surface); padding: var(--sp-md); display: flex; flex-direction: column; justify-content: center; }
+
+.achieve h4 { font-family: var(--display); font-size: 1.15rem; color: var(--ink); margin-bottom: .35rem; }
+
+.achieve span { font-family: var(--mono); font-size: .78rem; letter-spacing: .03em; color: var(--muted); }
+
+.g-summary {
+  display: flex; align-items: center; gap: var(--sp-lg);
+  flex-wrap: wrap;
+  padding: var(--sp-md);
+  border-radius: var(--radius-lg);
+  background: var(--green);
+  margin-bottom: var(--sp-xl);
+}
+
+.g-summary .g-logo { width: 52px; height: 52px; flex-shrink: 0; }
+
+.g-summary .g-logo svg { width: 100%; height: 100%; }
+
+.g-rating-wrap { flex: 1; min-width: 200px; }
+
+.g-rating { font-family: var(--display); font-size: clamp(2.8rem, 5vw, 4rem); font-weight: 500; line-height: 1; color: #fff; display: block; letter-spacing: -.02em; }
+
+.g-star { color: var(--gold-dark); }
+
+.g-count { display: block; margin-top: .4rem; color: #E4EBDF; font-size: 1rem; }
+
+.g-count b { color: #fff; font-family: var(--mono); font-weight: 500; }
+
+.g-summary-cta { display: flex; flex-direction: column; align-items: flex-end; gap: .6rem; }
+
+.g-summary-cta .btn { white-space: nowrap; }
+
+.g-summary-cta .btn-primary { background: #fff; color: var(--green); }
+
+.g-summary-cta .btn-primary:hover { background: var(--paper); }
+
+.g-verified { font-family: var(--mono); font-size: .74rem; letter-spacing: .05em; color: #E4EBDF; }
+
+.review-track-wrap { position: relative; overflow: hidden; padding-block: .5rem; }
+
+.review-track { overflow: hidden; }
+
+.review-track-inner {
+  display: flex; gap: var(--sp-sm);
+  width: max-content;
+  animation: review-scroll 80s linear infinite;
+  will-change: transform;
+}
+
+.review-track-wrap:hover .review-track-inner,
+.review-track-wrap:focus-within .review-track-inner { animation-play-state: paused; }
+
+.review-track-fade { position: absolute; top: 0; bottom: 0; width: clamp(40px, 8vw, 120px); z-index: 3; pointer-events: none; }
+
+.review-track-fade.left  { left: 0;  background: linear-gradient(to right, var(--bg), transparent); }
+
+.review-track-fade.right { right: 0; background: linear-gradient(to left,  var(--bg), transparent); }
+
+.g-review {
+  flex: 0 0 clamp(300px, 30vw, 380px);
+  padding: var(--sp-md);
+  border: 1px solid var(--line); border-radius: var(--radius-lg);
+  background: var(--surface);
+  display: flex; flex-direction: column;
+  transform: rotate(var(--leaf-rot, 0deg));
+}
+
+.review-track-inner > .g-review:nth-child(odd)  { margin-top: 1.4rem; --leaf-rot: -.6deg; }
+
+.review-track-inner > .g-review:nth-child(even) { margin-bottom: 1.4rem; --leaf-rot: .5deg; }
+
+.review-track-inner > .g-review:nth-child(3n)   { --leaf-rot: -.3deg; }
+
+.gr-head { display: flex; align-items: center; gap: .8rem; margin-bottom: .9rem; }
+
+.gr-av { width: 42px; height: 42px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font-family: var(--display); font-weight: 600; font-size: 1.05rem; flex-shrink: 0; letter-spacing: -.01em; }
+
+.gr-who { flex: 1; min-width: 0; }
+
+.gr-who b { display: block; font-size: .95rem; color: var(--ink); font-family: var(--body); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.gr-who span { display: block; font-family: var(--mono); font-size: .68rem; color: var(--muted); letter-spacing: .05em; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.gr-g { width: 20px; height: 20px; flex-shrink: 0; opacity: .9; }
+
+.gr-g svg { width: 100%; height: 100%; }
+
+.gr-stars { color: var(--gold); letter-spacing: .1em; font-size: .95rem; margin-bottom: .7rem; }
+
+.g-review p { font-size: .95rem; line-height: 1.55; color: var(--ink-dim); display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; }
+
+.next-step { display: flex; align-items: center; gap: 1rem; margin-top: var(--sp-xl); padding-top: var(--sp-lg); border-top: 1px solid var(--line); }
+
+.next-step .ns-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent); }
+
+.next-step a { display: inline-flex; align-items: center; gap: .7rem; font-family: var(--mono); font-size: .88rem; letter-spacing: .03em; color: var(--ink); white-space: nowrap; }
+
+.next-step a small { display: block; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .2rem; }
+
+.next-step a svg { width: 16px; height: 16px; color: var(--green); transition: transform .3s var(--ease); }
+
+.tone-dark .next-step a svg { color: var(--green-bright); }
+
+.next-step a:hover svg { transform: translateX(4px); }
+
+.cta-band .btn-primary { background: #fff; color: var(--green); }
+
+.cta-band .btn-primary:hover { background: var(--paper); }
+
+.page-hero .eyebrow { color: var(--green-bright); }
+
+.aside-card .btn { width: 100%; justify-content: center; margin-top: 1.4rem; }
+
+html.anim .reveal { opacity: 0; transform: translateY(24px); }
+
+html.anim .reveal.is-in { opacity: 1; transform: none; transition: opacity .7s var(--ease), transform .7s var(--ease); }
+
+html.anim .reveal.d1 { transition-delay: .08s; }
+
+html.anim .reveal.d2 { transition-delay: .16s; }
+
+html.anim .reveal.d3 { transition-delay: .24s; }
+
+html.anim .reveal.d4 { transition-delay: .32s; }
+
+@media (max-width: 620px) {
+.award-plaque { grid-template-columns: 1fr; min-height: 0; }
+.award-photo { aspect-ratio: 16/10; }
+}
+
+@media (max-width: 900px) {
+.g-summary { flex-direction: column; align-items: flex-start; }
+.g-summary-cta { align-items: flex-start; width: 100%; }
+.g-summary-cta .btn { width: 100%; justify-content: center; }
+.g-review { flex: 0 0 78vw; max-width: 340px; }
+.stats { grid-template-columns: repeat(2,1fr); }
+}
+
+@media (max-width: 620px) {
+.nav-cta .btn-primary { display: none; }
+.stats { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+html.anim .reveal { opacity: 1 !important; transform: none !important; }
+.marquee-track, .review-track-inner { animation: none !important; }
+.g-review { transform: none !important; }
+}
+
+@keyframes review-scroll {
+  to { transform: translateX(-50%); }
+}
+
+/* --- library override: this file has no page JS, so force any
+   scroll/load-triggered reveal state to its visible end-state instead of
+   sitting at its JS-driven opacity:0 starting state. The target site's own
+   script still drives the real animation once this is pulled in. --- */
+.hero-line, .hero__dek, .hero__actions,
+[data-reveal], .reveal, .lift, .fade-up,
+.tier, .package, .service-feature, .stat {
+  opacity: 1 !important;
+  transform: none !important;
+}
+</style>
+</head>
+<body class="no-js">
+<section id="reviews" class="tone-wood">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Proof, not promises</span>
+      <h2 class="section-title">Five stars.<br>Nine-hundred-plus times.</h2>
+      <p>A 5.0 average across 950+ verified reviews on Google, Yellow Pages, Angi, and Nextdoor. An A+ with the BBB.</p>
+    </div>
+
+    <div class="stats reveal" style="margin-bottom: var(--sp-xl)">
+      <div class="stat"><b data-count="24" data-years>24</b><div class="label">Years in business</div></div>
+      <div class="stat"><b><span data-count="950">0</span><span class="accent">+</span></b><div class="label">Five-star reviews</div></div>
+      <div class="stat"><b><span data-count="5" data-dec="1">0</span><span class="accent">★</span></b><div class="label">Average rating</div></div>
+      <div class="stat"><b><span data-count="6">0</span><span class="accent">×</span></b><div class="label">Best of Denton '20–'25</div></div>
+    </div>
+
+    <div class="award-plaque reveal">
+      <div class="award-photo">
+        <img src="assets/img/team.jpg" alt="The Samuel's Tree Service team accepting a Best of Denton award" loading="lazy">
+      </div>
+      <div class="award-achievements"><div class="achieve"><h4>Best of Denton</h4><span>6 years running, 2020–2025</span></div><div class="achieve"><h4>ISA Certified</h4><span>Arborist on staff</span></div><div class="achieve"><h4>Licensed & Insured</h4><span>Full coverage, always</span></div><div class="achieve"><h4>BBB A+</h4><span>Better Business Bureau</span></div></div>
+    </div>
+
+    <!-- LIVE-WIDGET SLOT: To replace the summary with a live Google Reviews
+         feed, sign up for an Elfsight, Trustindex, or Featurable widget for
+         Samuel's Tree Service and paste their embed script inside this div,
+         replacing the .g-summary block below. -->
+    <div class="g-summary reveal">
+      <span class="g-logo" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      <div class="g-rating-wrap">
+        <b class="g-rating">5.0 <span class="g-star" aria-hidden="true">★</span></b>
+        <span class="g-count">Based on <b>950+</b> verified Google reviews</span>
+      </div>
+      <div class="g-summary-cta">
+        <a class="btn btn-primary" href="https://g.co/kgs/Qwg9jkr" target="_blank" rel="noopener">Read all reviews on Google <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <span class="g-verified">✓ Live Google Business Profile</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="review-track-wrap reveal" aria-label="Customer reviews carousel">
+    <div class="review-track" data-review-track>
+      <div class="review-track-inner"><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">RB</span>
+        <div class="gr-who"><b>Roger B.</b><span>Yellow Pages · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>They were GREAT! 5 stars is the most that I can give them here… they earned twice that! Every last one of them was on time, quick, efficient, professional, helpful, very friendly and very, very polite. The owner is not the kind of guy that sits back and let the crew do the work — he was in the middle of it, in the bucket, running the chain saw. They were half the cost of the other companies that quoted the job. Worth EVERY PENNY. The BEST investment I've made into my house.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">JN</span>
+        <div class="gr-who"><b>Jeff N.</b><span>Birdeye Google review</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>Once again they did an outstanding job. On time, efficient, safe work and a complete cleanup when they were finished. I will definitely use them again.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">BH</span>
+        <div class="gr-who"><b>Bruce H.</b><span>Denton, TX · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>This is the 4th time we have used Samuel's Tree Service and it has always been excellent!</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">BW</span>
+        <div class="gr-who"><b>Bobby W.</b><span>Denton, TX · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>It was very easy — we contacted y'all and you guys sent someone out the next day. I would definitely recommend giving Samuel's a call.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">SM</span>
+        <div class="gr-who"><b>Stacy M.</b><span>Denton, TX · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>It was a great experience and they cleaned up everything. I wouldn't recommend anyone other than Samuel's Tree Service.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">DR</span>
+        <div class="gr-who"><b>Debra R.</b><span>Google review</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>We had a great experience with Samuel's Tree Service. They came out on time, did the job efficiently and left our yard neat and tidy.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">CN</span>
+        <div class="gr-who"><b>Carolyn N.</b><span>Google review</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>A very good experience. I highly recommend Samuel's Tree Service. They are prompt and efficient.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">CG</span>
+        <div class="gr-who"><b>Carlo G.</b><span>Denton, TX · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>The service and the people were wonderful to work with and I highly recommend them.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">RS</span>
+        <div class="gr-who"><b>Raleigh S.</b><span>Denton, TX · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>The good thing about Samuel's is that they listen to what you say and they do it right.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">J</span>
+        <div class="gr-who"><b>Jay</b><span>Denton, TX · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>It was great, they got me scheduled quick, the work was done great, the yard was cleaned up and it was perfect.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">LR</span>
+        <div class="gr-who"><b>Lucy R.</b><span>Yellow Pages · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>They came out and trimmed a few trees for us and we love the work. Thank you.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">AC</span>
+        <div class="gr-who"><b>Angi Customer</b><span>Angi · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>The efficiency of the service is not the only reason to rate this company beyond 5 stars. It was the professionalism and the PERSONALITY of the man behind the service. Simply the best businessman I have ever had the pleasure of doing business with.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">AC</span>
+        <div class="gr-who"><b>Angi Customer</b><span>Angi · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>Excellent service, efficient, and left my property cleaner than when they showed up. Great group of guys! Very professional — definitely recommend to anyone!</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">NN</span>
+        <div class="gr-who"><b>Nextdoor Neighbor</b><span>Nextdoor · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>Totally professional. The young men were very courteous and polite. Best customer service! I would highly recommend them if you need tree service of any kind.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">RB</span>
+        <div class="gr-who"><b>Roger B.</b><span>Yellow Pages · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>They were GREAT! 5 stars is the most that I can give them here… they earned twice that! Every last one of them was on time, quick, efficient, professional, helpful, very friendly and very, very polite. The owner is not the kind of guy that sits back and let the crew do the work — he was in the middle of it, in the bucket, running the chain saw. They were half the cost of the other companies that quoted the job. Worth EVERY PENNY. The BEST investment I've made into my house.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">JN</span>
+        <div class="gr-who"><b>Jeff N.</b><span>Birdeye Google review</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>Once again they did an outstanding job. On time, efficient, safe work and a complete cleanup when they were finished. I will definitely use them again.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">BH</span>
+        <div class="gr-who"><b>Bruce H.</b><span>Denton, TX · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>This is the 4th time we have used Samuel's Tree Service and it has always been excellent!</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">BW</span>
+        <div class="gr-who"><b>Bobby W.</b><span>Denton, TX · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>It was very easy — we contacted y'all and you guys sent someone out the next day. I would definitely recommend giving Samuel's a call.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">SM</span>
+        <div class="gr-who"><b>Stacy M.</b><span>Denton, TX · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>It was a great experience and they cleaned up everything. I wouldn't recommend anyone other than Samuel's Tree Service.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">DR</span>
+        <div class="gr-who"><b>Debra R.</b><span>Google review</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>We had a great experience with Samuel's Tree Service. They came out on time, did the job efficiently and left our yard neat and tidy.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">CN</span>
+        <div class="gr-who"><b>Carolyn N.</b><span>Google review</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>A very good experience. I highly recommend Samuel's Tree Service. They are prompt and efficient.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">CG</span>
+        <div class="gr-who"><b>Carlo G.</b><span>Denton, TX · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>The service and the people were wonderful to work with and I highly recommend them.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">RS</span>
+        <div class="gr-who"><b>Raleigh S.</b><span>Denton, TX · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>The good thing about Samuel's is that they listen to what you say and they do it right.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">J</span>
+        <div class="gr-who"><b>Jay</b><span>Denton, TX · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>It was great, they got me scheduled quick, the work was done great, the yard was cleaned up and it was perfect.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">LR</span>
+        <div class="gr-who"><b>Lucy R.</b><span>Yellow Pages · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>They came out and trimmed a few trees for us and we love the work. Thank you.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">AC</span>
+        <div class="gr-who"><b>Angi Customer</b><span>Angi · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>The efficiency of the service is not the only reason to rate this company beyond 5 stars. It was the professionalism and the PERSONALITY of the man behind the service. Simply the best businessman I have ever had the pleasure of doing business with.</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">AC</span>
+        <div class="gr-who"><b>Angi Customer</b><span>Angi · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>Excellent service, efficient, and left my property cleaner than when they showed up. Great group of guys! Very professional — definitely recommend to anyone!</p>
+    </article><article class="g-review">
+      <div class="gr-head">
+        <span class="gr-av" aria-hidden="true">NN</span>
+        <div class="gr-who"><b>Nextdoor Neighbor</b><span>Nextdoor · Verified</span></div>
+        <span class="gr-g" aria-label="Verified review"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/></svg></span>
+      </div>
+      <div class="gr-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>Totally professional. The young men were very courteous and polite. Best customer service! I would highly recommend them if you need tree service of any kind.</p>
+    </article></div>
+    </div>
+    <div class="review-track-fade left"></div>
+    <div class="review-track-fade right"></div>
+  </div>
+  <div class="wrap"><div class="next-step reveal"><div class="ns-line"></div><a href="#services"><small>Next</small>See how we work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div></div>
+</section>
+
+</body>
+</html>

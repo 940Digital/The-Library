@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services — Brick by Brick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body, -apple-system, BlinkMacSystemFont, system-ui, sans-serif);
+    background: #f3ead8;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  /* ---- Color: sourced directly from Scott's real logo/business card ---- */
+  --color-charcoal: #241c17;        /* base dark surface — dark asphalt-shingle charcoal */
+  --color-charcoal-light: #332a23;  /* raised surface on dark sections (cards, nav) */
+  --color-charcoal-line: #4a3f36;   /* hairline borders on dark surfaces */
+
+  --color-kraft: #f3ead8;       /* base light surface — kraft-paper tone from the card stock */
+  --color-kraft-dim: #e6d6b3;   /* raised/bordered surface on light sections */
+  --color-ink: #241a10;           /* body text on light surfaces — warm near-black, not pure #000 */
+
+  --color-brick: #f16f24;     /* primary + CTA accent — sampled directly from the logo icon */
+  --color-brick-dark: #c1591d;/* hover/active state for brick orange */
+
+  --color-steel: #5f6a72;          /* secondary accent — standing-seam metal roofing gray */
+  --color-steel-dark: #454d54;
+
+  --color-kraft-mute: #a8987e;          /* muted support — dividers, secondary text on dark */
+
+  --color-white: #fbf7ee;
+
+  /* ---- Type: paired for structural gravity + everyday readability ---- */
+  --font-display: 'Arvo', Georgia, 'Times New Roman', serif;
+  --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  --fs-display-xl: clamp(2.75rem, 3.2vw + 2rem, 5.5rem);
+  --fs-display-lg: clamp(2.1rem, 2vw + 1.5rem, 3.25rem);
+  --fs-headline: clamp(1.5rem, 1vw + 1.25rem, 2rem);
+  --fs-title: 1.3125rem;
+  --fs-body-lg: 1.125rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-label: 0.8125rem;
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.35;
+  --lh-body: 1.6;
+
+  /* ---- Spacing: 4px grid, no off-grid values anywhere ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ---- Shape: small chamfered radius, not the rounded-SaaS default ---- */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+
+  /* ---- Elevation: warm-tinted shadows, never neutral black ---- */
+  --shadow-sm: 0 1px 2px rgba(20, 24, 18, 0.28);
+  --shadow-md: 0 8px 24px rgba(20, 24, 18, 0.32);
+  --shadow-lg: 0 20px 48px rgba(20, 24, 18, 0.38);
+
+  /* ---- Layout ---- */
+  --content-max: 1220px;
+  --content-pad: clamp(1.25rem, 4vw, 3rem);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1); /* overshoots past 1 then settles — the "pop" */
+  --dur-fast: 180ms;
+  --dur-med: 420ms;
+  --dur-slow: 800ms;
+}
+
+.wrap {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--content-pad);
+}
+
+.section {
+  position: relative;
+  z-index: 1;
+  padding-block: var(--space-24);
+  border-bottom: 1px solid transparent;
+}
+
+.section--dark .eyebrow {
+  color: var(--color-brick);
+}
+
+.section-head {
+  margin-bottom: var(--space-12);
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brick);
+  margin-bottom: var(--space-4);
+}
+
+h2.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-lg);
+  line-height: var(--lh-tight);
+  font-weight: 700;
+}
+
+.section-dek {
+  margin-top: var(--space-4);
+  font-size: var(--fs-body-lg);
+  color: var(--color-steel);
+  max-width: 38rem;
+}
+
+.section--dark .section-dek {
+  color: var(--color-kraft-mute);
+}
+
+.section-dek a {
+  color: var(--color-brick);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.section-dek a:hover {
+  text-decoration: underline;
+}
+
+.legal-content h2.section-title {
+  margin-top: var(--space-12);
+  font-size: var(--fs-headline);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--color-brick);
+  color: var(--color-white);
+}
+
+.btn--primary:hover {
+  background: var(--color-brick-dark);
+}
+
+.section--light .btn--ghost:hover,
+.btn--ghost.on-light:hover {
+  background: rgba(30, 43, 34, 0.06);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 640px) {
+.nav-cta .btn--primary {
+    display: none;
+  }
+}
+
+.services-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.service-feature {
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--color-charcoal);
+  color: var(--color-kraft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+@media (min-width: 700px) {
+.service-feature {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}
+
+.service-feature__media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+@media (min-width: 700px) {
+.service-feature__media {
+    aspect-ratio: auto;
+  }
+}
+
+.service-feature__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.service-feature__body {
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+.service-feature__tag {
+  display: inline-block;
+  font-weight: 600;
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-brick);
+}
+
+.service-feature__body h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-lg);
+  font-weight: 700;
+}
+
+.service-feature__body p {
+  color: var(--color-kraft-mute);
+  font-size: var(--fs-body-lg);
+  max-width: 36ch;
+}
+
+.service-feature__list {
+  margin-top: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-charcoal-line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.service-feature__list li {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--color-charcoal);
+  background: var(--color-brick);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+}
+
+.services-grid-compact {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.services-grid-compact > :last-child {
+  grid-column: auto;
+}
+
+@media (min-width: 560px) {
+.services-grid-compact {
+    grid-template-columns: repeat(3, 1fr);
+  }
+.services-grid-compact > :last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 900px) {
+.services-grid-compact {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.service-chip {
+  background: var(--color-white);
+  border: 1px solid var(--color-kraft-dim);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.service-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.service-chip__icon {
+  color: var(--color-brick);
+  width: 28px;
+  height: 28px;
+}
+
+.service-chip__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.service-chip h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-charcoal);
+  margin: 0;
+}
+
+.service-chip p {
+  color: var(--color-steel);
+  font-size: var(--fs-small);
+  margin: 0;
+}
+
+.site-footer .wrap {
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.service-card__link {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--color-brick);
+}
+
+/* --- library override: this file has no page JS, so force any
+   scroll/load-triggered reveal state to its visible end-state instead of
+   sitting at its JS-driven opacity:0 starting state. The target site's own
+   script still drives the real animation once this is pulled in. --- */
+.hero-line, .hero__dek, .hero__actions,
+[data-reveal], .reveal, .lift, .fade-up,
+.tier, .package, .service-feature, .stat {
+  opacity: 1 !important;
+  transform: none !important;
+}
+</style>
+</head>
+<body class="no-js">
+<section class="section section--light" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">What We Do</span>
+        <h2 class="section-title">A full range of exterior work.</h2>
+        <p class="section-dek">From roof replacements to gutters, painting, masonry, and more — we handle it start to finish.</p>
+      </div>
+
+      <div class="services-layout">
+
+        <article class="service-feature">
+          <div class="service-feature__media">
+            <img src="images/service-roofing-finished.jpg" alt="Finished farmhouse-style home with dark asphalt shingle roof and matching standing-seam metal porch roof, a completed Brick by Brick project" loading="lazy">
+          </div>
+          <div class="service-feature__body">
+            <span class="service-feature__tag">Our Specialty</span>
+            <h3>Roofing</h3>
+            <p>New roofs, storm repair, and re-roofs in asphalt shingle, standing-seam metal, or stone coated steel — installed and inspected by the same crew, every time.</p>
+            <ul class="service-feature__list">
+              <li>Asphalt shingle</li>
+              <li>Standing-seam metal</li>
+              <li>Stone coated steel</li>
+              <li>Storm &amp; hail repair</li>
+            </ul>
+            <a href="/roofing" class="service-card__link">See our full roofing page &rarr;</a>
+          </div>
+        </article>
+
+        <div class="services-grid-compact">
+
+          <a href="/gutters" class="service-chip">
+            <div class="service-chip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5 H15"/><path d="M3 8 H15"/><path d="M15 5 V8"/><path d="M9 8 Q9 11 5 12 V21"/></svg>
+            </div>
+            <h4>Gutters</h4>
+            <p>Downspouts &amp; screens</p>
+          </a>
+
+          <a href="/windows" class="service-chip">
+            <div class="service-chip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M12 4 V20"/><path d="M4 12 H20"/></svg>
+            </div>
+            <h4>Windows</h4>
+            <p>Screens &amp; skylights</p>
+          </a>
+
+          <a href="/painting" class="service-chip">
+            <div class="service-chip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="miter"><rect x="4" y="3" width="12" height="5" rx="2.5"/><path d="M12 21 V15 L7 11 V8"/></svg>
+            </div>
+            <h4>Painting</h4>
+            <p>Interior &amp; exterior</p>
+          </a>
+
+          <a href="/chimneys" class="service-chip">
+            <div class="service-chip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18 L10 11"/><path d="M10 11 V6 H14 V11"/><path d="M9 6 H15"/><path d="M10 11 L18 18"/></svg>
+            </div>
+            <h4>Chimneys</h4>
+            <p>Caps &amp; flashing</p>
+          </a>
+
+          <a href="/fencing" class="service-chip">
+            <div class="service-chip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 V9 L6 6 L8 9 V20"/><path d="M10.5 20 V9 L12.5 6 L14.5 9 V20"/><path d="M17 20 V9 L19 6 L21 9 V20"/><path d="M2 13 H22"/><path d="M2 17 H22"/></svg>
+            </div>
+            <h4>Fencing</h4>
+            <p>Power washing &amp; staining</p>
+          </a>
+
+          <a href="/garage-doors" class="service-chip">
+            <div class="service-chip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="1"/><path d="M4 9.5 H20 M4 14 H20 M4 18.5 H20"/></svg>
+            </div>
+            <h4>Garage Doors</h4>
+            <p>Repair &amp; replacement</p>
+          </a>
+
+          <a href="/masonry" class="service-chip">
+            <div class="service-chip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9.3 H21 M3 14.7 H21"/><path d="M9 4 V9.3 M15 4 V9.3"/><path d="M6 9.3 V14.7 M12 9.3 V14.7 M18 9.3 V14.7"/><path d="M9 14.7 V20 M15 14.7 V20"/></svg>
+            </div>
+            <h4>Masonry</h4>
+            <p>Brick &amp; stonework</p>
+          </a>
+
+          <a href="/tree-trimming" class="service-chip">
+            <div class="service-chip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L17 10 H14 L18 16 H6 L10 10 H7 Z"/><path d="M12 16 V21"/></svg>
+            </div>
+            <h4>Tree Trimming</h4>
+            <p>Pruning &amp; removal</p>
+          </a>
+
+          <a href="/metal-work" class="service-chip">
+            <div class="service-chip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 H18"/><path d="M6 20 H18"/><path d="M12 4 V20"/></svg>
+            </div>
+            <h4>Metal Work</h4>
+            <p>Carports &amp; steel framing</p>
+          </a>
+
+          <a href="/siding" class="service-chip">
+            <div class="service-chip__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4 H21"/><path d="M3 9 H21"/><path d="M3 14 H21"/><path d="M3 19 H21"/></svg>
+            </div>
+            <h4>Siding</h4>
+            <p>Vinyl, Hardie &amp; LP SmartSide</p>
+          </a>
+
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-10);">
+        <a href="/services" class="btn btn--primary">See Every Service in Detail</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

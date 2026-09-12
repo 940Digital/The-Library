@@ -1,0 +1,25 @@
+{
+  "id": "0008",
+  "number": 8,
+  "name": "Full-bleed hero with animated line-by-line headline and live open/closed status",
+  "website": "Samuel's Tree Service",
+  "websiteUrl": "https://samuels-tree-service.vercel.app/",
+  "sourceProject": "samuels-tree-service",
+  "type": "hero",
+  "emotions": ["bold", "seasoned", "confident", "action-oriented"],
+  "features": [
+    "full-bleed-background-image",
+    "video-background-ready",
+    "staggered-text-reveal",
+    "review-count-chip",
+    "live-open-closed-status",
+    "inline-svg-icons",
+    "dual-cta-buttons",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "dark",
+  "fonts": ["Fraunces", "Space Grotesk"],
+  "dateAdded": "2026-09-12",
+  "file": "section.html",
+  "notes": "Three one-word headline lines ('Climbed.' 'Cut.' 'Cleared.') each animate in on their own line — punchy rhythm pattern worth reusing for trades with a clear step-by-step process. Has a commented-out slot for swapping the still image for a looping background video once the client supplies footage. data-status/data-status-text hooks are for a live business-hours widget (JS not included, static fallback text shown as-is)."
+}

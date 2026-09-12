@@ -1,0 +1,25 @@
+{
+  "id": "0001",
+  "number": 1,
+  "name": "Full-bleed roofing hero, parallax image + staggered headline",
+  "website": "Brick by Brick General Contracting",
+  "websiteUrl": "https://brick-by-brick-contracting.vercel.app/",
+  "sourceProject": "brick-by-brick-contracting",
+  "type": "hero",
+  "emotions": ["rugged", "trustworthy", "bold", "accountable", "warm"],
+  "features": [
+    "full-bleed-background-image",
+    "parallax-image",
+    "gradient-overlay",
+    "staggered-text-reveal",
+    "eyebrow-label",
+    "dual-cta-buttons",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "dark",
+  "palette": ["#241c17", "#f16f24", "#f3ead8", "#5f6a72"],
+  "fonts": ["Arvo", "Work Sans"],
+  "dateAdded": "2026-09-12",
+  "file": "section.html",
+  "notes": "Fixed-position hero image creates a parallax effect as the page scrolls under it (JS toggles .is-past once scrolled out of the viewport — not included here, degrades gracefully to a static bg). Headline lines and CTAs fade/slide in via .intro-in class added on load; .no-js fallback keeps everything visible with no JS. Image path is a placeholder — swap in your own asset."
+}

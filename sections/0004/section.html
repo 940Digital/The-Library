@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — Lilylynne Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..500,0..100,0..1&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body, -apple-system, BlinkMacSystemFont, system-ui, sans-serif);
+    background: #2c2620;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  /* Surfaces — warm, light, paper-like */
+  --ivory:        #FBF8F4;
+  --cream:        #F3EDE4;
+  --blush-wash:   #F7EAE6;
+  --sage-wash:    #EDF0EA;
+  --paper:        #FFFDFB;
+
+  /* Ink */
+  --ink:          #332E29;
+  --ink-soft:     #645B52;
+  --ink-faint:    #9A8F84;
+
+  /* Floral accents */
+  --rose:         #8E5F63;   /* dusty rose — AA on every surface above */
+  --rose-lite:    #C9A2A2;   /* decorative strokes only */
+  --sage-deep:    #55634F;
+  --sage:         #A3B29A;   /* decorative strokes only */
+  --peach:        #E8CDBE;
+  --lavender:     #E2DAE6;
+
+  /* Lines */
+  --hairline:     rgba(142, 95, 99, 0.20);
+  --hairline-soft:rgba(51, 46, 41, 0.10);
+
+  /* Type */
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-body:    "Jost", "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --fs-display: clamp(2.6rem, 6.4vw, 5.6rem);
+  --fs-h1:      clamp(2.5rem, 5.2vw, 4.4rem);
+  --fs-h2:      clamp(2rem, 3.6vw, 3.15rem);
+  --fs-h3:      clamp(1.35rem, 1.9vw, 1.72rem);
+  --fs-lead:    clamp(1.06rem, 1.28vw, 1.24rem);
+  --fs-body:    clamp(1rem, 1.05vw, 1.06rem);
+  --fs-small:   0.875rem;
+  --fs-label:   0.72rem;
+
+  /* Spacing scale */
+  --s-1:  0.25rem;
+  --s-2:  0.5rem;
+  --s-3:  0.75rem;
+  --s-4:  1rem;
+  --s-5:  1.5rem;
+  --s-6:  2rem;
+  --s-7:  3rem;
+  --s-8:  4rem;
+  --s-9:  6rem;
+  --s-10: 8rem;
+
+  --section-y:  clamp(5rem, 10vw, 10rem);
+  --gutter:     clamp(1.35rem, 5vw, 4.5rem);
+  --measure:    62ch;
+  --max:        1400px;
+  --max-narrow: 940px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease:     cubic-bezier(0.4, 0, 0.2, 1);
+  --dur:      0.6s;
+  --dur-slow: 0.95s;
+
+  /* Shape */
+  --r-soft: 3px;
+  --r-arch: 999px 999px var(--r-soft) var(--r-soft);
+}
+
+.display, h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-variation-settings: "SOFT" 60, "WONK" 1;
+  color: var(--ink);
+  line-height: 1.08;
+  letter-spacing: -0.014em;
+  text-wrap: balance;
+}
+
+.display { font-size: var(--fs-display); }
+
+em, .italic {
+  font-style: italic;
+  font-variation-settings: "SOFT" 80, "WONK" 1;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--rose);
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  margin: 0 0 var(--s-5);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 2.2rem;
+  height: 1px;
+  background: var(--hairline);
+  flex: none;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.85;
+  color: var(--ink-soft);
+  max-width: var(--measure);
+}
+
+.section-head--center .lead { margin-inline: auto; }
+
+.botanical {
+  color: var(--rose-lite);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bloom-mark {
+  width: 1.05em;
+  height: 1.05em;
+  flex: none;
+}
+
+.btn {
+  --btn-bg: var(--rose);
+  --btn-fg: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75em;
+  padding: 1.05em 2.3em;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  line-height: 1;
+  border: 1px solid var(--btn-bg);
+  border-radius: 999px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition:
+    background-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.btn:hover {
+  background: #7B5054;
+  border-color: #7B5054;
+  transform: translateY(-2px);
+}
+
+.btn:active { transform: translateY(0); }
+
+.btn .bloom-mark {
+  width: 1.35em; height: 1.35em;
+  opacity: 0.75;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.btn:hover .bloom-mark { transform: rotate(72deg); }
+
+.link-quiet {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65em;
+  font-size: var(--fs-label);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding-block: 0.55em 0.45em;
+  border-bottom: 1px solid var(--hairline);
+  transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+}
+
+.link-quiet:hover { color: var(--rose); border-color: var(--rose); }
+
+.link-quiet .bloom-mark { width: 1.3em; height: 1.3em; color: var(--rose-lite); transition: transform var(--dur-slow) var(--ease-out); }
+
+.link-quiet:hover .bloom-mark { transform: rotate(72deg); color: var(--rose); }
+
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
+  align-items: stretch;
+  min-height: min(100svh, 900px);
+  background: var(--ivory);
+  overflow: hidden;
+}
+
+.hero__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(8rem, 14vh, 11rem) clamp(1.35rem, 5vw, 5rem) clamp(4rem, 8vh, 6rem) var(--gutter);
+  position: relative;
+  z-index: 2;
+}
+
+.hero__title {
+  font-size: var(--fs-display);
+  margin-bottom: var(--s-5);
+}
+
+.hero__title .italic { color: var(--rose); }
+
+.hero__lead {
+  max-width: 34ch;
+  margin-bottom: var(--s-7);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-5) var(--s-6);
+}
+
+.hero__media {
+  position: relative;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform: translateX(-100%);
+  transition: transform 1.4s var(--ease-out);
+}
+
+.hero__slide.is-active { transform: translateX(0); }
+
+.hero__slide.is-resetting { transition: none; }
+
+.hero__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 32%;
+}
+
+.hero__slide:first-child img {
+  object-position: 52% 34%;
+  animation: hero-settle 2.4s var(--ease-out) both;
+}
+
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 42%;
+  /* Above every .hero__slide — JS assigns each incoming slide its own
+     ever-increasing z-index so the covering order is always correct, so
+     this needs enough headroom to stay on top for the entire session. */
+  z-index: 1000;
+  /* Eased, wide fade rather than a flat two-stop ramp — a straight linear
+     alpha fade reads as a visible edge over a bright, busy photo. Stops are
+     --ivory's RGB (251 248 244) at decreasing alpha so the curve holds
+     opacity longer near the page, then tapers slowly into the photo. */
+  background: linear-gradient(
+    to right,
+    rgba(251,248,244,1)    0%,
+    rgba(251,248,244,0.75) 22%,
+    rgba(251,248,244,0.45) 46%,
+    rgba(251,248,244,0.18) 70%,
+    rgba(251,248,244,0)    100%
+  );
+  pointer-events: none;
+}
+
+.hero__spray {
+  position: absolute;
+  left: calc(var(--gutter) * -0.7);
+  bottom: 4%;
+  width: clamp(90px, 11vw, 165px);
+  height: auto;
+  opacity: 0.45;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.page-hero__inner .eyebrow { color: rgba(255,255,255,0.92); }
+
+.page-hero__inner .eyebrow::before,
+.page-hero__inner .eyebrow::after { background: rgba(255,255,255,0.55); }
+
+.page-hero__inner .lead { color: rgba(255,255,255,0.92); max-width: 46ch; }
+
+.btn[data-state="sending"] { pointer-events: none; opacity: 0.72; }
+
+.form__status .bloom-mark { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; flex: none; }
+
+.footer__divider .bloom-mark { width: 1.9rem; height: 1.9rem; }
+
+@media (max-width: 900px) {
+.hero {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+.hero__media { order: -1; aspect-ratio: 4 / 5; }
+.hero__media::after {
+    inset: auto 0 0 0;
+    width: auto;
+    height: 34%;
+    background: linear-gradient(
+      to top,
+      rgba(251,248,244,1)    0%,
+      rgba(251,248,244,0.75) 22%,
+      rgba(251,248,244,0.45) 46%,
+      rgba(251,248,244,0.18) 70%,
+      rgba(251,248,244,0)    100%
+    );
+  }
+.hero__copy {
+    padding: clamp(2.5rem, 7vw, 4rem) var(--gutter) clamp(3.5rem, 8vw, 5rem);
+    text-align: left;
+  }
+.hero__lead { max-width: 46ch; }
+.hero__spray { left: auto; right: calc(var(--gutter) * -0.4); bottom: 2%; }
+}
+
+@media (max-width: 560px) {
+.hero__actions { gap: var(--s-4); }
+.hero__actions .btn { width: 100%; justify-content: center; }
+.form__foot .btn { width: 100%; justify-content: center; }
+}
+
+@media print {
+.nav, .float-botanical, .btn { display: none !important; }
+}
+
+@keyframes hero-settle {
+  from { transform: scale(1.07); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+/* --- library override: this file has no page JS, so force any
+   scroll/load-triggered reveal state to its visible end-state instead of
+   sitting at its JS-driven opacity:0 starting state. The target site's own
+   script still drives the real animation once this is pulled in. --- */
+.hero-line, .hero__dek, .hero__actions,
+[data-reveal], .reveal, .lift, .fade-up,
+.tier, .package, .service-feature, .stat {
+  opacity: 1 !important;
+  transform: none !important;
+}
+</style>
+</head>
+<body class="no-js">
+<section class="hero" aria-label="Introduction">
+    <div class="hero__copy">
+      <p class="eyebrow">Denton, Texas</p>
+      <h1 class="display hero__title">Made From Golden Light And <span class="italic">Wildflowers</span>.</h1>
+      <p class="lead hero__lead">I&rsquo;m Piper Vaughan. I love photographing families and friends, capturing smiles that are genuine and joyful.</p>
+      <div class="hero__actions">
+        <a class="btn" href="/contact">
+          Book a Session
+          <svg class="botanical bloom-mark" aria-hidden="true"><use href="#bot-bloom"/></svg>
+        </a>
+        <a class="link-quiet" href="#work">See the work</a>
+      </div>
+      <svg class="botanical hero__spray" viewBox="0 0 130 212" aria-hidden="true"><use href="#bot-spray"/></svg>
+    </div>
+
+    <div class="hero__media" id="heroCarousel">
+      <div class="hero__slide is-active">
+        <picture>
+          <source type="image/webp"
+            srcset="assets/opt/hero-wildflowers-640.webp 640w, assets/opt/hero-wildflowers-960.webp 960w, assets/opt/hero-wildflowers-1400.webp 1400w, assets/opt/hero-wildflowers-1466.webp 1466w"
+            sizes="(max-width: 900px) 100vw, 52vw">
+          <img src="assets/opt/hero-wildflowers-1466.jpg" width="1466" height="2200" fetchpriority="high" decoding="async"
+            alt="A high school senior in a blue floral dress kneeling in a field of orange Indian paintbrush at golden hour.">
+        </picture>
+      </div>
+      <div class="hero__slide">
+        <picture>
+          <source type="image/webp"
+            srcset="assets/opt/couple-kiss-1-480.webp 480w, assets/opt/couple-kiss-1-800.webp 800w, assets/opt/couple-kiss-1-1200.webp 1200w, assets/opt/couple-kiss-1-1365.webp 1365w"
+            sizes="(max-width: 900px) 100vw, 52vw">
+          <img src="assets/opt/couple-kiss-1-1365.jpg" width="1365" height="2048" decoding="async"
+            alt="A couple kissing in a grass field under a clear blue sky.">
+        </picture>
+      </div>
+      <div class="hero__slide">
+        <picture>
+          <source type="image/webp"
+            srcset="assets/opt/senior-golden-2-480.webp 480w, assets/opt/senior-golden-2-800.webp 800w, assets/opt/senior-golden-2-933.webp 933w"
+            sizes="(max-width: 900px) 100vw, 52vw">
+          <img src="assets/opt/senior-golden-2-933.jpg" width="933" height="1400" decoding="async"
+            alt="A senior laughing with her hand at her neck, backlit by golden hour sun.">
+        </picture>
+      </div>
+      <div class="hero__slide">
+        <picture>
+          <source type="image/webp"
+            srcset="assets/opt/senior-bridge-1-480.webp 480w, assets/opt/senior-bridge-1-800.webp 800w, assets/opt/senior-bridge-1-1200.webp 1200w, assets/opt/senior-bridge-1-1365.webp 1365w"
+            sizes="(max-width: 900px) 100vw, 52vw">
+          <img src="assets/opt/senior-bridge-1-1365.jpg" width="1365" height="2048" decoding="async"
+            alt="A senior leaning against a red steel bridge railing.">
+        </picture>
+      </div>
+      <div class="hero__slide">
+        <picture>
+          <source type="image/webp"
+            srcset="assets/opt/senior-miniskirt-1-480.webp 480w, assets/opt/senior-miniskirt-1-800.webp 800w, assets/opt/senior-miniskirt-1-1200.webp 1200w, assets/opt/senior-miniskirt-1-1365.webp 1365w"
+            sizes="(max-width: 900px) 100vw, 52vw">
+          <img src="assets/opt/senior-miniskirt-1-1365.jpg" width="1365" height="2048" decoding="async"
+            alt="A senior in white boots and a denim mini skirt standing in a grass field at sunset.">
+        </picture>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

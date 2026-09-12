@@ -1,0 +1,23 @@
+{
+  "id": "0005",
+  "number": 5,
+  "name": "Segmented pricing packages by client type (tiers within categories)",
+  "website": "Lilylynne Photography",
+  "websiteUrl": "https://lilylynne-photography.vercel.app/",
+  "sourceProject": "lilylynne-photography",
+  "type": "pricing",
+  "emotions": ["elegant", "approachable", "clear", "soft"],
+  "features": [
+    "pricing-cards",
+    "grouped-tiers-per-category",
+    "centered-section-head",
+    "scroll-reveal-hooks",
+    "svg-icon-accents"
+  ],
+  "colorMode": "light",
+  "palette": ["#f6f1ea", "#2c2620", "#c98a5e"],
+  "fonts": ["Fraunces", "Jost"],
+  "dateAdded": "2026-09-12",
+  "file": "section.html",
+  "notes": "Not a single price ladder — instead groups by WHO the client is (Families, Solos & Graduates, etc.) and shows 1-2 price tiers inside each group. Good reference for service businesses whose pricing varies more by customer segment than by feature tier. data-reveal attributes hook into an intersection-observer fade-in (script not included)."
+}

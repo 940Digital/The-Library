@@ -1,0 +1,23 @@
+{
+  "id": "0011",
+  "number": 11,
+  "name": "Simple centered CTA banner with label tag and phone/book buttons",
+  "website": "Gunnar Galvan Mobile Detailing",
+  "websiteUrl": "https://gunnar-galvan.vercel.app/",
+  "sourceProject": "gunnar-galvan",
+  "type": "cta",
+  "emotions": ["confident", "premium", "direct"],
+  "features": [
+    "centered-layout",
+    "label-tag",
+    "fade-up-on-scroll-hooks",
+    "dual-cta-buttons",
+    "phone-tel-link",
+    "inline-svg-icon"
+  ],
+  "colorMode": "dark",
+  "fonts": ["Inter"],
+  "dateAdded": "2026-09-12",
+  "file": "section.html",
+  "notes": "Same job as 0007 (Denton Fence CTA) but with a small uppercase label-tag above the headline and .fade-up scroll-reveal hooks — compare the two side by side for 'plain trade CTA' vs 'polished premium-service CTA' at nearly the same structure."
+}

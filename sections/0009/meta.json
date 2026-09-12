@@ -1,0 +1,23 @@
+{
+  "id": "0009",
+  "number": 9,
+  "name": "Combined proof section: animated stat row + award plaque + Google rating summary",
+  "website": "Samuel's Tree Service",
+  "websiteUrl": "https://samuels-tree-service.vercel.app/",
+  "sourceProject": "samuels-tree-service",
+  "type": "testimonials",
+  "emotions": ["credible", "established", "reassuring", "authoritative"],
+  "features": [
+    "animated-counter-hooks",
+    "award-plaque-with-photo",
+    "achievement-list",
+    "google-rating-summary",
+    "scroll-reveal-hooks",
+    "live-widget-slot-comment"
+  ],
+  "colorMode": "light",
+  "fonts": ["Fraunces", "Space Grotesk"],
+  "dateAdded": "2026-09-12",
+  "file": "section.html",
+  "notes": "Stacks three proof devices in one section instead of spreading them thin: a stat row (years/reviews/rating/awards, count-up-on-scroll hooks via data-count), a photographed award plaque with a bulleted achievement list, and a Google-rating summary block (real G logo SVG inlined) with an HTML comment marking where to drop in a live Elfsight/Trustindex/Featurable review-widget embed later. Heaviest file in the library — good candidate to split back into 2-3 smaller sections if only one device is needed."
+}

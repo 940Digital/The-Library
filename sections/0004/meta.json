@@ -1,0 +1,24 @@
+{
+  "id": "0004",
+  "number": 4,
+  "name": "Split hero with rotating slide gallery and botanical line-art accents",
+  "website": "Lilylynne Photography",
+  "websiteUrl": "https://lilylynne-photography.vercel.app/",
+  "sourceProject": "lilylynne-photography",
+  "type": "hero",
+  "emotions": ["elegant", "soft", "romantic", "personal", "airy"],
+  "features": [
+    "split-layout",
+    "hero-carousel",
+    "responsive-picture-srcset",
+    "svg-line-art-accents",
+    "italic-word-emphasis",
+    "primary-plus-quiet-link-ctas"
+  ],
+  "colorMode": "light",
+  "palette": ["#f6f1ea", "#2c2620", "#c98a5e"],
+  "fonts": ["Fraunces", "Jost"],
+  "dateAdded": "2026-09-12",
+  "file": "section.html",
+  "notes": "Copy sits left, a fading slideshow of portrait-orientation photos sits right — good pattern for photographers/creatives where the images ARE the pitch. Inline SVG botanical sprigs (referenced via <use href=\"#bot-...\">) are decorative flourishes defined once in a sprite sheet elsewhere on the page; this fragment references them by id but doesn't include the sprite defs. Uses <picture>/srcset for responsive art direction."
+}
