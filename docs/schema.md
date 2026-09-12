@@ -14,7 +14,7 @@ sections/0001/
 
 ## Image placeholders
 
-Real client photos aren't kept in this library. Every section's `<img>`/`<source>` points at one of 5 shared, real stock photos in `/assets/placeholders/`, picked to roughly match what each section actually shows:
+Real client photos aren't kept in this library. Every section's `<img>`/`<source>` points at one of the shared, real stock photos in `/assets/placeholders/`, picked to roughly match what each section actually shows:
 
 | File | Subject | Used for |
 |---|---|---|
@@ -23,8 +23,11 @@ Real client photos aren't kept in this library. Every section's `<img>`/`<source
 | `nature-outdoor.jpg` | Sunlit trees | Tree service, landscaping, outdoor-trade heroes |
 | `team-work.jpg` | People outdoors, team moment | Award/proof/about sections |
 | `vehicle-car.jpg` | Glossy car close-up | Auto detailing, mobile-service heroes |
+| `brutalist-concrete.jpg` | Raw monolithic concrete building | Brutalist/industrial-register heroes |
+| `luxury-marble.jpg` | Dark marble interior, warm brass lighting | Luxury/high-end heroes |
+| `dynamic-sprint.jpg` | Sprinters bursting from starting blocks | Dynamic/high-energy heroes |
 
-When adding a section, point its images at whichever of these 5 fits best (relative path from `sections/000X/` is `../../assets/placeholders/<name>.jpg`) instead of the original site's now-broken asset path — add a 6th only if none of the 5 fit at all. Always mark it with an HTML comment (`<!-- LIBRARY PLACEHOLDER: swap for the target site's own photo -->`) so it's obvious this isn't the real content. Whoever pulls a section into a real build swaps in that site's own photo before shipping.
+When adding a section, point its images at whichever of these fits best (relative path from `sections/000X/` is `../../assets/placeholders/<name>.jpg`) instead of the original site's now-broken asset path — add a new one only if nothing existing fits the vibe at all (the first 5 are deliberately generic/reusable across many trades; the last 3 are vibe-specific, added for a specific tone rather than a specific trade). Always mark it with an HTML comment (`<!-- LIBRARY PLACEHOLDER: swap for the target site's own photo -->`) so it's obvious this isn't the real content. Whoever pulls a section into a real build swaps in that site's own photo before shipping.
 
 ## Fields
 

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — ACME Everything (Luxury)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--onyx);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  --onyx:     #14110f;   /* near-black with a warm cast, not cold gray */
+  --onyx-lift:#1d1815;
+  --ivory:    #f4ede0;
+  --ivory-dim:#cabfa9;
+  --gold:     #c8a25a;
+  --gold-dim: #8a6f3d;
+  --hairline: rgba(200, 162, 90, .28);
+
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body:    'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  color: var(--ivory);
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .hero { grid-template-columns: 1fr 1fr; }
+}
+
+.hero__media {
+  position: relative;
+  min-height: 46vh;
+}
+
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 46vh;
+  filter: saturate(1.05) contrast(1.05);
+}
+
+@media (min-width: 900px) {
+  .hero__media img { position: absolute; inset: 0; }
+}
+
+.hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20,17,15,0) 40%, rgba(20,17,15,.85) 100%);
+}
+
+@media (min-width: 900px) {
+  .hero__media::after {
+    background: linear-gradient(90deg, transparent 55%, var(--onyx) 100%);
+  }
+}
+
+.hero__copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.7rem;
+  padding: clamp(2.5rem, 6vw, 5rem);
+  background: var(--onyx);
+}
+
+.hero__mark {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+}
+
+.hero__mark-ring {
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--gold);
+}
+
+.hero__mark-word {
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-size: .72rem;
+  color: var(--ivory-dim);
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-body);
+  font-size: .74rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.hero__eyebrow::after {
+  content: '';
+  flex: 1;
+  max-width: 4rem;
+  height: 1px;
+  background: var(--hairline);
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.75rem, 3.6vw + 1.5rem, 4.75rem);
+  line-height: 1.05;
+  letter-spacing: .003em;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.hero__dek {
+  max-width: 40ch;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  font-weight: 300;
+  color: var(--ivory-dim);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.75rem;
+  margin-top: .5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: .78rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 1rem 2.1rem;
+  text-decoration: none;
+  border: 1px solid var(--gold);
+  color: var(--ivory);
+  transition: background-color .25s ease, color .25s ease;
+}
+
+.btn--primary {
+  background: var(--gold);
+  color: var(--onyx);
+  border-color: var(--gold);
+}
+
+.btn--primary:hover {
+  background: transparent;
+  color: var(--gold);
+}
+
+.btn--quiet {
+  border-color: transparent;
+  padding-left: 0;
+  padding-right: 0;
+  color: var(--ivory-dim);
+}
+
+.btn--quiet:hover {
+  color: var(--gold);
+}
+
+.hero__footnote {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.hero__footnote div {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: .95rem;
+  color: var(--ivory-dim);
+}
+
+.hero__footnote b {
+  display: block;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .68rem;
+  color: var(--gold);
+  margin-bottom: .3rem;
+}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero__media">
+    <!-- LIBRARY PLACEHOLDER: swap for the target site's own photo -->
+    <img src="../../assets/placeholders/luxury-marble.jpg" alt="Placeholder dark marble interior photo — swap for the target site's own image">
+  </div>
+
+  <div class="hero__copy">
+    <div class="hero__mark">
+      <span class="hero__mark-ring">A</span>
+      <span class="hero__mark-word">Acme Everything</span>
+    </div>
+
+    <span class="hero__eyebrow">By Invitation &amp; By Appointment</span>
+
+    <h1>An Address for <em>Uncommon</em> Taste.</h1>
+
+    <p class="hero__dek">Every detail considered, every material chosen — nothing here is incidental. This is what's left when you take away everything unnecessary.</p>
+
+    <div class="hero__actions">
+      <a href="#contact" class="btn btn--primary">Request a Consultation</a>
+      <a href="#portfolio" class="btn btn--quiet">View the Portfolio &rarr;</a>
+    </div>
+
+    <div class="hero__footnote">
+      <div><b>Est.</b>Since 1998</div>
+      <div><b>By Referral</b>Clients Only</div>
+      <div><b>Rated</b>5.0 Private Reviews</div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

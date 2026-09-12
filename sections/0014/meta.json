@@ -1,0 +1,24 @@
+{
+  "id": "0014",
+  "number": 14,
+  "name": "Dynamic hero: diagonal gradient, skewed badges, clipped action photo",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["energetic", "fast-moving", "bold", "youthful", "kinetic"],
+  "features": [
+    "diagonal-gradient-background",
+    "clip-path-angled-media",
+    "skewed-buttons-and-badges",
+    "condensed-italic-display-type",
+    "diagonal-stripe-texture",
+    "outline-text-effect",
+    "dual-cta-buttons",
+    "stat-row"
+  ],
+  "colorMode": "dark",
+  "palette": ["#0e0b1a", "#5b2bff", "#ff3d81", "#ff9b1c"],
+  "fonts": ["Anton", "Inter"],
+  "dateAdded": "2026-09-12",
+  "file": "section.html",
+  "notes": "Original build for the library, not adapted from a client site — built for a startup/fitness/events-type brand that wants to feel fast rather than trustworthy-and-steady. Every skewed element (badges, buttons, media tag) uses the same -8deg transform with an inner un-skewed span so the text itself stays readable — copy that exact pattern rather than skewing text directly, which garbles it. The clip-path on .hero__media only applies above 900px; below that it's a plain full-width image, since an angled clip on a short mobile viewport just crops the photo awkwardly. Three-stop diagonal gradient (violet→magenta→orange) is the accent system here instead of a single accent color — keep all three stops if reusing, dropping to two reads flatter and less 'in motion.'"
+}

@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — ACME Everything (Brutalist)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  /* ---- Color: raw concrete + one harsh signal color, no in-between ---- */
+  --ink:        #0a0a08;   /* near-black, never pure #000 */
+  --paper:      #f3f1e9;   /* unbleached paper white */
+  --concrete:   #8f8b80;   /* mid concrete gray for secondary text on dark */
+  --signal:     #d7ff3d;   /* raw safety-yellow — the one accent, used sparingly */
+
+  --font-display: 'Archivo Black', 'Arial Black', sans-serif;
+  --font-body:    'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --border-w: 3px;
+}
+
+* { border-radius: 0 !important; }
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ink);
+  border: var(--border-w) solid var(--paper);
+}
+
+.hero__bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 1.4rem;
+  border-bottom: var(--border-w) solid var(--paper);
+  color: var(--paper);
+}
+
+.hero__mark {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+.hero__mark-box {
+  width: 2rem;
+  height: 2rem;
+  background: var(--signal);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  border: var(--border-w) solid var(--paper);
+}
+
+.hero__mark-word {
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .82rem;
+}
+
+.hero__index {
+  font-family: var(--font-body);
+  font-size: .78rem;
+  letter-spacing: .06em;
+  color: var(--concrete);
+}
+
+.hero__body {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 880px) {
+  .hero__body {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}
+
+.hero__media {
+  position: relative;
+  min-height: 42vh;
+  overflow: hidden;
+  border-bottom: var(--border-w) solid var(--paper);
+}
+
+@media (min-width: 880px) {
+  .hero__media {
+    border-bottom: none;
+    border-right: var(--border-w) solid var(--paper);
+  }
+}
+
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 42vh;
+  filter: grayscale(1) contrast(1.25) brightness(.85);
+}
+
+.hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,8,0) 55%, rgba(10,10,8,.55) 100%);
+  pointer-events: none;
+}
+
+.hero__tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: var(--signal);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .35rem .6rem;
+  border: var(--border-w) solid var(--ink);
+}
+
+.hero__copy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2.5rem clamp(1.25rem, 4vw, 3rem);
+  color: var(--paper);
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  font-family: var(--font-body);
+  font-size: .78rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+
+.hero__eyebrow::before {
+  content: '';
+  width: 2.5rem;
+  height: var(--border-w);
+  background: var(--signal);
+  display: block;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4vw + 1.5rem, 5rem);
+  line-height: .96;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+
+.hero h1 span {
+  display: block;
+}
+
+.hero h1 .outline {
+  -webkit-text-stroke: 1.5px var(--paper);
+  color: transparent;
+}
+
+.hero__dek {
+  max-width: 44ch;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--concrete);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: .5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: .85rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 1rem 1.5rem;
+  border: var(--border-w) solid var(--paper);
+  text-decoration: none;
+  transition: background-color .12s linear, color .12s linear;
+}
+
+.btn--primary {
+  background: var(--signal);
+  color: var(--ink);
+  border-color: var(--signal);
+}
+
+.btn--primary:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--paper);
+}
+
+.btn--ghost:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.hero__stats {
+  display: flex;
+  gap: 0;
+  border-top: var(--border-w) solid var(--paper);
+  margin-top: 1rem;
+}
+
+.hero__stat {
+  flex: 1;
+  padding: 1rem 1.2rem 0;
+  font-family: var(--font-body);
+}
+
+.hero__stat + .hero__stat {
+  border-left: var(--border-w) solid var(--paper);
+  padding-left: 1.2rem;
+}
+
+.hero__stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--signal);
+}
+
+.hero__stat span {
+  display: block;
+  font-size: .7rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--concrete);
+  margin-top: .2rem;
+}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero__bar">
+    <div class="hero__mark">
+      <span class="hero__mark-box">A</span>
+      <span class="hero__mark-word">Acme Everything</span>
+    </div>
+    <span class="hero__index">N&deg;01 / STUDIO</span>
+  </div>
+
+  <div class="hero__body">
+    <div class="hero__media">
+      <!-- LIBRARY PLACEHOLDER: swap for the target site's own photo -->
+      <img src="../../assets/placeholders/brutalist-concrete.jpg" alt="Placeholder raw-concrete architecture photo — swap for the target site's own image">
+      <span class="hero__tag">Est. Raw</span>
+    </div>
+
+    <div class="hero__copy">
+      <span class="hero__eyebrow">No Gloss, No Filler</span>
+      <h1>
+        <span>Function</span>
+        <span class="outline">Over</span>
+        <span>Form.</span>
+      </h1>
+      <p class="hero__dek">We don't decorate the work — we ship it. Every project is stripped down to what actually holds weight: the structure, the material, the result.</p>
+      <div class="hero__actions">
+        <a href="#work" class="btn btn--primary">See the Work</a>
+        <a href="#contact" class="btn btn--ghost">Start a Project</a>
+      </div>
+      <div class="hero__stats">
+        <div class="hero__stat"><b>140+</b><span>Projects Shipped</span></div>
+        <div class="hero__stat"><b>0</b><span>Wasted Meetings</span></div>
+        <div class="hero__stat"><b>100%</b><span>Load-Bearing</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

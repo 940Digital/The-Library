@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — ACME Everything (Dynamic)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  --ink:       #0e0b1a;
+  --violet:    #5b2bff;
+  --magenta:   #ff3d81;
+  --orange:    #ff9b1c;
+  --ice:       #f3f0ff;
+  --ice-dim:   #c7bfe8;
+
+  --font-display: 'Anton', 'Arial Narrow', sans-serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, var(--violet) 0%, var(--magenta) 52%, var(--orange) 100%);
+  color: var(--ice);
+  display: flex;
+  align-items: stretch;
+}
+
+.hero__stripes {
+  position: absolute;
+  inset: 0;
+  opacity: .12;
+  background: repeating-linear-gradient(
+    115deg,
+    #fff 0px, #fff 2px,
+    transparent 2px, transparent 46px
+  );
+  pointer-events: none;
+}
+
+.hero__grid {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .hero__grid { grid-template-columns: 1.15fr 1fr; }
+}
+
+.hero__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.6rem;
+  padding: clamp(2.25rem, 5vw, 4.5rem);
+}
+
+.hero__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  align-self: flex-start;
+}
+
+.hero__mark-badge {
+  width: 2.2rem;
+  height: 2.2rem;
+  background: var(--ink);
+  color: var(--ice);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  transform: skewX(-8deg);
+}
+
+.hero__mark-badge span { display: inline-block; transform: skewX(8deg); }
+
+.hero__mark-word {
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-size: .85rem;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  align-self: flex-start;
+  background: var(--ink);
+  color: var(--orange);
+  font-weight: 700;
+  font-size: .74rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .45rem .9rem;
+  transform: skewX(-8deg);
+}
+
+.hero__eyebrow span { display: inline-block; transform: skewX(8deg); }
+
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 5vw + 1.5rem, 6rem);
+  line-height: .92;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+.hero h1 span {
+  display: block;
+}
+
+.hero h1 .pop {
+  color: var(--ink);
+  -webkit-text-stroke: 1.5px var(--ice);
+}
+
+.hero__dek {
+  max-width: 42ch;
+  font-size: 1.08rem;
+  line-height: 1.6;
+  font-weight: 500;
+  color: var(--ice);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: .25rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 800;
+  font-size: .9rem;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  padding: 1rem 1.9rem;
+  text-decoration: none;
+  transform: skewX(-8deg);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.btn span { display: inline-block; transform: skewX(8deg); }
+
+.btn--primary {
+  background: var(--ink);
+  color: var(--ice);
+  box-shadow: 6px 6px 0 rgba(14,11,26,.35);
+}
+
+.btn--primary:hover {
+  transform: skewX(-8deg) translate(-2px, -2px);
+  box-shadow: 8px 8px 0 rgba(14,11,26,.4);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ice);
+  border: 2px solid var(--ice);
+}
+
+.hero__stats {
+  display: flex;
+  gap: 1.75rem;
+  margin-top: .75rem;
+}
+
+.hero__stats b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-style: italic;
+}
+
+.hero__stats span {
+  display: block;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+  margin-top: .1rem;
+}
+
+.hero__media {
+  position: relative;
+  min-height: 40vh;
+  overflow: hidden;
+}
+
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 40vh;
+  filter: contrast(1.1) saturate(1.15);
+}
+
+@media (min-width: 900px) {
+  .hero__media img { position: absolute; inset: 0; }
+  .hero__media {
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+}
+
+.hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(14,11,26,0) 45%, rgba(14,11,26,.55) 100%);
+}
+
+.hero__media-tag {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  background: var(--ink);
+  color: var(--ice);
+  font-weight: 800;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .4rem .75rem;
+  transform: skewX(-8deg);
+  z-index: 1;
+}
+
+.hero__media-tag span { display: inline-block; transform: skewX(8deg); }
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero__stripes"></div>
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <div class="hero__mark">
+        <span class="hero__mark-badge"><span>A</span></span>
+        <span class="hero__mark-word">Acme Everything</span>
+      </div>
+
+      <span class="hero__eyebrow"><span>Built For Momentum</span></span>
+
+      <h1>
+        <span>Move</span>
+        <span class="pop">Fast.</span>
+        <span>Ship Faster.</span>
+      </h1>
+
+      <p class="hero__dek">No stalling, no red tape — just a team that turns "let's do this" into done, on a timeline that actually keeps up with you.</p>
+
+      <div class="hero__actions">
+        <a href="#start" class="btn btn--primary"><span>Get Started Now</span></a>
+        <a href="#work" class="btn btn--ghost"><span>See It In Action</span></a>
+      </div>
+
+      <div class="hero__stats">
+        <div><b>48hrs</b><span>Avg. Turnaround</span></div>
+        <div><b>3.2x</b><span>Faster Than Standard</span></div>
+        <div><b>24/7</b><span>Live Support</span></div>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <!-- LIBRARY PLACEHOLDER: swap for the target site's own photo -->
+      <img src="../../assets/placeholders/dynamic-sprint.jpg" alt="Placeholder sprinters bursting from starting blocks — swap for the target site's own image">
+      <span class="hero__media-tag"><span>In Motion</span></span>
+    </div>
+  </div>
+</section>
+</body>
+</html>

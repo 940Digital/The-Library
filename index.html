@@ -541,6 +541,123 @@ const SECTIONS = [
     "file": "section.html",
     "notes": "Same job as 0007 (the plain-spoken trade CTA) but with a small uppercase label-tag above the headline and .fade-up scroll-reveal hooks \u2014 compare the two side by side for 'plain trade CTA' vs 'polished premium-service CTA' at nearly the same structure.",
     "path": "sections/0011/section.html"
+  },
+  {
+    "id": "0012",
+    "number": 12,
+    "name": "Brutalist hero: framed grid, safety-yellow signal color, mono type",
+    "website": "ACME Everything",
+    "type": "hero",
+    "emotions": [
+      "raw",
+      "uncompromising",
+      "industrial",
+      "no-nonsense",
+      "confident"
+    ],
+    "features": [
+      "hard-bordered-grid",
+      "split-layout",
+      "grayscale-image-filter",
+      "outline-text-effect",
+      "monospace-type",
+      "sharp-corners-no-radius",
+      "signal-color-accent",
+      "dual-cta-buttons",
+      "stat-row"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#0a0a08",
+      "#f3f1e9",
+      "#d7ff3d",
+      "#8f8b80"
+    ],
+    "fonts": [
+      "Archivo Black",
+      "Space Mono"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Original build for the library, not adapted from a client site \u2014 a deliberately unpolished, structural counterpoint to the softer heroes elsewhere here. Thick 3px borders replace shadows/radius entirely (every element has border-radius:0 forced via a wildcard rule) \u2014 everything reads as poured, not styled. The single safety-yellow accent (--signal) is the only color allowed to break the black/paper/concrete palette; don't dilute it by adding a second accent. Image gets grayscale+contrast filter to read as raw print rather than a photo. -webkit-text-stroke outline on one headline word (.outline) is a Chrome/Safari/Firefox-only effect \u2014 falls back to solid fill elsewhere, still legible.",
+    "path": "sections/0012/section.html"
+  },
+  {
+    "id": "0013",
+    "number": 13,
+    "name": "Luxury hero: split marble portrait, gold hairlines, italic serif",
+    "website": "ACME Everything",
+    "type": "hero",
+    "emotions": [
+      "luxurious",
+      "refined",
+      "exclusive",
+      "quiet-confidence",
+      "timeless"
+    ],
+    "features": [
+      "split-layout",
+      "ring-monogram-logo",
+      "hairline-dividers",
+      "italic-word-emphasis",
+      "primary-plus-quiet-link-ctas",
+      "footnote-credentials-row",
+      "gradient-overlay"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#14110f",
+      "#f4ede0",
+      "#c8a25a",
+      "#cabfa9"
+    ],
+    "fonts": [
+      "Cormorant Garamond",
+      "Manrope"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Original build for the library, not adapted from a client site \u2014 restraint is the whole design: one accent (gold), one weight of hairline (1px), generous whitespace instead of visual noise. Ring-monogram + tracked wordmark reads as a badge/seal rather than a logo lockup \u2014 reuse that device for other high-end sections (real estate, private practice, bespoke goods, weddings) rather than the botanical/floral device already used for the softer 'elegant' family (0004/0005). Footnote row (Est./By Referral/Rating) is a credibility device that works instead of a stat row when the brand's positioning is scarcity/exclusivity rather than scale.",
+    "path": "sections/0013/section.html"
+  },
+  {
+    "id": "0014",
+    "number": 14,
+    "name": "Dynamic hero: diagonal gradient, skewed badges, clipped action photo",
+    "website": "ACME Everything",
+    "type": "hero",
+    "emotions": [
+      "energetic",
+      "fast-moving",
+      "bold",
+      "youthful",
+      "kinetic"
+    ],
+    "features": [
+      "diagonal-gradient-background",
+      "clip-path-angled-media",
+      "skewed-buttons-and-badges",
+      "condensed-italic-display-type",
+      "diagonal-stripe-texture",
+      "outline-text-effect",
+      "dual-cta-buttons",
+      "stat-row"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#0e0b1a",
+      "#5b2bff",
+      "#ff3d81",
+      "#ff9b1c"
+    ],
+    "fonts": [
+      "Anton",
+      "Inter"
+    ],
+    "dateAdded": "2026-09-12",
+    "file": "section.html",
+    "notes": "Original build for the library, not adapted from a client site \u2014 built for a startup/fitness/events-type brand that wants to feel fast rather than trustworthy-and-steady. Every skewed element (badges, buttons, media tag) uses the same -8deg transform with an inner un-skewed span so the text itself stays readable \u2014 copy that exact pattern rather than skewing text directly, which garbles it. The clip-path on .hero__media only applies above 900px; below that it's a plain full-width image, since an angled clip on a short mobile viewport just crops the photo awkwardly. Three-stop diagonal gradient (violet\u2192magenta\u2192orange) is the accent system here instead of a single accent color \u2014 keep all three stops if reusing, dropping to two reads flatter and less 'in motion.'",
+    "path": "sections/0014/section.html"
   }
 ];
 

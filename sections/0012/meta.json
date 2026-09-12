@@ -1,0 +1,25 @@
+{
+  "id": "0012",
+  "number": 12,
+  "name": "Brutalist hero: framed grid, safety-yellow signal color, mono type",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["raw", "uncompromising", "industrial", "no-nonsense", "confident"],
+  "features": [
+    "hard-bordered-grid",
+    "split-layout",
+    "grayscale-image-filter",
+    "outline-text-effect",
+    "monospace-type",
+    "sharp-corners-no-radius",
+    "signal-color-accent",
+    "dual-cta-buttons",
+    "stat-row"
+  ],
+  "colorMode": "dark",
+  "palette": ["#0a0a08", "#f3f1e9", "#d7ff3d", "#8f8b80"],
+  "fonts": ["Archivo Black", "Space Mono"],
+  "dateAdded": "2026-09-12",
+  "file": "section.html",
+  "notes": "Original build for the library, not adapted from a client site — a deliberately unpolished, structural counterpoint to the softer heroes elsewhere here. Thick 3px borders replace shadows/radius entirely (every element has border-radius:0 forced via a wildcard rule) — everything reads as poured, not styled. The single safety-yellow accent (--signal) is the only color allowed to break the black/paper/concrete palette; don't dilute it by adding a second accent. Image gets grayscale+contrast filter to read as raw print rather than a photo. -webkit-text-stroke outline on one headline word (.outline) is a Chrome/Safari/Firefox-only effect — falls back to solid fill elsewhere, still legible."
+}

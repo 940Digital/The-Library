@@ -39,4 +39,4 @@ To add a section, see **Adding a new section** in [docs/schema.md](docs/schema.m
 
 ## Current count
 
-11 sections, adapted and de-identified from 5 real client builds spanning a real range of tone — rugged trade, elegant/soft, plain-spoken, nature-toned, and premium/dark. Meant to keep growing — every new site is a chance to pull 1-2 more sections in before moving on.
+14 sections. 11 adapted and de-identified from 5 real client builds spanning a real range of tone — rugged trade, elegant/soft, plain-spoken, nature-toned, and premium/dark. 3 are original library builds (not adapted from any client site) covering tones the client work didn't: brutalist, luxury, and dynamic/high-energy. Meant to keep growing — every new site (or every distinct tone worth having on hand) is a chance to add 1-2 more sections before moving on.

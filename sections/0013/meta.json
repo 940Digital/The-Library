@@ -1,0 +1,23 @@
+{
+  "id": "0013",
+  "number": 13,
+  "name": "Luxury hero: split marble portrait, gold hairlines, italic serif",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["luxurious", "refined", "exclusive", "quiet-confidence", "timeless"],
+  "features": [
+    "split-layout",
+    "ring-monogram-logo",
+    "hairline-dividers",
+    "italic-word-emphasis",
+    "primary-plus-quiet-link-ctas",
+    "footnote-credentials-row",
+    "gradient-overlay"
+  ],
+  "colorMode": "dark",
+  "palette": ["#14110f", "#f4ede0", "#c8a25a", "#cabfa9"],
+  "fonts": ["Cormorant Garamond", "Manrope"],
+  "dateAdded": "2026-09-12",
+  "file": "section.html",
+  "notes": "Original build for the library, not adapted from a client site — restraint is the whole design: one accent (gold), one weight of hairline (1px), generous whitespace instead of visual noise. Ring-monogram + tracked wordmark reads as a badge/seal rather than a logo lockup — reuse that device for other high-end sections (real estate, private practice, bespoke goods, weddings) rather than the botanical/floral device already used for the softer 'elegant' family (0004/0005). Footnote row (Est./By Referral/Rating) is a credibility device that works instead of a stat row when the brand's positioning is scarcity/exclusivity rather than scale."
+}
