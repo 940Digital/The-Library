@@ -45,7 +45,7 @@
   background-image: url('../../assets/placeholders/city-lights-night.jpg');
   background-size: cover;
   background-position: center 58%;
-  filter: grayscale(.15) saturate(1.15) brightness(.42) contrast(1.15);
+  filter: saturate(1.2) contrast(1.08) brightness(.88);
   transform: scale(1.02);
 }
 /* LIBRARY PLACEHOLDER: ../../assets/placeholders/city-lights-night.jpg — swap for the target site's own hero photo, both here and on .mask-heading span below */
@@ -64,15 +64,6 @@
   .hero-bg { position: absolute; transform: none; }
 }
 
-.hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, rgba(9,9,11,.15) 0%, rgba(9,9,11,.75) 100%);
-  pointer-events: none;
-}
-
 .hero-topbar {
   position: relative;
   z-index: 2;
@@ -80,6 +71,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.6rem clamp(1.25rem, 4vw, 3rem) 0;
+  text-shadow: 0 2px 14px rgba(0,0,0,.65);
 }
 
 .hero-mark {
@@ -118,7 +110,9 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  text-align: center;
   padding: 3rem clamp(1.25rem, 4vw, 3rem);
 }
 
@@ -126,7 +120,6 @@
   display: inline-flex;
   align-items: center;
   gap: .6rem;
-  align-self: flex-start;
   font-size: .8rem;
   font-weight: 600;
   letter-spacing: .1em;
@@ -135,7 +128,10 @@
   border: 1px solid rgba(255,90,31,.5);
   border-radius: 999px;
   padding: .4rem .9rem .4rem .7rem;
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.8rem;
+  text-shadow: none;
+  background: rgba(9,9,11,.35);
+  backdrop-filter: blur(4px);
 }
 
 .hero-eyebrow::before {
@@ -147,16 +143,22 @@
 }
 
 .mask-heading {
-  margin: 0;
+  margin: 0 auto;
   font-family: var(--font-display);
   font-weight: 800;
   text-transform: uppercase;
-  line-height: .92;
-  letter-spacing: -.015em;
-  font-size: clamp(3rem, 3.6vw + 2rem, 7.6rem);
-  max-width: 15ch;
+  line-height: .9;
+  letter-spacing: -.02em;
+  font-size: clamp(3.6rem, 7vw + 1.5rem, 11rem);
+  max-width: 18ch;
+  text-align: center;
 }
 
+/* The invert filter runs on every line, all the time — there's no plain
+   fallback line anymore. This is deliberate: the whole point is that the
+   "opposite color" window never turns off, so the pinned parallax
+   background (see .hero-bg above) keeps visibly shifting what shows
+   through the letters for as long as the hero is in view. */
 .mask-heading span {
   display: block;
   background-image: url('../../assets/placeholders/city-lights-night.jpg');
@@ -173,25 +175,20 @@
   .mask-heading span { background-attachment: scroll; }
 }
 
-.mask-heading .plain {
-  -webkit-text-fill-color: var(--paper);
-  color: var(--paper);
-  background: none;
-  filter: none;
-}
-
 .hero-dek {
-  margin: 2rem 0 0;
+  margin: 2.75rem auto 0;
   max-width: 46ch;
   font-size: clamp(1rem, .4vw + .95rem, 1.15rem);
   line-height: 1.6;
   color: #d9d5c8;
+  text-shadow: 0 2px 16px rgba(0,0,0,.7);
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 1.1rem;
   margin-top: 2.1rem;
 }
@@ -218,16 +215,19 @@
 
 .btn--ghost {
   color: var(--paper);
-  border: 1px solid rgba(244,242,236,.35);
+  border: 1px solid rgba(244,242,236,.45);
+  background: rgba(9,9,11,.32);
+  backdrop-filter: blur(4px);
 }
 
-.btn--ghost:hover { background: rgba(244,242,236,.1); }
+.btn--ghost:hover { background: rgba(9,9,11,.55); }
 
 .hero-foot {
   position: relative;
   z-index: 2;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem 2.5rem;
   padding: 0 clamp(1.25rem, 4vw, 3rem) 2.5rem;
   border-top: 1px solid rgba(244,242,236,.14);
@@ -236,6 +236,7 @@
   font-size: .82rem;
   color: var(--dim);
   letter-spacing: .02em;
+  text-shadow: 0 2px 10px rgba(0,0,0,.7);
 }
 
 .hero-foot b {
@@ -260,13 +261,12 @@
   </div>
 
   <div class="hero-main">
-    <span class="hero-eyebrow">Full-Service Marketing</span>
+    <span class="hero-eyebrow">Urban Growth Studio</span>
     <h1 class="mask-heading">
-      <span>Seen</span>
-      <span>Through</span>
-      <span class="plain">Every Noise.</span>
+      <span>The City</span>
+      <span>Never Sleeps.</span>
     </h1>
-    <p class="hero-dek">We don't add to the feed — we cut through it. Positioning, media, and creative built to make your audience stop scrolling and start paying attention.</p>
+    <p class="hero-dek">Neither do we. Always-on campaigns built at the pace of the streets they run on — live creative, real-time media, and a team that doesn't clock out on your brand.</p>
     <div class="hero-actions">
       <a href="#work" class="btn btn--primary">See Our Work</a>
       <a href="#contact" class="btn btn--ghost">Book a Strategy Call</a>

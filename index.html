@@ -701,7 +701,7 @@ const SECTIONS = [
   {
     "id": "0016",
     "number": 16,
-    "name": "Marketing agency hero: headline text clipped to an inverted-color window of the background photo",
+    "name": "Marketing agency hero: large centered headline permanently clipped to an inverted-color window of a city-lights photo, shifting as the page scrolls",
     "website": "ACME Everything",
     "type": "hero",
     "emotions": [
@@ -715,12 +715,11 @@ const SECTIONS = [
       "inverted-text-image-mask",
       "parallax-image",
       "full-bleed-background-image",
-      "grayscale-image-filter",
+      "centered-layout",
       "eyebrow-label",
       "dual-cta-buttons",
       "stat-row",
       "signal-color-accent",
-      "gradient-overlay",
       "prefers-reduced-motion-fallback"
     ],
     "colorMode": "dark",
@@ -737,7 +736,7 @@ const SECTIONS = [
     ],
     "dateAdded": "2026-09-22",
     "file": "section.html",
-    "notes": "The signature move: two of the three headline words are set with background-image: the same hero photo, background-clip:text, then filter:invert(1) saturate(1.3) contrast(1.3) brightness(1.2) \u2014 so each letter reads as a bright inverted-color 'window' cut into the same dark photo behind it, no image editing required. Runs on city-lights-night.jpg (a starry night skyline with saturated red/teal/blue reflections) specifically because the color variety and the inverted starfield read as literal static/noise texture through the letters \u2014 a happy match with the 'Every Noise' headline that a plainer photo wouldn't give you; pick a similarly high-contrast, colorful night/light-source photo if swapping it out, not a flat daylight shot. Both image layers are pinned to the viewport rather than scrolling with the page \u2014 .hero-bg is position:fixed and .mask-heading span uses background-attachment:fixed \u2014 so they share the same viewport-relative crop at every scroll position and the masked letters keep reading as a true window into the photo (not two layers drifting out of registration) as the page scrolls past the hero. Verified by checking getComputedStyle(...).position/backgroundAttachment stay 'fixed' at scrollY 0 and 400+ on desktop. Both fall back to normal scroll (position:absolute / background-attachment:scroll) under 720px width AND under prefers-reduced-motion \u2014 iOS Safari handles a fixed background inside a scrolling page poorly (jitter, URL-bar resize glitches), and a strong pinned-parallax depth effect is exactly the kind of motion some vestibular-sensitive users want reduced. Keep the third line (.plain) as solid paper-white \u2014 an all-masked headline reads muddy; the contrast between one plain line and two masked lines is what sells the effect. Swap the background-image url in both .hero-bg and .mask-heading span together or the mask stops matching the base photo.",
+    "notes": "Every line of the headline is masked now \u2014 no plain fallback line. Each h1 span sets background-image to the same hero photo, background-clip:text, then filter:invert(1) saturate(1.3) contrast(1.3) brightness(1.2), so the letters read as a bright inverted-color 'window' cut into the dark photo behind them, permanently on. Runs on city-lights-night.jpg (a starry night skyline with saturated red/teal/blue reflections) because the color variety and inverted starfield read as literal texture through the letters; pick a similarly high-contrast, colorful night/light-source photo if swapping it out, not a flat daylight shot. Both image layers are pinned to the viewport rather than scrolling with the page \u2014 .hero-bg is position:fixed and .mask-heading span uses background-attachment:fixed \u2014 so as the page scrolls, the pinned crop stays put while the headline (normal in-flow content) slides over it, and each letter reveals a different part of the same image as it moves past. That's the whole point of leaving the invert filter on permanently instead of one plain line: the shifting-through-the-lens effect needs to be visible across the full headline, not just two of three words. Verified via getComputedStyle(...).position/backgroundAttachment staying 'fixed' at scrollY 0, 150, and 500+ on desktop, and the visible crop behind the letters changing as hero-main scrolls up over the still-pinned background. .hero-main is now align-items:center + text-align:center (was left-aligned) and the heading's clamp() runs much larger (up to 11rem) \u2014 deliberately large and centered per the brief, not just 'bigger than before'. The old dark linear-gradient shadow over the photo (.hero::after) is gone entirely so the city itself reads bright and clear; non-masked text (eyebrow, dek, ghost button, foot stats) got text-shadow and/or a small blurred dark pill background instead, scoped to just that text, so nothing dims the photo globally. Both fixed layers still fall back to normal scroll under 720px width and prefers-reduced-motion, per the same iOS-jank and vestibular-motion reasoning as before.",
     "path": "sections/0016/section.html"
   },
   {
