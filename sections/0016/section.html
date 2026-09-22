@@ -42,13 +42,13 @@
   position: fixed;
   inset: 0;
   z-index: -2;
-  background-image: url('../../assets/placeholders/team-work.jpg');
+  background-image: url('../../assets/placeholders/city-lights-night.jpg');
   background-size: cover;
-  background-position: center 38%;
-  filter: grayscale(.55) brightness(.34) contrast(1.05);
+  background-position: center 58%;
+  filter: grayscale(.15) saturate(1.15) brightness(.42) contrast(1.15);
   transform: scale(1.02);
 }
-/* LIBRARY PLACEHOLDER: ../../assets/placeholders/team-work.jpg — swap for the target site's own hero photo, both here and on .mask-heading span below */
+/* LIBRARY PLACEHOLDER: ../../assets/placeholders/city-lights-night.jpg — swap for the target site's own hero photo, both here and on .mask-heading span below */
 
 /* Parallax: .hero-bg is pinned to the viewport (position:fixed) rather than
    scrolling with .hero, and .mask-heading span already reads the same photo
@@ -159,14 +159,14 @@
 
 .mask-heading span {
   display: block;
-  background-image: url('../../assets/placeholders/team-work.jpg');
+  background-image: url('../../assets/placeholders/city-lights-night.jpg');
   background-size: cover;
-  background-position: center 38%;
+  background-position: center 58%;
   background-attachment: fixed;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: invert(1) grayscale(.25) contrast(1.25) brightness(1.15);
+  filter: invert(1) saturate(1.3) contrast(1.3) brightness(1.2);
 }
 
 @media (max-width: 720px) {
