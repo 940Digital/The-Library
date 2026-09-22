@@ -43,8 +43,8 @@
   inset: 0;
   z-index: -2;
   background-image: url('../../assets/placeholders/city-lights-night.jpg');
-  background-size: cover;
-  background-position: center 58%;
+  background-size: auto 230%;
+  background-position: center 62%;
   filter: saturate(1.2) contrast(1.08) brightness(.88);
   transform: scale(1.02);
 }
@@ -59,7 +59,17 @@
    the pinned image since .hero-bg sits at z-index:-2, behind everything.
    On mobile this flips to normal scroll (see the 720px query below) — iOS
    Safari handles a fixed background inside a scrolling page poorly (jitter,
-   URL-bar resize glitches), so parallax there isn't worth the tradeoff. */
+   URL-bar resize glitches), so parallax there isn't worth the tradeoff.
+
+   background-size is auto 230% (not plain "cover") on purpose: at most
+   hero aspect ratios, "cover" shows the WHOLE height of this photo with no
+   vertical crop room, which puts the top headline line over the empty,
+   near-black sky — it inverts to near-flat white and the mask reads as
+   "off" even though the filter is still running. Zooming in and biasing
+   the crop toward 62% down keeps both headline lines over the busy
+   skyline/reflection band instead, so the invert effect stays visibly
+   "on" — colorful and textured — everywhere the heading sits, not just
+   wherever the photo happens to have detail. */
 @media (max-width: 720px) {
   .hero-bg { position: absolute; transform: none; }
 }
@@ -162,8 +172,8 @@
 .mask-heading span {
   display: block;
   background-image: url('../../assets/placeholders/city-lights-night.jpg');
-  background-size: cover;
-  background-position: center 58%;
+  background-size: auto 230%;
+  background-position: center 62%;
   background-attachment: fixed;
   -webkit-background-clip: text;
   background-clip: text;
@@ -249,6 +259,73 @@
   .hero-bg { position: absolute; transform: none; }
   .mask-heading span { background-attachment: scroll; }
 }
+
+/* ---- library-only scroll spacer ----
+   Not part of the hero. This library ships one section per file, so a real
+   build should delete everything from here down and let its own next
+   section follow the hero instead — it exists only so this file has
+   something to scroll into on its own, to see the pinned-parallax mask
+   shift as the headline scrolls up over it. */
+.scroll-demo {
+  position: relative;
+  z-index: 2;
+  background: var(--paper);
+  color: var(--ink);
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.scroll-demo-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.scroll-demo-inner p.label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .78rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin: 0 0 1rem;
+}
+
+.scroll-demo-inner h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 2.4vw + 1rem, 3rem);
+  line-height: 1.1;
+  margin: 0 0 3rem;
+}
+
+.scroll-demo-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+  text-align: left;
+}
+
+@media (min-width: 720px) {
+  .scroll-demo-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.scroll-demo-grid div {
+  border-top: 2px solid var(--ink);
+  padding-top: 1rem;
+}
+
+.scroll-demo-grid h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin: 0 0 .5rem;
+}
+
+.scroll-demo-grid p {
+  margin: 0;
+  font-size: .95rem;
+  line-height: 1.6;
+  color: #4a473f;
+}
 </style>
 </head>
 <body>
@@ -277,6 +354,29 @@
     <span><b>212</b> campaigns launched</span>
     <span><b>4.3x</b> average ROAS</span>
     <span><b>38</b> brands under retainer</span>
+  </div>
+</section>
+
+<!-- LIBRARY-ONLY: scroll spacer, not the section being showcased. Delete this
+     <section> when pulling the hero above into a real page. -->
+<section class="scroll-demo">
+  <div class="scroll-demo-inner">
+    <p class="label">Scroll Test — Not Part Of This Section</p>
+    <h2>Keep scrolling to watch the mask shift over the pinned skyline.</h2>
+    <div class="scroll-demo-grid">
+      <div>
+        <h3>Strategy</h3>
+        <p>Positioning and media plans built around how your audience actually moves through a day, not a funnel diagram.</p>
+      </div>
+      <div>
+        <h3>Creative</h3>
+        <p>In-house design, copy, and motion — shipped fast enough to still be relevant when it goes live.</p>
+      </div>
+      <div>
+        <h3>Media</h3>
+        <p>Spend managed daily against real signal, reallocated the moment something stops working.</p>
+      </div>
+    </div>
   </div>
 </section>
 </body>
