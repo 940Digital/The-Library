@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — ACME Everything (3D Orbit)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  --ink:     #06070c;
+  --paper:   #eef1f8;
+  --dim:     #8b93a8;
+  --ice:     #66e0ff;
+  --amber:   #ffb547;
+
+  --font-display: 'Sora', -apple-system, sans-serif;
+  --font-body:    'Inter Tight', -apple-system, system-ui, sans-serif;
+
+  /* written by JS on pointermove; the perspective math turns these two
+     numbers into real per-layer parallax, so no per-layer multipliers */
+  --rx: 0deg;
+  --ry: 0deg;
+  --px: 50%;
+  --py: 50%;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ---- the 3D stage ---- */
+.stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  perspective: 1100px;
+  perspective-origin: var(--px) var(--py);
+  pointer-events: none;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  will-change: transform;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+/* Each layer counter-scales by P/(P−z) so it reads at its intended size
+   while still sitting at a real depth — that depth is what produces the
+   parallax when the scene tilts. Change a translateZ and the matching
+   scale has to change with it. */
+.layer--photo  { transform: translateZ(-520px) scale(1.72); }
+.layer--grid   { transform: translateZ(-300px) scale(1.34); }
+.layer--ring   { transform: translateZ(-250px); }
+.layer--chips  { transform: translateZ(95px)  scale(.92); }
+
+.layer--photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: grayscale(.72) brightness(.3) contrast(1.3) saturate(1.1);
+}
+
+.layer--photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 55% at 50% 45%, rgba(102,224,255,.16) 0%, rgba(6,7,12,0) 65%),
+    linear-gradient(180deg, rgba(6,7,12,.72) 0%, rgba(6,7,12,.35) 45%, rgba(6,7,12,.95) 100%);
+}
+
+.layer--grid {
+  background-image:
+    linear-gradient(rgba(102,224,255,.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102,224,255,.11) 1px, transparent 1px);
+  background-size: 90px 90px;
+  -webkit-mask-image: radial-gradient(60% 55% at 50% 50%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(60% 55% at 50% 50%, #000 0%, transparent 72%);
+}
+
+/* ---- the signature piece: a cylinder of words orbiting the copy ---- */
+/* The ring gets its own band in the lower third rather than sharing vertical
+   space with the copy. Centred on the hero it just hides behind the headline
+   and reads as stray fragments at the edges; down here the whole cylinder is
+   visible at once, near words large and far words small. .hero-core carries
+   extra bottom padding to open this band up. */
+.ring {
+  position: absolute;
+  top: 72%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  animation: orbit 34s linear infinite;
+}
+
+@keyframes orbit {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
+}
+
+.ring b {
+  position: absolute;
+  top: -.62em;
+  left: -6.2em;
+  width: 12.4em;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.4vw, 2.6rem);
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(238,241,248,.6);
+  /* hides the mirrored back half of the cylinder, so words read as
+     rotating into and out of view instead of showing up reversed */
+  backface-visibility: hidden;
+}
+
+.ring b.hot { -webkit-text-stroke-color: rgba(102,224,255,.85); }
+
+/* 10 words, 36° apart, pushed out to the cylinder radius */
+.ring b:nth-child(1)  { transform: rotateY(0deg)   translateZ(15em); }
+.ring b:nth-child(2)  { transform: rotateY(36deg)  translateZ(15em); }
+.ring b:nth-child(3)  { transform: rotateY(72deg)  translateZ(15em); }
+.ring b:nth-child(4)  { transform: rotateY(108deg) translateZ(15em); }
+.ring b:nth-child(5)  { transform: rotateY(144deg) translateZ(15em); }
+.ring b:nth-child(6)  { transform: rotateY(180deg) translateZ(15em); }
+.ring b:nth-child(7)  { transform: rotateY(216deg) translateZ(15em); }
+.ring b:nth-child(8)  { transform: rotateY(252deg) translateZ(15em); }
+.ring b:nth-child(9)  { transform: rotateY(288deg) translateZ(15em); }
+.ring b:nth-child(10) { transform: rotateY(324deg) translateZ(15em); }
+
+/* ---- floating chips nearest the viewer ---- */
+.chip {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .75rem 1.1rem;
+  border-radius: 14px;
+  background: rgba(14,17,28,.72);
+  border: 1px solid rgba(238,241,248,.14);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 24px 60px -30px rgba(0,0,0,.95);
+  font-size: .82rem;
+  white-space: nowrap;
+}
+
+.chip b {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--paper);
+}
+
+.chip span { color: var(--dim); }
+
+.chip i {
+  width: .5rem; height: .5rem;
+  border-radius: 50%;
+  background: var(--ice);
+  flex-shrink: 0;
+}
+
+.chip--a { left: 6%;  top: 22%; animation: float1 9s ease-in-out infinite alternate; }
+.chip--b { right: 5%; top: 19%; animation: float2 11s ease-in-out infinite alternate; }
+.chip--c { right: 13%; bottom: 24%; animation: float3 13s ease-in-out infinite alternate; }
+
+.chip--b i { background: var(--amber); }
+
+@keyframes float1 { to { transform: translate3d(0, -16px, 0); } }
+@keyframes float2 { to { transform: translate3d(0, 20px, 0); } }
+@keyframes float3 { to { transform: translate3d(0, -13px, 0); } }
+
+@media (max-width: 900px) {
+  .chip--a, .chip--c { display: none; }
+  .chip--b { right: 50%; transform: translateX(50%); top: 14%; }
+}
+
+/* ---- foreground content ---- */
+.hero-topbar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.7rem clamp(1.25rem, 4vw, 3rem) 0;
+}
+
+.hero-mark {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -.02em;
+}
+
+.hero-mark i {
+  width: 1.4rem; height: 1.4rem;
+  border-radius: 50%;
+  border: 2px solid var(--ice);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.hero-mark i::after {
+  content: '';
+  position: absolute;
+  width: .42rem; height: .42rem;
+  border-radius: 50%;
+  background: var(--amber);
+  top: -.16rem; left: 50%;
+  transform: translateX(-50%);
+}
+
+.hero-nav {
+  display: none;
+  gap: 1.8rem;
+  font-size: .85rem;
+  color: var(--dim);
+}
+
+.hero-nav a { color: inherit; text-decoration: none; transition: color .2s ease; }
+.hero-nav a:hover { color: var(--paper); }
+
+@media (min-width: 800px) { .hero-nav { display: flex; } }
+
+.hero-core {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.5rem clamp(1.25rem, 4vw, 3rem) clamp(6rem, 15vh, 11rem);
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ice);
+  padding: .45rem 1rem;
+  border: 1px solid rgba(102,224,255,.35);
+  border-radius: 999px;
+  background: rgba(102,224,255,.07);
+  margin-bottom: 1.6rem;
+}
+
+.hero-core h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 4.6vw + 1rem, 6rem);
+  line-height: .96;
+  letter-spacing: -.04em;
+  max-width: 16ch;
+  text-shadow: 0 10px 50px rgba(6,7,12,.9);
+}
+
+.hero-core h1 em {
+  font-style: normal;
+  background: linear-gradient(100deg, var(--ice), var(--amber));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-dek {
+  max-width: 48ch;
+  margin: 1.5rem 0 0;
+  font-size: clamp(1rem, .4vw + .95rem, 1.14rem);
+  line-height: 1.6;
+  color: #b9c0d2;
+  text-shadow: 0 2px 20px rgba(6,7,12,.95);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .93rem;
+  padding: 1rem 1.8rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform .22s cubic-bezier(.2,.9,.3,1), box-shadow .22s ease, background-color .22s ease;
+}
+
+.btn--primary {
+  background: linear-gradient(110deg, var(--ice), #b8f0ff);
+  color: #04222c;
+  box-shadow: 0 14px 44px -18px rgba(102,224,255,.95);
+}
+
+.btn--primary:hover { transform: translateY(-3px); box-shadow: 0 22px 52px -18px rgba(102,224,255,.95); }
+
+.btn--ghost {
+  color: var(--paper);
+  border: 1px solid rgba(238,241,248,.24);
+  background: rgba(238,241,248,.05);
+}
+
+.btn--ghost:hover { transform: translateY(-3px); background: rgba(238,241,248,.12); }
+
+.hero-foot {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 2.6rem;
+  margin-top: auto;
+  padding: 1.5rem clamp(1.25rem, 4vw, 3rem) 2.4rem;
+  border-top: 1px solid rgba(238,241,248,.1);
+  font-size: .8rem;
+  color: var(--dim);
+}
+
+.hero-foot b { color: var(--paper); font-family: var(--font-display); font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ring { animation: none; transform: rotateY(-18deg); }
+  .chip { animation: none; }
+  .scene { transform: none; }
+}
+</style>
+</head>
+<body>
+<section class="hero" id="orbitHero">
+  <div class="stage" aria-hidden="true">
+    <div class="scene" id="scene">
+
+      <div class="layer layer--photo">
+        <!-- LIBRARY PLACEHOLDER: swap for the target site's own hero photo -->
+        <img src="../../assets/placeholders/dynamic-sprint.jpg" alt="" fetchpriority="high">
+      </div>
+
+      <div class="layer layer--grid"></div>
+
+      <div class="layer layer--ring">
+        <div class="ring">
+          <b>Strategy</b>
+          <b class="hot">Paid Media</b>
+          <b>Creative</b>
+          <b>SEO</b>
+          <b class="hot">Social</b>
+          <b>Analytics</b>
+          <b>Brand</b>
+          <b class="hot">Lifecycle</b>
+          <b>Content</b>
+          <b>CRO</b>
+        </div>
+      </div>
+
+      <div class="layer layer--chips">
+        <div class="chip chip--a"><i></i><b>+312%</b><span>organic sessions</span></div>
+        <div class="chip chip--b"><i></i><b>$4.2M</b><span>pipeline sourced</span></div>
+        <div class="chip chip--c"><i></i><b>11</b><span>channels, one plan</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="hero-topbar">
+    <div class="hero-mark"><i></i>Acme Everything</div>
+    <nav class="hero-nav">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#about">Studio</a>
+    </nav>
+  </div>
+
+  <div class="hero-core">
+    <span class="hero-eyebrow">Full-Funnel Agency</span>
+    <h1>Everything orbits <em>the brand</em>.</h1>
+    <p class="hero-dek">Ten disciplines, one team, one plan — so your paid, organic, and creative stop pulling in three different directions and start compounding.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn btn--primary">See How We Work</a>
+      <a href="#contact" class="btn btn--ghost">Book a Call</a>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <span><b>2014</b> studio founded</span>
+    <span><b>64</b> specialists in house</span>
+    <span><b>9 yrs</b> average client tenure</span>
+  </div>
+</section>
+
+<script>
+(function () {
+  var hero = document.getElementById('orbitHero');
+  var root = document.documentElement;
+  if (!hero) return;
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
+
+  var MAX_TILT = 7;        // degrees — past ~9 the perspective distortion gets seasick
+  var target = { rx: 0, ry: 0, px: 50, py: 50 };
+  var current = { rx: 0, ry: 0, px: 50, py: 50 };
+  var running = false;
+
+  hero.addEventListener('pointermove', function (e) {
+    var rect = hero.getBoundingClientRect();
+    var nx = (e.clientX - rect.left) / rect.width - 0.5;   // -0.5 .. 0.5
+    var ny = (e.clientY - rect.top) / rect.height - 0.5;
+    target.ry = nx * MAX_TILT * 2;
+    target.rx = -ny * MAX_TILT * 2;
+    // shifting the vanishing point as well as rotating is what sells it as
+    // "looking around" the scene rather than just tipping a flat card
+    target.px = 50 + nx * 26;
+    target.py = 50 + ny * 22;
+    if (!running) { running = true; requestAnimationFrame(tick); }
+  });
+
+  hero.addEventListener('pointerleave', function () {
+    target.rx = 0; target.ry = 0; target.px = 50; target.py = 50;
+    if (!running) { running = true; requestAnimationFrame(tick); }
+  });
+
+  function tick() {
+    var done = true;
+    ['rx', 'ry', 'px', 'py'].forEach(function (k) {
+      var diff = target[k] - current[k];
+      if (Math.abs(diff) > 0.01) done = false;
+      current[k] += diff * 0.08;     // easing lag — the scene follows, never snaps
+    });
+
+    root.style.setProperty('--rx', current.rx.toFixed(3) + 'deg');
+    root.style.setProperty('--ry', current.ry.toFixed(3) + 'deg');
+    root.style.setProperty('--px', current.px.toFixed(2) + '%');
+    root.style.setProperty('--py', current.py.toFixed(2) + '%');
+
+    if (done) { running = false; return; }
+    requestAnimationFrame(tick);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "id": "0024",
+  "number": 24,
+  "name": "Marketing agency hero: canvas particle field that resolves into the headline, morphs between words, and parts around the cursor",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["kinetic", "technical", "premium", "alive", "attention-grabbing"],
+  "features": [
+    "canvas-particle-text",
+    "word-cycle-headline",
+    "cursor-reactive-particles",
+    "centered-layout",
+    "engineering-grid-background",
+    "live-counter-readout",
+    "gradient-cta-button",
+    "screen-reader-text-fallback",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "dark",
+  "palette": ["#050509", "#f2f1f7", "#7b5cff", "#22e8d8", "#ff3d8b"],
+  "fonts": ["Anton", "DM Sans"],
+  "dateAdded": "2026-09-22",
+  "file": "section.html",
+  "notes": "The most technically involved section in the library — read this before touching it. The headline is not text: each word is rasterised to an offscreen canvas, read back with getImageData, and every pixel with alpha>128 on a 4px grid becomes a particle target. A single particle pool sized to the LONGEST word is reused across all words; particles a shorter word doesn't need go inactive and drift at 22% alpha as background dust (that dust is the effect, not a bug — it's what makes 'RESULTS' look like the residue of 'ATTENTION'). Targets are shuffled before assignment so letters fill in organically rather than scanline-by-scanline. Physics is a plain spring (vx += (goal-x)*0.055, damped *0.86) plus a cursor repulsion field that punches a visible hole through the word and lets it heal; pointerdown scatters the whole field and the springs reassemble it. CRITICAL: sampling runs only after document.fonts.load('400 100px \"Anton\"') resolves — sampling before the webfont lands rasterises a fallback face and the entire headline comes out the wrong shape, which is the single easiest way to break this section. Font size is derived by measuring the word at 100px and scaling to 86% of canvas width, so it fits any container without hardcoded breakpoints. SAMPLE_GAP is the density/performance dial (4 ≈ 4-5.7k particles here; raise it to 6 on a page that already runs other animation). Canvas is aria-hidden with a real .sr-only <h1> carrying the copy, since canvas text is invisible to screen readers and search engines — keep that pairing if you reuse this. Under prefers-reduced-motion the rAF loop never starts and drawStatic() paints one settled word."
+}

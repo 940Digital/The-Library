@@ -1,0 +1,26 @@
+{
+  "id": "0026",
+  "number": 26,
+  "name": "Marketing agency hero: real CSS 3D scene with depth-layered parallax and a rotating cylinder of service words orbiting the copy",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["premium", "technical", "confident", "kinetic", "aspirational"],
+  "features": [
+    "css-3d-perspective-scene",
+    "depth-layer-parallax",
+    "rotating-word-cylinder",
+    "cursor-reactive-tilt",
+    "floating-glass-chips",
+    "centered-layout",
+    "outline-text-effect",
+    "dual-cta-buttons",
+    "stat-row",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "dark",
+  "palette": ["#06070c", "#eef1f8", "#66e0ff", "#ffb547", "#8b93a8"],
+  "fonts": ["Sora", "Inter Tight"],
+  "dateAdded": "2026-09-22",
+  "file": "section.html",
+  "notes": "Genuine 3D, not simulated parallax: .stage sets perspective:1100px, .scene is preserve-3d and rotates on two axes, and four .layer elements sit at real translateZ depths (-520 photo, -300 grid, -250 ring, +95 chips). The parallax is a free consequence of perspective — there are no per-layer movement multipliers anywhere, which is the point. Each layer counter-scales by P/(P−z) so it reads at its intended size despite its depth; if you change a translateZ you MUST change the matching scale or that layer will visibly jump size. JS writes four custom properties (--rx/--ry/--px/--py) and CSS consumes them; it also shifts perspective-origin, not just rotation, which is what makes it feel like looking around a scene rather than tipping a flat card. Tilt is eased at 0.08/frame toward the target and the rAF loop self-terminates once it settles (no idle loop burning frames). MAX_TILT is 7deg — past about 9 the perspective distortion gets seasick. The word cylinder is 10 <b> elements at 36deg intervals, each rotateY(n) translateZ(15em); radius is in em so it tracks the font size. Two things to know if you re-tune it: backface-visibility:hidden is what stops the far half of the cylinder rendering mirrored/reversed, and the ring deliberately lives in its own band at top:72% rather than centred — centred it hides behind the headline and reads as stray fragments at the edges, so .hero-core carries extra bottom padding to open that band up. Measured 60fps at 1440x900. Under prefers-reduced-motion the script returns before binding anything, the scene transform is cleared, and the ring parks at a static -18deg so it still reads as a dimensional object."
+}

@@ -1,5 +1,5 @@
 {
-  "count": 23,
+  "count": 26,
   "sections": [
     {
       "id": "0001",
@@ -827,6 +827,130 @@
       "file": "section.html",
       "notes": "Each [data-scramble] node runs its own requestAnimationFrame loop: over 900ms it locks characters left-to-right (Math.floor(progress*len) determines how many characters from the start are 'solved') while every unsolved character is re-randomized from CHARS on every single frame, giving the classic terminal-decode look. The two headline lines are staggered 450ms apart (scramble(node, 150 + i*450)) so the second line starts decoding just as the first is finishing, not simultaneously. Script sets each node's textContent to a fully-scrambled string synchronously before scheduling the animation, so there's no flash-of-final-text before JS runs. Under prefers-reduced-motion the whole IIFE returns early and the original textContent (already the final copy, since data-scramble mirrors it) is left untouched \u2014 no scrambling happens at all rather than a slowed-down version. The pulsing cyan 'Decoding audience signal' status dot in the top bar is a second, independent nod to the same motif and can be swapped for a real live-status indicator (open/closed, live chat, etc.) per the pattern in section 0008.",
       "path": "sections/0023/section.html"
+    },
+    {
+      "id": "0024",
+      "number": 24,
+      "name": "Marketing agency hero: canvas particle field that resolves into the headline, morphs between words, and parts around the cursor",
+      "website": "ACME Everything",
+      "type": "hero",
+      "emotions": [
+        "kinetic",
+        "technical",
+        "premium",
+        "alive",
+        "attention-grabbing"
+      ],
+      "features": [
+        "canvas-particle-text",
+        "word-cycle-headline",
+        "cursor-reactive-particles",
+        "centered-layout",
+        "engineering-grid-background",
+        "live-counter-readout",
+        "gradient-cta-button",
+        "screen-reader-text-fallback",
+        "prefers-reduced-motion-fallback"
+      ],
+      "colorMode": "dark",
+      "palette": [
+        "#050509",
+        "#f2f1f7",
+        "#7b5cff",
+        "#22e8d8",
+        "#ff3d8b"
+      ],
+      "fonts": [
+        "Anton",
+        "DM Sans"
+      ],
+      "dateAdded": "2026-09-22",
+      "file": "section.html",
+      "notes": "The most technically involved section in the library \u2014 read this before touching it. The headline is not text: each word is rasterised to an offscreen canvas, read back with getImageData, and every pixel with alpha>128 on a 4px grid becomes a particle target. A single particle pool sized to the LONGEST word is reused across all words; particles a shorter word doesn't need go inactive and drift at 22% alpha as background dust (that dust is the effect, not a bug \u2014 it's what makes 'RESULTS' look like the residue of 'ATTENTION'). Targets are shuffled before assignment so letters fill in organically rather than scanline-by-scanline. Physics is a plain spring (vx += (goal-x)*0.055, damped *0.86) plus a cursor repulsion field that punches a visible hole through the word and lets it heal; pointerdown scatters the whole field and the springs reassemble it. CRITICAL: sampling runs only after document.fonts.load('400 100px \"Anton\"') resolves \u2014 sampling before the webfont lands rasterises a fallback face and the entire headline comes out the wrong shape, which is the single easiest way to break this section. Font size is derived by measuring the word at 100px and scaling to 86% of canvas width, so it fits any container without hardcoded breakpoints. SAMPLE_GAP is the density/performance dial (4 \u2248 4-5.7k particles here; raise it to 6 on a page that already runs other animation). Canvas is aria-hidden with a real .sr-only <h1> carrying the copy, since canvas text is invisible to screen readers and search engines \u2014 keep that pairing if you reuse this. Under prefers-reduced-motion the rAF loop never starts and drawStatic() paints one settled word.",
+      "path": "sections/0024/section.html"
+    },
+    {
+      "id": "0025",
+      "number": 25,
+      "name": "Marketing agency hero: photo physically warped by animated SVG turbulence, copy sitting on a morphing gooey metaball panel",
+      "website": "ACME Everything",
+      "type": "hero",
+      "emotions": [
+        "premium",
+        "alive",
+        "luxurious",
+        "confident",
+        "kinetic"
+      ],
+      "features": [
+        "svg-displacement-warp",
+        "gooey-metaball-panel",
+        "cursor-velocity-reactive",
+        "animated-gradient-text",
+        "full-bleed-background-image",
+        "split-layout",
+        "dual-cta-buttons",
+        "stat-row",
+        "prefers-reduced-motion-fallback"
+      ],
+      "colorMode": "dark",
+      "palette": [
+        "#0a0907",
+        "#f5f1ea",
+        "#d8a353",
+        "#b9c3cb",
+        "#a79d8c"
+      ],
+      "fonts": [
+        "Syne",
+        "Outfit"
+      ],
+      "dateAdded": "2026-09-22",
+      "file": "section.html",
+      "notes": "Two SVG filters carry this section, both defined in an inline <svg class=\"svg-defs\"> that must stay in the DOM for the filter: url(#id) references to resolve. (1) #liquidWarp: feTurbulence feeds feDisplacementMap over the photo, so the image is genuinely warped, not overlaid. The perf trick that makes it viable: JS writes feDisplacementMap@scale every frame (cheap \u2014 the noise raster is cached) but only nudges feTurbulence@baseFrequency on every 4th frame (expensive \u2014 it forces the noise to re-render). Measured 60fps at 1440x900 with that split; remove the throttle and it drops hard. Pointer SPEED (not position) feeds an 'energy' value that spikes the displacement scale up to ~67 and decays at 0.955/frame, so a flick churns the surface and it settles back to a slow resting ripple. (2) #gooMerge: blur + an alpha-crushing feColorMatrix fuses the three .goo-blob circles into one organic mass that morphs as they orbit on offset CSS durations (17s/13s/21s, all 'alternate', so the merge pattern never visibly repeats). The blobs MUST be opaque (#0b0a08) \u2014 the goo matrix destroys soft alpha, so transparency comes from .goo-layer's opacity instead. That mass is also the legibility device: the photo sits at brightness 1.05 rather than being dimmed globally, and the goo is what buys contrast under the copy, which is why the blobs are sized in vw (not vmin \u2014 with vmin they shrink away from the text as the window widens and the copy falls off the dark area). The photo overhangs its frame by 9% on every side because the displacement drags pixels inward and would otherwise pull transparent gaps in at the edges. Under prefers-reduced-motion the rAF loop never starts, scale is pinned to a static 10, and every CSS animation including the liquid-metal text sheen is disabled.",
+      "path": "sections/0025/section.html"
+    },
+    {
+      "id": "0026",
+      "number": 26,
+      "name": "Marketing agency hero: real CSS 3D scene with depth-layered parallax and a rotating cylinder of service words orbiting the copy",
+      "website": "ACME Everything",
+      "type": "hero",
+      "emotions": [
+        "premium",
+        "technical",
+        "confident",
+        "kinetic",
+        "aspirational"
+      ],
+      "features": [
+        "css-3d-perspective-scene",
+        "depth-layer-parallax",
+        "rotating-word-cylinder",
+        "cursor-reactive-tilt",
+        "floating-glass-chips",
+        "centered-layout",
+        "outline-text-effect",
+        "dual-cta-buttons",
+        "stat-row",
+        "prefers-reduced-motion-fallback"
+      ],
+      "colorMode": "dark",
+      "palette": [
+        "#06070c",
+        "#eef1f8",
+        "#66e0ff",
+        "#ffb547",
+        "#8b93a8"
+      ],
+      "fonts": [
+        "Sora",
+        "Inter Tight"
+      ],
+      "dateAdded": "2026-09-22",
+      "file": "section.html",
+      "notes": "Genuine 3D, not simulated parallax: .stage sets perspective:1100px, .scene is preserve-3d and rotates on two axes, and four .layer elements sit at real translateZ depths (-520 photo, -300 grid, -250 ring, +95 chips). The parallax is a free consequence of perspective \u2014 there are no per-layer movement multipliers anywhere, which is the point. Each layer counter-scales by P/(P\u2212z) so it reads at its intended size despite its depth; if you change a translateZ you MUST change the matching scale or that layer will visibly jump size. JS writes four custom properties (--rx/--ry/--px/--py) and CSS consumes them; it also shifts perspective-origin, not just rotation, which is what makes it feel like looking around a scene rather than tipping a flat card. Tilt is eased at 0.08/frame toward the target and the rAF loop self-terminates once it settles (no idle loop burning frames). MAX_TILT is 7deg \u2014 past about 9 the perspective distortion gets seasick. The word cylinder is 10 <b> elements at 36deg intervals, each rotateY(n) translateZ(15em); radius is in em so it tracks the font size. Two things to know if you re-tune it: backface-visibility:hidden is what stops the far half of the cylinder rendering mirrored/reversed, and the ring deliberately lives in its own band at top:72% rather than centred \u2014 centred it hides behind the headline and reads as stray fragments at the edges, so .hero-core carries extra bottom padding to open that band up. Measured 60fps at 1440x900. Under prefers-reduced-motion the script returns before binding anything, the scene transform is cleared, and the ring parks at a static -18deg so it still reads as a dimensional object.",
+      "path": "sections/0026/section.html"
     }
   ]
 }

@@ -1,0 +1,25 @@
+{
+  "id": "0025",
+  "number": 25,
+  "name": "Marketing agency hero: photo physically warped by animated SVG turbulence, copy sitting on a morphing gooey metaball panel",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["premium", "alive", "luxurious", "confident", "kinetic"],
+  "features": [
+    "svg-displacement-warp",
+    "gooey-metaball-panel",
+    "cursor-velocity-reactive",
+    "animated-gradient-text",
+    "full-bleed-background-image",
+    "split-layout",
+    "dual-cta-buttons",
+    "stat-row",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "dark",
+  "palette": ["#0a0907", "#f5f1ea", "#d8a353", "#b9c3cb", "#a79d8c"],
+  "fonts": ["Syne", "Outfit"],
+  "dateAdded": "2026-09-22",
+  "file": "section.html",
+  "notes": "Two SVG filters carry this section, both defined in an inline <svg class=\"svg-defs\"> that must stay in the DOM for the filter: url(#id) references to resolve. (1) #liquidWarp: feTurbulence feeds feDisplacementMap over the photo, so the image is genuinely warped, not overlaid. The perf trick that makes it viable: JS writes feDisplacementMap@scale every frame (cheap — the noise raster is cached) but only nudges feTurbulence@baseFrequency on every 4th frame (expensive — it forces the noise to re-render). Measured 60fps at 1440x900 with that split; remove the throttle and it drops hard. Pointer SPEED (not position) feeds an 'energy' value that spikes the displacement scale up to ~67 and decays at 0.955/frame, so a flick churns the surface and it settles back to a slow resting ripple. (2) #gooMerge: blur + an alpha-crushing feColorMatrix fuses the three .goo-blob circles into one organic mass that morphs as they orbit on offset CSS durations (17s/13s/21s, all 'alternate', so the merge pattern never visibly repeats). The blobs MUST be opaque (#0b0a08) — the goo matrix destroys soft alpha, so transparency comes from .goo-layer's opacity instead. That mass is also the legibility device: the photo sits at brightness 1.05 rather than being dimmed globally, and the goo is what buys contrast under the copy, which is why the blobs are sized in vw (not vmin — with vmin they shrink away from the text as the window widens and the copy falls off the dark area). The photo overhangs its frame by 9% on every side because the displacement drags pixels inward and would otherwise pull transparent gaps in at the edges. Under prefers-reduced-motion the rAF loop never starts, scale is pinned to a static 10, and every CSS animation including the liquid-metal text sheen is disabled."
+}
