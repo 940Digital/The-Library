@@ -531,13 +531,15 @@
       ],
       "features": [
         "inverted-text-image-mask",
+        "parallax-image",
         "full-bleed-background-image",
         "grayscale-image-filter",
         "eyebrow-label",
         "dual-cta-buttons",
         "stat-row",
         "signal-color-accent",
-        "gradient-overlay"
+        "gradient-overlay",
+        "prefers-reduced-motion-fallback"
       ],
       "colorMode": "dark",
       "palette": [
@@ -552,7 +554,7 @@
       ],
       "dateAdded": "2026-09-22",
       "file": "section.html",
-      "notes": "The signature move: two of the three headline words are set with background-image: the same hero photo, background-clip:text, then filter:invert(1) contrast(1.25) brightness(1.15) \u2014 so each letter reads as a bright inverted-color 'window' cut into the same dark photo behind it, no image editing required. The clipped words use background-attachment:fixed so their crop lines up with the viewport rather than just the text's own bounding box (falls back to background-attachment:scroll under 720px where fixed backgrounds misbehave on mobile Safari). Keep the third line (.plain) as solid paper-white \u2014 an all-masked headline reads muddy; the contrast between one plain line and two masked lines is what sells the effect. Swap the background-image url in both .hero-bg and .mask-heading span together or the mask stops matching the base photo.",
+      "notes": "The signature move: two of the three headline words are set with background-image: the same hero photo, background-clip:text, then filter:invert(1) contrast(1.25) brightness(1.15) \u2014 so each letter reads as a bright inverted-color 'window' cut into the same dark photo behind it, no image editing required. Both image layers are pinned to the viewport rather than scrolling with the page \u2014 .hero-bg is position:fixed and .mask-heading span uses background-attachment:fixed \u2014 so they share the same viewport-relative crop at every scroll position and the masked letters keep reading as a true window into the photo (not two layers drifting out of registration) as the page scrolls past the hero. Verified by checking getComputedStyle(...).position/backgroundAttachment stay 'fixed' at scrollY 0 and 400+ on desktop. Both fall back to normal scroll (position:absolute / background-attachment:scroll) under 720px width AND under prefers-reduced-motion \u2014 iOS Safari handles a fixed background inside a scrolling page poorly (jitter, URL-bar resize glitches), and a strong pinned-parallax depth effect is exactly the kind of motion some vestibular-sensitive users want reduced. Keep the third line (.plain) as solid paper-white \u2014 an all-masked headline reads muddy; the contrast between one plain line and two masked lines is what sells the effect. Swap the background-image url in both .hero-bg and .mask-heading span together or the mask stops matching the base photo.",
       "path": "sections/0016/section.html"
     },
     {

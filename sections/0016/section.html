@@ -39,7 +39,7 @@
 }
 
 .hero-bg {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: -2;
   background-image: url('../../assets/placeholders/team-work.jpg');
@@ -49,6 +49,20 @@
   transform: scale(1.02);
 }
 /* LIBRARY PLACEHOLDER: ../../assets/placeholders/team-work.jpg — swap for the target site's own hero photo, both here and on .mask-heading span below */
+
+/* Parallax: .hero-bg is pinned to the viewport (position:fixed) rather than
+   scrolling with .hero, and .mask-heading span already reads the same photo
+   with background-attachment:fixed — so as the page scrolls past this hero,
+   both layers stay locked to the same viewport-relative crop and the masked
+   letters keep reading as a true window into the photo behind them, not a
+   separately-scrolling layer. Content below the hero scrolls normally over
+   the pinned image since .hero-bg sits at z-index:-2, behind everything.
+   On mobile this flips to normal scroll (see the 720px query below) — iOS
+   Safari handles a fixed background inside a scrolling page poorly (jitter,
+   URL-bar resize glitches), so parallax there isn't worth the tradeoff. */
+@media (max-width: 720px) {
+  .hero-bg { position: absolute; transform: none; }
+}
 
 .hero::after {
   content: '';
@@ -231,7 +245,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-bg { transform: none; }
+  .hero-bg { position: absolute; transform: none; }
+  .mask-heading span { background-attachment: scroll; }
 }
 </style>
 </head>
