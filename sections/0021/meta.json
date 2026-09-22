@@ -1,0 +1,24 @@
+{
+  "id": "0021",
+  "number": 21,
+  "name": "Marketing agency hero: dot-grid background with a cursor-tracked radial spotlight that lights up a brighter acid-green grid underneath",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["technical", "confident", "sharp", "credible", "fast-moving"],
+  "features": [
+    "cursor-spotlight-grid",
+    "radial-glow-accent",
+    "monospace-type",
+    "stat-row",
+    "dual-cta-buttons",
+    "eyebrow-label",
+    "overlapping-stat-card",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "dark",
+  "palette": ["#07080a", "#f2f3f5", "#b6ff3c", "#7c828d"],
+  "fonts": ["Manrope", "JetBrains Mono"],
+  "dateAdded": "2026-09-22",
+  "file": "section.html",
+  "notes": "Two identical dot-grid layers stacked: .grid-dim is always-visible at low opacity, .grid-bright is the same grid in acid-green clipped by a CSS mask-image radial-gradient centered on --spot-x/--spot-y — those two custom properties are updated on every pointermove via inline script (hero.style.setProperty), so the bright grid only shows in a ~260px circle around the cursor, like a flashlight over a PCB. No canvas, no per-frame JS loop — the mask just tracks the custom properties directly, so it's as cheap as a CSS transition. Under prefers-reduced-motion the script sets a fixed spot position once and never attaches the pointermove listener, so the bright patch just sits static near the headline instead of chasing a cursor that convention says shouldn't be implied. The floating .proof-card (client headshot + stat) is what stops this hero from reading as pure dev-tool aesthetic — don't drop it without replacing it with some other human/credibility element, or the section reads cold for a marketing (not SaaS) audience."
+}

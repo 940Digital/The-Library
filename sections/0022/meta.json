@@ -1,0 +1,23 @@
+{
+  "id": "0022",
+  "number": 22,
+  "name": "Marketing agency hero: split layout with three vertical columns of work thumbnails auto-scrolling at different speeds and directions",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["energetic", "established", "proven", "bold", "fast-moving"],
+  "features": [
+    "auto-scrolling-image-column",
+    "split-layout",
+    "edge-fade-mask",
+    "stat-row",
+    "dual-cta-buttons",
+    "grayscale-image-filter",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "dark",
+  "palette": ["#0d0d0f", "#f3f1ec", "#ff6b4a", "#9b978d"],
+  "fonts": ["Bebas Neue", "Work Sans"],
+  "dateAdded": "2026-09-22",
+  "file": "section.html",
+  "notes": "Three .reel-col columns, each an overflow:hidden window over a .reel-track whose image list is duplicated exactly twice, translateY(0) to translateY(-50%) linear infinite — identical loop mechanism to the horizontal marquee in 0019, just on the Y axis. Middle column runs animation-name:scrollDown (translateY(-50%) to 0, i.e. visually descending) so the three columns don't move in lockstep; third column reuses scrollUp but at a slower 44s duration for a third distinct speed. A mask-image linear-gradient fades the top and bottom ~10% of the .reel container so no image is ever seen 'popping' at a hard edge. This is a placeholder reel — the six placeholder images per column are just the library's five stock photos cycled for visual variety; a real build swaps every image for that agency's actual case-study thumbnails (keep each track's list duplicated exactly once for the loop math to stay seamless when the count changes). Reduced motion freezes all three tracks in their default stacked position rather than trying to show a 'representative' single frame."
+}

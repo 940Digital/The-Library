@@ -697,6 +697,316 @@ const SECTIONS = [
     "file": "section.html",
     "notes": "Second brutalist hero \u2014 paired with 0012 as the same design language in a different register: light paper ground instead of black, terracotta signal instead of safety-yellow, condensed Bebas Neue instead of blocky Archivo Black, a different real photo (a graphic architectural roofline, not a concrete building). Built specifically so every element \u2014 header, image, headline, dek, CTAs, stat row \u2014 is visible on one mobile screen with zero scrolling: the whole layout is a single-column flex column pinned to height:100svh, and every font-size/padding/gap uses a clamp() with an svh component so it scales down on short viewports instead of overflowing. Tested down to 375\u00d7667 (iPhone SE-class, the shortest common phone viewport) with room to spare; taller/wider viewports just get more breathing room via justify-content:center, not more content. If you add copy, keep the headline to one short line plus one accent word, and the dek to 1-2 short sentences \u2014 this layout has no scroll fallback, so it depends on staying terse.",
     "path": "sections/0015/section.html"
+  },
+  {
+    "id": "0016",
+    "number": 16,
+    "name": "Marketing agency hero: headline text clipped to an inverted-color window of the background photo",
+    "website": "ACME Everything",
+    "type": "hero",
+    "emotions": [
+      "bold",
+      "unconventional",
+      "confident",
+      "sharp",
+      "attention-grabbing"
+    ],
+    "features": [
+      "inverted-text-image-mask",
+      "full-bleed-background-image",
+      "grayscale-image-filter",
+      "eyebrow-label",
+      "dual-cta-buttons",
+      "stat-row",
+      "signal-color-accent",
+      "gradient-overlay"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#09090b",
+      "#f4f2ec",
+      "#ff5a1f",
+      "#a7a39a"
+    ],
+    "fonts": [
+      "Unbounded",
+      "Inter"
+    ],
+    "dateAdded": "2026-09-22",
+    "file": "section.html",
+    "notes": "The signature move: two of the three headline words are set with background-image: the same hero photo, background-clip:text, then filter:invert(1) contrast(1.25) brightness(1.15) \u2014 so each letter reads as a bright inverted-color 'window' cut into the same dark photo behind it, no image editing required. The clipped words use background-attachment:fixed so their crop lines up with the viewport rather than just the text's own bounding box (falls back to background-attachment:scroll under 720px where fixed backgrounds misbehave on mobile Safari). Keep the third line (.plain) as solid paper-white \u2014 an all-masked headline reads muddy; the contrast between one plain line and two masked lines is what sells the effect. Swap the background-image url in both .hero-bg and .mask-heading span together or the mask stops matching the base photo.",
+    "path": "sections/0016/section.html"
+  },
+  {
+    "id": "0017",
+    "number": 17,
+    "name": "Marketing agency hero: split layout with a giant slow-rotating conic pinwheel filling the right side",
+    "website": "ACME Everything",
+    "type": "hero",
+    "emotions": [
+      "kinetic",
+      "energetic",
+      "confident",
+      "bold",
+      "fast-moving"
+    ],
+    "features": [
+      "rotating-conic-pattern",
+      "split-layout",
+      "counter-rotating-ring",
+      "stat-row",
+      "dual-cta-buttons",
+      "hard-bordered-grid",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "light",
+    "palette": [
+      "#f5f2ea",
+      "#14130f",
+      "#5b3df5",
+      "#c8ff4d"
+    ],
+    "fonts": [
+      "Space Grotesk",
+      "IBM Plex Mono"
+    ],
+    "dateAdded": "2026-09-22",
+    "file": "section.html",
+    "notes": "No photo in this one on purpose \u2014 the .pinwheel is a pure CSS conic-gradient (no image, no SVG, no JS) spun with a 34s linear infinite rotation, plus a dashed ring inside it counter-rotating at 22s for depth. Both are pure decoration built from CSS custom properties, so recoloring the target site's brand is a two-variable swap (--violet, --lime). If pulling into a real build with a photo-driven identity, either drop the photo into .hero-motion behind the pinwheel at reduced opacity, or keep it photo-free \u2014 it reads fine either way. Respects prefers-reduced-motion by killing both rotations outright rather than slowing them, since a giant frozen pinwheel still reads fine as a static graphic.",
+    "path": "sections/0017/section.html"
+  },
+  {
+    "id": "0018",
+    "number": 18,
+    "name": "Marketing agency hero: dark full-bleed with blurred gradient blobs that drift toward the cursor",
+    "website": "ACME Everything",
+    "type": "hero",
+    "emotions": [
+      "alive",
+      "playful",
+      "premium",
+      "confident",
+      "kinetic"
+    ],
+    "features": [
+      "cursor-reactive-gradient-blob",
+      "radial-glow-accent",
+      "centered-layout",
+      "dual-cta-buttons",
+      "label-tag",
+      "grain-texture-overlay",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#0b0b12",
+      "#f6f5f2",
+      "#6b4bff",
+      "#ff5fae",
+      "#35e0c8"
+    ],
+    "fonts": [
+      "Bricolage Grotesque",
+      "Inter"
+    ],
+    "dateAdded": "2026-09-22",
+    "file": "section.html",
+    "notes": "No photo \u2014 three blurred radial-gradient circles (mix-blend-mode:screen) are the whole background. Inline script listens for pointermove on the section, lerps each blob's translate3d toward the cursor at its own 'data-depth' speed (0.06 easing factor per frame via requestAnimationFrame) so the blobs trail with a soft parallax lag rather than snapping to the pointer; on pointerleave they drift back to center. Each blob also runs its own independent CSS scale-pulse keyframe so it's never fully static even with the mouse away, but the JS transform and the CSS pulse are on separate nested elements (.blob for JS translate, .blob-core for the CSS animation) specifically so they don't stomp the same transform property. Script self-skips entirely under prefers-reduced-motion (checked once on load) and the CSS also kills the pulse keyframes for that case \u2014 touch devices simply get the idle pulse with blobs centered, which still looks intentional. A light grain overlay (radial-gradient dot pattern) keeps the blur from looking like a cheap Photoshop glow.",
+    "path": "sections/0018/section.html"
+  },
+  {
+    "id": "0019",
+    "number": 19,
+    "name": "Marketing agency hero: two tilted, counter-scrolling outline-text marquee belts of service names over a marble photo",
+    "website": "ACME Everything",
+    "type": "hero",
+    "emotions": [
+      "premium",
+      "established",
+      "confident",
+      "bold",
+      "kinetic"
+    ],
+    "features": [
+      "infinite-marquee-strip",
+      "outline-text-effect",
+      "full-bleed-background-image",
+      "grayscale-image-filter",
+      "gradient-overlay",
+      "dual-cta-buttons",
+      "eyebrow-label",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#120e10",
+      "#f4ede6",
+      "#d8b06b",
+      "#b3a89e"
+    ],
+    "fonts": [
+      "Big Shoulders Display",
+      "Work Sans"
+    ],
+    "dateAdded": "2026-09-22",
+    "file": "section.html",
+    "notes": "Two .marquee-row belts, each slightly counter-rotated (-2.2deg / +2deg) so they read as crossing banners rather than a flat ticker. Each belt's .marquee-track content is duplicated exactly twice back-to-back, then animated translateX(0) to translateX(-50%) linear infinite \u2014 that exact duplication is what makes the loop seamless; changing the word list means keeping both copies identical or the seam will jump. Rows scroll opposite directions (second uses animation-direction:reverse plus a different duration) so they don't read as a single mechanical strip. Every other word is outline-only (-webkit-text-stroke, transparent fill) and every other word solid gold (.solid) \u2014 that alternation is what keeps a wall of giant type legible instead of a solid block. Belt sits between the eyebrow and the dek/CTA, not behind the headline, so it never fights with body copy for contrast. animation set to none (not paused) under prefers-reduced-motion, per the marquee text still being readable as a static line either way.",
+    "path": "sections/0019/section.html"
+  },
+  {
+    "id": "0020",
+    "number": 20,
+    "name": "Marketing agency hero: split editorial hero, headline's last word cycles through four outcomes on a pure-CSS relay",
+    "website": "ACME Everything",
+    "type": "hero",
+    "emotions": [
+      "confident",
+      "warm",
+      "personal",
+      "elegant",
+      "kinetic"
+    ],
+    "features": [
+      "word-cycle-headline",
+      "split-layout",
+      "image-with-copy",
+      "gradient-overlay",
+      "italic-word-emphasis",
+      "dual-cta-buttons",
+      "footnote-credentials-row",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#1b1712",
+      "#f6f1e7",
+      "#c9612f",
+      "#b6ac9c"
+    ],
+    "fonts": [
+      "Instrument Serif",
+      "Inter"
+    ],
+    "dateAdded": "2026-09-22",
+    "file": "section.html",
+    "notes": "Pure CSS relay, no JS. Four .cycle-word spans are absolutely stacked inside a fixed-height .cycle wrapper; each runs the same 9.6s cycleWord keyframe but with animation-delay staggered by 2.4s (9.6s / 4 words), so only one word is ever visible at a time in a continuous hand-off loop. To add/remove a word: change both the delay stagger (cycle-duration / word-count) on the nth-child selectors AND the keyframe's percentages stay the same since they're relative to each word's own delayed timeline, not the total word count \u2014 only the delay math needs to change. Reduced-motion fallback hides every word but the first and kills the animation, so it reads as a normal static headline rather than four overlapping words. Swap portrait-lifestyle.jpg for the target site's actual founder/team photo \u2014 the rounded 'Since 2016' badge pairs best with a personal, founder-led positioning; drop it if the target brand doesn't lead with a specific date.",
+    "path": "sections/0020/section.html"
+  },
+  {
+    "id": "0021",
+    "number": 21,
+    "name": "Marketing agency hero: dot-grid background with a cursor-tracked radial spotlight that lights up a brighter acid-green grid underneath",
+    "website": "ACME Everything",
+    "type": "hero",
+    "emotions": [
+      "technical",
+      "confident",
+      "sharp",
+      "credible",
+      "fast-moving"
+    ],
+    "features": [
+      "cursor-spotlight-grid",
+      "radial-glow-accent",
+      "monospace-type",
+      "stat-row",
+      "dual-cta-buttons",
+      "eyebrow-label",
+      "overlapping-stat-card",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#07080a",
+      "#f2f3f5",
+      "#b6ff3c",
+      "#7c828d"
+    ],
+    "fonts": [
+      "Manrope",
+      "JetBrains Mono"
+    ],
+    "dateAdded": "2026-09-22",
+    "file": "section.html",
+    "notes": "Two identical dot-grid layers stacked: .grid-dim is always-visible at low opacity, .grid-bright is the same grid in acid-green clipped by a CSS mask-image radial-gradient centered on --spot-x/--spot-y \u2014 those two custom properties are updated on every pointermove via inline script (hero.style.setProperty), so the bright grid only shows in a ~260px circle around the cursor, like a flashlight over a PCB. No canvas, no per-frame JS loop \u2014 the mask just tracks the custom properties directly, so it's as cheap as a CSS transition. Under prefers-reduced-motion the script sets a fixed spot position once and never attaches the pointermove listener, so the bright patch just sits static near the headline instead of chasing a cursor that convention says shouldn't be implied. The floating .proof-card (client headshot + stat) is what stops this hero from reading as pure dev-tool aesthetic \u2014 don't drop it without replacing it with some other human/credibility element, or the section reads cold for a marketing (not SaaS) audience.",
+    "path": "sections/0021/section.html"
+  },
+  {
+    "id": "0022",
+    "number": 22,
+    "name": "Marketing agency hero: split layout with three vertical columns of work thumbnails auto-scrolling at different speeds and directions",
+    "website": "ACME Everything",
+    "type": "hero",
+    "emotions": [
+      "energetic",
+      "established",
+      "proven",
+      "bold",
+      "fast-moving"
+    ],
+    "features": [
+      "auto-scrolling-image-column",
+      "split-layout",
+      "edge-fade-mask",
+      "stat-row",
+      "dual-cta-buttons",
+      "grayscale-image-filter",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#0d0d0f",
+      "#f3f1ec",
+      "#ff6b4a",
+      "#9b978d"
+    ],
+    "fonts": [
+      "Bebas Neue",
+      "Work Sans"
+    ],
+    "dateAdded": "2026-09-22",
+    "file": "section.html",
+    "notes": "Three .reel-col columns, each an overflow:hidden window over a .reel-track whose image list is duplicated exactly twice, translateY(0) to translateY(-50%) linear infinite \u2014 identical loop mechanism to the horizontal marquee in 0019, just on the Y axis. Middle column runs animation-name:scrollDown (translateY(-50%) to 0, i.e. visually descending) so the three columns don't move in lockstep; third column reuses scrollUp but at a slower 44s duration for a third distinct speed. A mask-image linear-gradient fades the top and bottom ~10% of the .reel container so no image is ever seen 'popping' at a hard edge. This is a placeholder reel \u2014 the six placeholder images per column are just the library's five stock photos cycled for visual variety; a real build swaps every image for that agency's actual case-study thumbnails (keep each track's list duplicated exactly once for the loop math to stay seamless when the count changes). Reduced motion freezes all three tracks in their default stacked position rather than trying to show a 'representative' single frame.",
+    "path": "sections/0022/section.html"
+  },
+  {
+    "id": "0023",
+    "number": 23,
+    "name": "Marketing agency hero: headline scrambles through random characters on load before decoding into the final words",
+    "website": "ACME Everything",
+    "type": "hero",
+    "emotions": [
+      "technical",
+      "sharp",
+      "intriguing",
+      "confident",
+      "no-nonsense"
+    ],
+    "features": [
+      "text-scramble-decode-effect",
+      "full-bleed-background-image",
+      "grayscale-image-filter",
+      "live-open-closed-status",
+      "monospace-type",
+      "stat-row",
+      "dual-cta-buttons",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#0c0a09",
+      "#f2ede4",
+      "#ff3d2e",
+      "#38e6d8"
+    ],
+    "fonts": [
+      "Space Mono",
+      "Manrope"
+    ],
+    "dateAdded": "2026-09-22",
+    "file": "section.html",
+    "notes": "Each [data-scramble] node runs its own requestAnimationFrame loop: over 900ms it locks characters left-to-right (Math.floor(progress*len) determines how many characters from the start are 'solved') while every unsolved character is re-randomized from CHARS on every single frame, giving the classic terminal-decode look. The two headline lines are staggered 450ms apart (scramble(node, 150 + i*450)) so the second line starts decoding just as the first is finishing, not simultaneously. Script sets each node's textContent to a fully-scrambled string synchronously before scheduling the animation, so there's no flash-of-final-text before JS runs. Under prefers-reduced-motion the whole IIFE returns early and the original textContent (already the final copy, since data-scramble mirrors it) is left untouched \u2014 no scrambling happens at all rather than a slowed-down version. The pulsing cyan 'Decoding audience signal' status dot in the top bar is a second, independent nod to the same motif and can be swapped for a real live-status indicator (open/closed, live chat, etc.) per the pattern in section 0008.",
+    "path": "sections/0023/section.html"
   }
 ];
 

@@ -1,0 +1,24 @@
+{
+  "id": "0023",
+  "number": 23,
+  "name": "Marketing agency hero: headline scrambles through random characters on load before decoding into the final words",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["technical", "sharp", "intriguing", "confident", "no-nonsense"],
+  "features": [
+    "text-scramble-decode-effect",
+    "full-bleed-background-image",
+    "grayscale-image-filter",
+    "live-open-closed-status",
+    "monospace-type",
+    "stat-row",
+    "dual-cta-buttons",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "dark",
+  "palette": ["#0c0a09", "#f2ede4", "#ff3d2e", "#38e6d8"],
+  "fonts": ["Space Mono", "Manrope"],
+  "dateAdded": "2026-09-22",
+  "file": "section.html",
+  "notes": "Each [data-scramble] node runs its own requestAnimationFrame loop: over 900ms it locks characters left-to-right (Math.floor(progress*len) determines how many characters from the start are 'solved') while every unsolved character is re-randomized from CHARS on every single frame, giving the classic terminal-decode look. The two headline lines are staggered 450ms apart (scramble(node, 150 + i*450)) so the second line starts decoding just as the first is finishing, not simultaneously. Script sets each node's textContent to a fully-scrambled string synchronously before scheduling the animation, so there's no flash-of-final-text before JS runs. Under prefers-reduced-motion the whole IIFE returns early and the original textContent (already the final copy, since data-scramble mirrors it) is left untouched — no scrambling happens at all rather than a slowed-down version. The pulsing cyan 'Decoding audience signal' status dot in the top bar is a second, independent nod to the same motif and can be swapped for a real live-status indicator (open/closed, live chat, etc.) per the pattern in section 0008."
+}

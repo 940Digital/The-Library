@@ -1,0 +1,24 @@
+{
+  "id": "0019",
+  "number": 19,
+  "name": "Marketing agency hero: two tilted, counter-scrolling outline-text marquee belts of service names over a marble photo",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["premium", "established", "confident", "bold", "kinetic"],
+  "features": [
+    "infinite-marquee-strip",
+    "outline-text-effect",
+    "full-bleed-background-image",
+    "grayscale-image-filter",
+    "gradient-overlay",
+    "dual-cta-buttons",
+    "eyebrow-label",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "dark",
+  "palette": ["#120e10", "#f4ede6", "#d8b06b", "#b3a89e"],
+  "fonts": ["Big Shoulders Display", "Work Sans"],
+  "dateAdded": "2026-09-22",
+  "file": "section.html",
+  "notes": "Two .marquee-row belts, each slightly counter-rotated (-2.2deg / +2deg) so they read as crossing banners rather than a flat ticker. Each belt's .marquee-track content is duplicated exactly twice back-to-back, then animated translateX(0) to translateX(-50%) linear infinite — that exact duplication is what makes the loop seamless; changing the word list means keeping both copies identical or the seam will jump. Rows scroll opposite directions (second uses animation-direction:reverse plus a different duration) so they don't read as a single mechanical strip. Every other word is outline-only (-webkit-text-stroke, transparent fill) and every other word solid gold (.solid) — that alternation is what keeps a wall of giant type legible instead of a solid block. Belt sits between the eyebrow and the dek/CTA, not behind the headline, so it never fights with body copy for contrast. animation set to none (not paused) under prefers-reduced-motion, per the marquee text still being readable as a static line either way."
+}

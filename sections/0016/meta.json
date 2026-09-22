@@ -1,0 +1,24 @@
+{
+  "id": "0016",
+  "number": 16,
+  "name": "Marketing agency hero: headline text clipped to an inverted-color window of the background photo",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["bold", "unconventional", "confident", "sharp", "attention-grabbing"],
+  "features": [
+    "inverted-text-image-mask",
+    "full-bleed-background-image",
+    "grayscale-image-filter",
+    "eyebrow-label",
+    "dual-cta-buttons",
+    "stat-row",
+    "signal-color-accent",
+    "gradient-overlay"
+  ],
+  "colorMode": "dark",
+  "palette": ["#09090b", "#f4f2ec", "#ff5a1f", "#a7a39a"],
+  "fonts": ["Unbounded", "Inter"],
+  "dateAdded": "2026-09-22",
+  "file": "section.html",
+  "notes": "The signature move: two of the three headline words are set with background-image: the same hero photo, background-clip:text, then filter:invert(1) contrast(1.25) brightness(1.15) — so each letter reads as a bright inverted-color 'window' cut into the same dark photo behind it, no image editing required. The clipped words use background-attachment:fixed so their crop lines up with the viewport rather than just the text's own bounding box (falls back to background-attachment:scroll under 720px where fixed backgrounds misbehave on mobile Safari). Keep the third line (.plain) as solid paper-white — an all-masked headline reads muddy; the contrast between one plain line and two masked lines is what sells the effect. Swap the background-image url in both .hero-bg and .mask-heading span together or the mask stops matching the base photo."
+}

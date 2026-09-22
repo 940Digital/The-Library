@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — ACME Everything (Scramble Decode)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  --ink:    #0c0a09;
+  --paper:  #f2ede4;
+  --dim:    #a89f92;
+  --flame:  #ff3d2e;
+  --cyan:   #38e6d8;
+
+  --font-display: 'Space Mono', ui-monospace, monospace;
+  --font-body:    'Manrope', -apple-system, sans-serif;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: url('../../assets/placeholders/brutalist-terracotta.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(.7) brightness(.28) contrast(1.2);
+}
+/* LIBRARY PLACEHOLDER: ../../assets/placeholders/brutalist-terracotta.jpg — swap for the target site's own hero photo */
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(12,10,9,.2) 0%, rgba(12,10,9,.85) 100%);
+}
+
+.hero-topbar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.8rem clamp(1.25rem, 4vw, 3rem) 0;
+  font-family: var(--font-display);
+}
+
+.hero-mark {
+  font-weight: 700;
+  font-size: .95rem;
+}
+
+.hero-status {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .74rem;
+  letter-spacing: .04em;
+  color: var(--cyan);
+}
+
+.hero-status .dot {
+  width: .45rem;
+  height: .45rem;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 0 0 rgba(56,230,216,.6);
+  animation: statusPulse 2.2s infinite;
+}
+
+@keyframes statusPulse {
+  0% { box-shadow: 0 0 0 0 rgba(56,230,216,.55); }
+  70% { box-shadow: 0 0 0 8px rgba(56,230,216,0); }
+  100% { box-shadow: 0 0 0 0 rgba(56,230,216,0); }
+}
+
+.hero-main {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem clamp(1.25rem, 4vw, 3rem);
+}
+
+.hero-eyebrow {
+  font-family: var(--font-display);
+  font-size: .78rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--flame);
+  margin-bottom: 1.4rem;
+}
+
+.hero-main h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -.01em;
+  font-size: clamp(2.4rem, 3.4vw + 1.4rem, 5.2rem);
+  max-width: 17ch;
+}
+
+.scramble { display: inline-block; }
+.scramble.is-accent { color: var(--flame); }
+
+.hero-dek {
+  max-width: 46ch;
+  margin: 1.8rem 0 0;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, .4vw + .95rem, 1.12rem);
+  line-height: 1.65;
+  color: #d3cdc3;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  margin-top: 2.2rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .92rem;
+  padding: .95rem 1.7rem;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: transform .2s ease, background-color .2s ease, color .2s ease;
+}
+
+.btn--primary { background: var(--flame); color: #16100d; }
+.btn--primary:hover { transform: translateY(-2px); background: #ff5c4d; }
+
+.btn--ghost { color: var(--paper); border: 1px solid rgba(242,237,228,.3); }
+.btn--ghost:hover { background: rgba(242,237,228,.08); }
+
+.hero-foot {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem 2.2rem;
+  padding: 1.4rem clamp(1.25rem, 4vw, 3rem) 2.4rem;
+  border-top: 1px solid rgba(242,237,228,.14);
+  font-family: var(--font-display);
+  font-size: .78rem;
+  color: var(--dim);
+}
+
+.hero-foot b { color: var(--flame); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-status .dot { animation: none; }
+}
+</style>
+</head>
+<body>
+<section class="hero" id="scrambleHero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-topbar">
+    <div class="hero-mark">Acme_Everything</div>
+    <div class="hero-status"><span class="dot"></span>Decoding audience signal</div>
+  </div>
+
+  <div class="hero-main">
+    <span class="hero-eyebrow">// Marketing Systems</span>
+    <h1>
+      <span class="scramble" data-scramble="From raw noise to">From raw noise to</span><br>
+      <span class="scramble is-accent" data-scramble="a message that lands.">a message that lands.</span>
+    </h1>
+    <p class="hero-dek">Every audience is broadcasting what it wants — most brands just aren't listening. We turn scattered behavior data into campaigns that speak the customer's language back to them.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn btn--primary">Decode Your Market</a>
+      <a href="#contact" class="btn btn--ghost">Talk to a Strategist</a>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <span><b>1.2M+</b> data points processed weekly</span>
+    <span><b>47</b> active brand signals tracked</span>
+    <span><b>6 wks</b> avg. time to first lift</span>
+  </div>
+</section>
+
+<script>
+(function () {
+  var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*_-/\\<>[]01';
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('[data-scramble]'));
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function randChar() { return CHARS[Math.floor(Math.random() * CHARS.length)]; }
+
+  function scramble(node, delayBeforeStart) {
+    var final = node.getAttribute('data-scramble');
+    var len = final.length;
+    var duration = 900;
+    var start = null;
+
+    function frame(ts) {
+      if (start === null) start = ts;
+      var elapsed = ts - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var lockedCount = Math.floor(progress * len);
+      var out = '';
+      for (var i = 0; i < len; i++) {
+        var ch = final[i];
+        if (ch === ' ') { out += ' '; continue; }
+        out += (i < lockedCount) ? ch : randChar();
+      }
+      node.textContent = out;
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        node.textContent = final;
+      }
+    }
+
+    setTimeout(function () { requestAnimationFrame(frame); }, delayBeforeStart);
+  }
+
+  if (reduceMotion || !nodes.length) return;
+
+  nodes.forEach(function (node, i) {
+    node.textContent = node.getAttribute('data-scramble').replace(/[^\s]/g, function () { return randChar(); });
+    scramble(node, 150 + i * 450);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — ACME Everything (Cursor Blob)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  --ink:    #0b0b12;
+  --paper:  #f6f5f2;
+  --dim:    #9490a3;
+  --pink:   #ff5fae;
+  --violet: #6b4bff;
+  --teal:   #35e0c8;
+
+  --font-display: 'Bricolage Grotesque', -apple-system, sans-serif;
+  --font-body:    'Inter', -apple-system, system-ui, sans-serif;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+}
+
+.blob-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 46vmax;
+  height: 46vmax;
+  margin: -23vmax 0 0 -23vmax;
+  will-change: transform;
+  transform: translate3d(0,0,0);
+}
+
+.blob-core {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  filter: blur(70px);
+  mix-blend-mode: screen;
+  opacity: .55;
+}
+
+.blob--a { z-index: 1; }
+.blob--a .blob-core { background: radial-gradient(circle at 40% 40%, var(--violet), transparent 70%); animation: pulseA 14s ease-in-out infinite; }
+
+.blob--b { z-index: 1; }
+.blob--b .blob-core { background: radial-gradient(circle at 60% 60%, var(--pink), transparent 70%); animation: pulseB 11s ease-in-out infinite; }
+
+.blob--c { z-index: 1; width: 34vmax; height: 34vmax; margin: -17vmax 0 0 -17vmax; }
+.blob--c .blob-core { background: radial-gradient(circle at 50% 50%, var(--teal), transparent 70%); opacity: .4; animation: pulseC 16s ease-in-out infinite; }
+
+@keyframes pulseA { 0%,100% { transform: scale(1); } 50% { transform: scale(1.18); } }
+@keyframes pulseB { 0%,100% { transform: scale(1.05); } 50% { transform: scale(.9); } }
+@keyframes pulseC { 0%,100% { transform: scale(.95); } 50% { transform: scale(1.12); } }
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image: radial-gradient(rgba(255,255,255,.045) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+}
+
+.hero-topbar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.8rem clamp(1.25rem, 4vw, 3rem) 0;
+}
+
+.hero-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -.01em;
+}
+
+.hero-cursor-hint {
+  display: none;
+  align-items: center;
+  gap: .5rem;
+  font-size: .78rem;
+  letter-spacing: .06em;
+  color: var(--dim);
+}
+
+@media (min-width: 720px) {
+  .hero-cursor-hint { display: flex; }
+}
+
+.hero-cursor-hint .ring {
+  width: .5rem;
+  height: .5rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--teal);
+}
+
+.hero-main {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 3rem clamp(1.25rem, 4vw, 3rem);
+}
+
+.hero-eyebrow {
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1.4rem;
+}
+
+.hero-main h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: -.02em;
+  font-size: clamp(2.6rem, 4vw + 1.4rem, 6.4rem);
+  max-width: 16ch;
+}
+
+.hero-dek {
+  max-width: 46ch;
+  margin: 1.6rem 0 0;
+  font-size: clamp(1rem, .4vw + .95rem, 1.15rem);
+  line-height: 1.65;
+  color: #cdc9db;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.1rem;
+  margin-top: 2.2rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .92rem;
+  padding: .95rem 1.7rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform .2s ease, background-color .2s ease, box-shadow .2s ease;
+}
+
+.btn--primary {
+  background: linear-gradient(120deg, var(--violet), var(--pink));
+  color: #fff;
+  box-shadow: 0 10px 30px -10px rgba(107,75,255,.6);
+}
+.btn--primary:hover { transform: translateY(-2px); }
+
+.btn--ghost {
+  color: var(--paper);
+  border: 1px solid rgba(246,245,242,.28);
+}
+.btn--ghost:hover { background: rgba(246,245,242,.08); }
+
+.hero-tags {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .7rem;
+  padding: 0 1.5rem 2.6rem;
+  font-size: .76rem;
+  letter-spacing: .04em;
+  color: var(--dim);
+}
+
+.hero-tags span {
+  border: 1px solid rgba(246,245,242,.18);
+  border-radius: 999px;
+  padding: .4rem .9rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob-core { animation: none !important; }
+}
+</style>
+</head>
+<body>
+<section class="hero" id="cursorHero">
+  <div class="blob-field" id="blobField">
+    <div class="blob blob--a" data-depth="34"><div class="blob-core"></div></div>
+    <div class="blob blob--b" data-depth="55"><div class="blob-core"></div></div>
+    <div class="blob blob--c" data-depth="20"><div class="blob-core"></div></div>
+  </div>
+  <div class="grain"></div>
+
+  <div class="hero-topbar">
+    <div class="hero-mark">Acme Everything</div>
+    <div class="hero-cursor-hint"><span class="ring"></span>Move your cursor</div>
+  </div>
+
+  <div class="hero-main">
+    <span class="hero-eyebrow">Brand &amp; Growth Studio</span>
+    <h1>Ideas that follow you, not the other way around.</h1>
+    <p class="hero-dek">A studio built around one idea: the work should feel alive. Strategy, design, and media that react to real signal, not a quarterly plan gathering dust.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn btn--primary">Explore the Work</a>
+      <a href="#contact" class="btn btn--ghost">Say Hello</a>
+    </div>
+  </div>
+
+  <div class="hero-tags">
+    <span>Brand Strategy</span>
+    <span>Performance Media</span>
+    <span>Content &amp; Social</span>
+    <span>Web &amp; Product</span>
+  </div>
+</section>
+
+<script>
+(function () {
+  var hero = document.getElementById('cursorHero');
+  var blobs = Array.prototype.slice.call(document.querySelectorAll('#blobField .blob'));
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !hero || !blobs.length) return;
+
+  var target = { x: 0, y: 0 };
+  var current = blobs.map(function () { return { x: 0, y: 0 }; });
+  var hasPointer = false;
+
+  hero.addEventListener('pointermove', function (e) {
+    var rect = hero.getBoundingClientRect();
+    target.x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+    target.y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+    hasPointer = true;
+  });
+
+  hero.addEventListener('pointerleave', function () { hasPointer = false; });
+
+  function tick() {
+    blobs.forEach(function (blob, i) {
+      var depth = parseFloat(blob.getAttribute('data-depth')) || 30;
+      var goalX = hasPointer ? target.x * depth * 4 : 0;
+      var goalY = hasPointer ? target.y * depth * 4 : 0;
+      current[i].x += (goalX - current[i].x) * 0.06;
+      current[i].y += (goalY - current[i].y) * 0.06;
+      blob.style.transform = 'translate3d(' + current[i].x + 'px,' + current[i].y + 'px,0)';
+    });
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "id": "0017",
+  "number": 17,
+  "name": "Marketing agency hero: split layout with a giant slow-rotating conic pinwheel filling the right side",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["kinetic", "energetic", "confident", "bold", "fast-moving"],
+  "features": [
+    "rotating-conic-pattern",
+    "split-layout",
+    "counter-rotating-ring",
+    "stat-row",
+    "dual-cta-buttons",
+    "hard-bordered-grid",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "light",
+  "palette": ["#f5f2ea", "#14130f", "#5b3df5", "#c8ff4d"],
+  "fonts": ["Space Grotesk", "IBM Plex Mono"],
+  "dateAdded": "2026-09-22",
+  "file": "section.html",
+  "notes": "No photo in this one on purpose — the .pinwheel is a pure CSS conic-gradient (no image, no SVG, no JS) spun with a 34s linear infinite rotation, plus a dashed ring inside it counter-rotating at 22s for depth. Both are pure decoration built from CSS custom properties, so recoloring the target site's brand is a two-variable swap (--violet, --lime). If pulling into a real build with a photo-driven identity, either drop the photo into .hero-motion behind the pinwheel at reduced opacity, or keep it photo-free — it reads fine either way. Respects prefers-reduced-motion by killing both rotations outright rather than slowing them, since a giant frozen pinwheel still reads fine as a static graphic."
+}

@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — ACME Everything (Spotlight Grid)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  --ink:    #07080a;
+  --panel:  #101216;
+  --paper:  #f2f3f5;
+  --dim:    #7c828d;
+  --acid:   #b6ff3c;
+  --spot-x: 50%;
+  --spot-y: 42%;
+
+  --font-display: 'Manrope', -apple-system, sans-serif;
+  --font-body:    'JetBrains Mono', ui-monospace, monospace;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-dim, .grid-bright {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(242,243,245,.16) 1px, transparent 1.4px);
+  background-size: 26px 26px;
+  z-index: 0;
+}
+
+.grid-bright {
+  background-image: radial-gradient(circle, var(--acid) 1.2px, transparent 1.6px);
+  opacity: .9;
+  -webkit-mask-image: radial-gradient(circle 260px at var(--spot-x) var(--spot-y), black 0%, transparent 72%);
+  mask-image: radial-gradient(circle 260px at var(--spot-x) var(--spot-y), black 0%, transparent 72%);
+  transition: -webkit-mask-image .05s linear;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(140% 100% at 50% 45%, rgba(7,8,10,0) 45%, rgba(7,8,10,.9) 100%);
+}
+
+.hero-topbar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.8rem clamp(1.25rem, 4vw, 3rem) 0;
+}
+
+.hero-mark {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.hero-mark .dot { width: .55rem; height: .55rem; background: var(--acid); border-radius: 1px; }
+
+.hero-hint {
+  display: none;
+  font-size: .76rem;
+  color: var(--dim);
+  letter-spacing: .04em;
+}
+
+@media (min-width: 720px) { .hero-hint { display: block; } }
+
+.hero-main {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem clamp(1.25rem, 4vw, 3rem);
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .76rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 1.4rem;
+}
+
+.hero-eyebrow::before { content: '['; }
+.hero-eyebrow::after { content: ']'; }
+
+.hero-main h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: .98;
+  letter-spacing: -.02em;
+  font-size: clamp(2.6rem, 4vw + 1.4rem, 5.8rem);
+  max-width: 16ch;
+}
+
+.hero-main h1 .acid { color: var(--acid); }
+
+.hero-dek {
+  max-width: 46ch;
+  margin: 1.6rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, .4vw + .95rem, 1.12rem);
+  line-height: 1.65;
+  color: #c3c6cc;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  margin-top: 2.2rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: .85rem;
+  padding: .95rem 1.6rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: transform .2s ease, background-color .2s ease, color .2s ease;
+}
+
+.btn--primary { background: var(--acid); color: var(--ink); }
+.btn--primary:hover { transform: translateY(-2px); background: #c9ff6b; }
+
+.btn--ghost { color: var(--paper); border: 1px solid rgba(242,243,245,.24); }
+.btn--ghost:hover { background: rgba(242,243,245,.08); }
+
+.proof-card {
+  position: absolute;
+  z-index: 3;
+  right: clamp(1.25rem, 4vw, 3rem);
+  top: 6.5rem;
+  display: none;
+  align-items: center;
+  gap: .8rem;
+  background: rgba(16,18,22,.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(242,243,245,.14);
+  border-radius: 10px;
+  padding: .8rem 1.1rem .8rem .8rem;
+  max-width: 240px;
+}
+
+@media (min-width: 900px) { .proof-card { display: flex; } }
+
+.proof-card img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.proof-card .txt { font-family: var(--font-display); }
+
+.proof-card .txt b { display: block; font-size: .82rem; color: var(--paper); }
+
+.proof-card .txt span { display: block; font-size: .74rem; color: var(--dim); margin-top: .1rem; }
+
+.hero-foot {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+  padding: 1.6rem clamp(1.25rem, 4vw, 3rem) 2.5rem;
+  border-top: 1px solid rgba(242,243,245,.1);
+  font-family: var(--font-body);
+  font-size: .8rem;
+  color: var(--dim);
+}
+
+.hero-foot b { color: var(--acid); }
+
+@media (prefers-reduced-motion: reduce) {
+  .grid-bright { transition: none; }
+}
+</style>
+</head>
+<body>
+<section class="hero" id="spotlightHero">
+  <div class="grid-dim"></div>
+  <div class="grid-bright" id="gridBright"></div>
+
+  <div class="hero-topbar">
+    <div class="hero-mark"><span class="dot"></span>Acme Everything</div>
+    <span class="hero-hint">move your cursor to explore</span>
+  </div>
+
+  <div class="hero-main">
+    <span class="hero-eyebrow">Data-Led Marketing</span>
+    <h1>We find the <span class="acid">signal</span> in your spend.</h1>
+    <p class="hero-dek">Every dollar tracked back to a dashboard we hand you, not one we hide behind. Media, creative, and CRO run as one connected system instead of three disconnected teams.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn btn--primary">See the Dashboard</a>
+      <a href="#contact" class="btn btn--ghost">Talk to Strategy</a>
+    </div>
+  </div>
+
+  <div class="proof-card">
+    <img src="../../assets/placeholders/portrait-lifestyle.jpg" alt="Placeholder client headshot — swap for a real client photo">
+    <div class="txt"><b>+186% pipeline</b><span>in 5 months — SaaS client</span></div>
+  </div>
+
+  <div class="hero-foot">
+    <span><b>$41M</b> managed ad spend</span>
+    <span><b>92</b> live dashboards</span>
+    <span><b>14 min</b> avg. response time</span>
+  </div>
+</section>
+
+<script>
+(function () {
+  var hero = document.getElementById('spotlightHero');
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!hero) return;
+
+  if (reduceMotion) {
+    hero.style.setProperty('--spot-x', '50%');
+    hero.style.setProperty('--spot-y', '30%');
+    return;
+  }
+
+  hero.addEventListener('pointermove', function (e) {
+    var rect = hero.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
+    hero.style.setProperty('--spot-x', x + 'px');
+    hero.style.setProperty('--spot-y', y + 'px');
+  });
+})();
+</script>
+</body>
+</html>

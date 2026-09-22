@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — ACME Everything (Word Cycle)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  --ink:    #1b1712;
+  --paper:  #f6f1e7;
+  --dim:    #b6ac9c;
+  --rust:   #c9612f;
+
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body:    'Inter', -apple-system, sans-serif;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+@media (min-width: 900px) {
+  .hero { grid-template-columns: 1.15fr .85fr; }
+}
+
+.hero-copy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.7rem;
+  padding: clamp(2.5rem, 6vw, 5.5rem) clamp(1.5rem, 4vw, 4.5rem);
+}
+
+.hero-mark {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .95rem;
+  letter-spacing: .01em;
+  align-self: flex-start;
+  padding-bottom: .3rem;
+  border-bottom: 1px solid rgba(246,241,231,.3);
+}
+
+.hero-eyebrow {
+  font-size: .78rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+.hero-copy h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: 0;
+  font-size: clamp(2.6rem, 3.4vw + 1.6rem, 5.6rem);
+  max-width: 13ch;
+}
+
+.cycle {
+  position: relative;
+  display: inline-block;
+  height: 1.05em;
+  overflow: hidden;
+  vertical-align: bottom;
+  min-width: 6ch;
+}
+
+.cycle-word {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  font-style: italic;
+  color: var(--rust);
+  opacity: 0;
+  transform: translateY(60%);
+  animation: cycleWord 9.6s infinite;
+}
+
+.cycle-word:nth-child(1) { animation-delay: 0s; }
+.cycle-word:nth-child(2) { animation-delay: 2.4s; }
+.cycle-word:nth-child(3) { animation-delay: 4.8s; }
+.cycle-word:nth-child(4) { animation-delay: 7.2s; }
+
+@keyframes cycleWord {
+  0%      { opacity: 0; transform: translateY(60%); }
+  3%      { opacity: 1; transform: translateY(0%); }
+  21%     { opacity: 1; transform: translateY(0%); }
+  25%     { opacity: 0; transform: translateY(-60%); }
+  100%    { opacity: 0; transform: translateY(-60%); }
+}
+
+.hero-dek {
+  max-width: 42ch;
+  font-size: clamp(1rem, .4vw + .95rem, 1.1rem);
+  line-height: 1.7;
+  color: var(--dim);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  margin-top: .4rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .9rem;
+  padding: .95rem 1.7rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform .2s ease, background-color .2s ease, color .2s ease;
+}
+
+.btn--primary { background: var(--rust); color: var(--paper); }
+.btn--primary:hover { transform: translateY(-2px); background: #db702f; }
+
+.btn--ghost { color: var(--paper); border: 1px solid rgba(246,241,231,.32); }
+.btn--ghost:hover { background: rgba(246,241,231,.1); }
+
+.hero-clients {
+  margin-top: 1.6rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(246,241,231,.18);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.hero-media {
+  position: relative;
+  min-height: 40vh;
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  position: absolute;
+  inset: 0;
+  filter: saturate(1.05) contrast(1.03);
+}
+
+.hero-media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(27,23,18,.55) 0%, rgba(27,23,18,0) 32%);
+  z-index: 1;
+}
+
+.hero-media-badge {
+  position: absolute;
+  left: 1.4rem;
+  bottom: 1.4rem;
+  z-index: 2;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+  padding: .7rem 1.1rem;
+  border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cycle-word { animation: none; opacity: 1; transform: none; }
+  .cycle-word:not(:first-child) { display: none; }
+}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-copy">
+    <span class="hero-mark">Acme Everything</span>
+    <span class="hero-eyebrow">Creative &amp; Growth Partners</span>
+    <h1>Brands that <span class="cycle"><span class="cycle-word">convert.</span><span class="cycle-word">compound.</span><span class="cycle-word">outlast.</span><span class="cycle-word">travel.</span></span></h1>
+    <p class="hero-dek">We're a small team of strategists, designers, and media buyers who've decided the only KPI that matters long-term is whether people remember you next quarter.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn btn--primary">See the Portfolio</a>
+      <a href="#contact" class="btn btn--ghost">Get in Touch</a>
+    </div>
+    <p class="hero-clients">Trusted by 40+ founder-led brands since 2016</p>
+  </div>
+
+  <div class="hero-media">
+    <!-- LIBRARY PLACEHOLDER: swap for the target site's own portrait/team photo -->
+    <img src="../../assets/placeholders/portrait-lifestyle.jpg" alt="Placeholder portrait photo — swap for the target site's own image">
+    <span class="hero-media-badge">Since 2016</span>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — ACME Everything (Inverted Mask)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+
+:root {
+  --ink:      #09090b;
+  --paper:    #f4f2ec;
+  --dim:      #a7a39a;
+  --signal:   #ff5a1f;   /* the one accent — used on the badge + underline only */
+
+  --font-display: 'Unbounded', 'Arial Black', sans-serif;
+  --font-body:    'Inter', -apple-system, system-ui, sans-serif;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+  isolation: isolate;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: url('../../assets/placeholders/team-work.jpg');
+  background-size: cover;
+  background-position: center 38%;
+  filter: grayscale(.55) brightness(.34) contrast(1.05);
+  transform: scale(1.02);
+}
+/* LIBRARY PLACEHOLDER: ../../assets/placeholders/team-work.jpg — swap for the target site's own hero photo, both here and on .mask-heading span below */
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(9,9,11,.15) 0%, rgba(9,9,11,.75) 100%);
+  pointer-events: none;
+}
+
+.hero-topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.6rem clamp(1.25rem, 4vw, 3rem) 0;
+}
+
+.hero-mark {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .95rem;
+  letter-spacing: -.01em;
+}
+
+.hero-mark-dot {
+  width: .55rem;
+  height: .55rem;
+  border-radius: 50%;
+  background: var(--signal);
+  flex-shrink: 0;
+}
+
+.hero-nav-hint {
+  display: none;
+  font-size: .8rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+@media (min-width: 720px) {
+  .hero-nav-hint { display: block; }
+}
+
+.hero-main {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem clamp(1.25rem, 4vw, 3rem);
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  align-self: flex-start;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--signal);
+  border: 1px solid rgba(255,90,31,.5);
+  border-radius: 999px;
+  padding: .4rem .9rem .4rem .7rem;
+  margin-bottom: 1.6rem;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: .4rem;
+  height: .4rem;
+  border-radius: 50%;
+  background: var(--signal);
+}
+
+.mask-heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: .92;
+  letter-spacing: -.015em;
+  font-size: clamp(3rem, 3.6vw + 2rem, 7.6rem);
+  max-width: 15ch;
+}
+
+.mask-heading span {
+  display: block;
+  background-image: url('../../assets/placeholders/team-work.jpg');
+  background-size: cover;
+  background-position: center 38%;
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: invert(1) grayscale(.25) contrast(1.25) brightness(1.15);
+}
+
+@media (max-width: 720px) {
+  .mask-heading span { background-attachment: scroll; }
+}
+
+.mask-heading .plain {
+  -webkit-text-fill-color: var(--paper);
+  color: var(--paper);
+  background: none;
+  filter: none;
+}
+
+.hero-dek {
+  margin: 2rem 0 0;
+  max-width: 46ch;
+  font-size: clamp(1rem, .4vw + .95rem, 1.15rem);
+  line-height: 1.6;
+  color: #d9d5c8;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.1rem;
+  margin-top: 2.1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .92rem;
+  padding: .95rem 1.6rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform .2s ease, background-color .2s ease, color .2s ease;
+}
+
+.btn--primary {
+  background: var(--signal);
+  color: var(--ink);
+}
+
+.btn--primary:hover { transform: translateY(-2px); background: #ff7440; }
+
+.btn--ghost {
+  color: var(--paper);
+  border: 1px solid rgba(244,242,236,.35);
+}
+
+.btn--ghost:hover { background: rgba(244,242,236,.1); }
+
+.hero-foot {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+  padding: 0 clamp(1.25rem, 4vw, 3rem) 2.5rem;
+  border-top: 1px solid rgba(244,242,236,.14);
+  margin-top: auto;
+  padding-top: 1.6rem;
+  font-size: .82rem;
+  color: var(--dim);
+  letter-spacing: .02em;
+}
+
+.hero-foot b {
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg { transform: none; }
+}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-topbar">
+    <div class="hero-mark"><span class="hero-mark-dot"></span>Acme Everything</div>
+    <span class="hero-nav-hint">Strategy · Media · Creative</span>
+  </div>
+
+  <div class="hero-main">
+    <span class="hero-eyebrow">Full-Service Marketing</span>
+    <h1 class="mask-heading">
+      <span>Seen</span>
+      <span>Through</span>
+      <span class="plain">Every Noise.</span>
+    </h1>
+    <p class="hero-dek">We don't add to the feed — we cut through it. Positioning, media, and creative built to make your audience stop scrolling and start paying attention.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn btn--primary">See Our Work</a>
+      <a href="#contact" class="btn btn--ghost">Book a Strategy Call</a>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <span><b>212</b> campaigns launched</span>
+    <span><b>4.3x</b> average ROAS</span>
+    <span><b>38</b> brands under retainer</span>
+  </div>
+</section>
+</body>
+</html>

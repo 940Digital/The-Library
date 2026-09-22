@@ -1,0 +1,24 @@
+{
+  "id": "0020",
+  "number": 20,
+  "name": "Marketing agency hero: split editorial hero, headline's last word cycles through four outcomes on a pure-CSS relay",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["confident", "warm", "personal", "elegant", "kinetic"],
+  "features": [
+    "word-cycle-headline",
+    "split-layout",
+    "image-with-copy",
+    "gradient-overlay",
+    "italic-word-emphasis",
+    "dual-cta-buttons",
+    "footnote-credentials-row",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "dark",
+  "palette": ["#1b1712", "#f6f1e7", "#c9612f", "#b6ac9c"],
+  "fonts": ["Instrument Serif", "Inter"],
+  "dateAdded": "2026-09-22",
+  "file": "section.html",
+  "notes": "Pure CSS relay, no JS. Four .cycle-word spans are absolutely stacked inside a fixed-height .cycle wrapper; each runs the same 9.6s cycleWord keyframe but with animation-delay staggered by 2.4s (9.6s / 4 words), so only one word is ever visible at a time in a continuous hand-off loop. To add/remove a word: change both the delay stagger (cycle-duration / word-count) on the nth-child selectors AND the keyframe's percentages stay the same since they're relative to each word's own delayed timeline, not the total word count — only the delay math needs to change. Reduced-motion fallback hides every word but the first and kills the animation, so it reads as a normal static headline rather than four overlapping words. Swap portrait-lifestyle.jpg for the target site's actual founder/team photo — the rounded 'Since 2016' badge pairs best with a personal, founder-led positioning; drop it if the target brand doesn't lead with a specific date."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "0018",
+  "number": 18,
+  "name": "Marketing agency hero: dark full-bleed with blurred gradient blobs that drift toward the cursor",
+  "website": "ACME Everything",
+  "type": "hero",
+  "emotions": ["alive", "playful", "premium", "confident", "kinetic"],
+  "features": [
+    "cursor-reactive-gradient-blob",
+    "radial-glow-accent",
+    "centered-layout",
+    "dual-cta-buttons",
+    "label-tag",
+    "grain-texture-overlay",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "dark",
+  "palette": ["#0b0b12", "#f6f5f2", "#6b4bff", "#ff5fae", "#35e0c8"],
+  "fonts": ["Bricolage Grotesque", "Inter"],
+  "dateAdded": "2026-09-22",
+  "file": "section.html",
+  "notes": "No photo — three blurred radial-gradient circles (mix-blend-mode:screen) are the whole background. Inline script listens for pointermove on the section, lerps each blob's translate3d toward the cursor at its own 'data-depth' speed (0.06 easing factor per frame via requestAnimationFrame) so the blobs trail with a soft parallax lag rather than snapping to the pointer; on pointerleave they drift back to center. Each blob also runs its own independent CSS scale-pulse keyframe so it's never fully static even with the mouse away, but the JS transform and the CSS pulse are on separate nested elements (.blob for JS translate, .blob-core for the CSS animation) specifically so they don't stomp the same transform property. Script self-skips entirely under prefers-reduced-motion (checked once on load) and the CSS also kills the pulse keyframes for that case — touch devices simply get the idle pulse with blobs centered, which still looks intentional. A light grain overlay (radial-gradient dot pattern) keeps the blur from looking like a cheap Photoshop glow."
+}
