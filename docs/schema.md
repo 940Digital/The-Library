@@ -74,6 +74,21 @@ Common ones already in use: `full-bleed-background-image`, `split-layout`,
 
 Run `grep -h features -A5 sections/*/meta.json` or just read `index.json` to see the full current set before coining a duplicate under a different name.
 
+## Own-brand sections (the one exception to `website: "ACME Everything"`)
+
+Sections adapted from a **client** build are always de-identified and always
+carry `"website": "ACME Everything"`. That rule protects a third party, and it
+is not optional.
+
+Sections built for **940Digital itself** are the exception. There is no client
+to protect, the brand is already public, and the real wordmark, palette and
+copy are the whole point of the section. Those carry `"website": "940Digital"`
+and keep their real branding.
+
+Currently: sections 0027 to 0036, the ten hero brand series. If you add more
+of these, use `"940Digital"` and say in `notes` that the section is
+deliberately not de-identified, so nobody "fixes" it later.
+
 ## De-identifying a pulled section
 
 This repo is public. Before a section pulled from a real client build gets added, strip everything that ties it back to that business or its owner:

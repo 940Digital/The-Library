@@ -1,0 +1,39 @@
+{
+  "id": "0032",
+  "number": 32,
+  "name": "Agency hero: restraint, with a live typographic overlay that measures the rendered text and draws the system it was set on",
+  "website": "940Digital",
+  "type": "hero",
+  "emotions": [
+    "quiet-confidence",
+    "precise",
+    "premium",
+    "confident",
+    "understated"
+  ],
+  "features": [
+    "live-typographic-overlay",
+    "measured-baseline-grid",
+    "canvas-font-metrics",
+    "measure-in-characters",
+    "toggle-switch-control",
+    "restraint-led-layout",
+    "centered-single-column",
+    "prefers-reduced-motion-fallback"
+  ],
+  "colorMode": "light",
+  "palette": [
+    "#F7F1E7",
+    "#FFFFFF",
+    "#1B1D21",
+    "#1F6FB0",
+    "#4A4F57"
+  ],
+  "fonts": [
+    "Plus Jakarta Sans",
+    "JetBrains Mono"
+  ],
+  "dateAdded": "2026-09-23",
+  "file": "section.html",
+  "notes": "The most restrained section in the library and the one recommended as the 940Digital design language. Almost nothing but type on warm sand. The signature effect only appears if asked: a toggle draws the real typographic system, measured live from the rendered text rather than hardcoded. Real font metrics come from a canvas (measureText('H').actualBoundingBoxAscent for cap height, 'x' for x-height), line boxes come from a Range over the text so wrapped lines are found as they rendered, and fragments sharing a top are merged because getClientRects returns one per inline element. CRITICAL: half-leading is subtracted ((lineHeight - (ascent+descent))/2) or every baseline lands a few pixels high, which is exactly the error this section argues against. Tracking is reported back in em, not the px getComputedStyle returns. It is a toggle rather than hover-only so it exists on touch, and the labels hide below 720px while the guides still draw. Drawing only happens while the overlay is shown. Part of the ten hero 940Digital brand series (sections 0027 to 0036); the series log, the contact sheet that renders all ten live, and the written recommendation are in brand-heroes/set-evidence/. Unlike the client-derived sections in this library, this one is NOT de-identified: 940Digital is Owen's own business, so there is no third party to protect and the real wordmark, palette and copy are the point of the section. Brand rules baked in across the whole series: display type at weight 500 with about -0.03em tracking (not 700); #3194E0 never carries text on a light background because it measures 2.90:1, so blue text on sand is #1F6FB0 and a blue fill takes a charcoal label at 5.18:1; every figure is JetBrains Mono with tabular-nums; text containers are sized in ch, not px."
+}

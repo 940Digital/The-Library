@@ -1133,6 +1133,404 @@ const SECTIONS = [
     "file": "section.html",
     "notes": "Genuine 3D, not simulated parallax: .stage sets perspective:1100px, .scene is preserve-3d and rotates on two axes, and four .layer elements sit at real translateZ depths (-520 photo, -300 grid, -250 ring, +95 chips). The parallax is a free consequence of perspective \u2014 there are no per-layer movement multipliers anywhere, which is the point. Each layer counter-scales by P/(P\u2212z) so it reads at its intended size despite its depth; if you change a translateZ you MUST change the matching scale or that layer will visibly jump size. JS writes four custom properties (--rx/--ry/--px/--py) and CSS consumes them; it also shifts perspective-origin, not just rotation, which is what makes it feel like looking around a scene rather than tipping a flat card. Tilt is eased at 0.08/frame toward the target and the rAF loop self-terminates once it settles (no idle loop burning frames). MAX_TILT is 7deg \u2014 past about 9 the perspective distortion gets seasick. The word cylinder is 10 <b> elements at 36deg intervals, each rotateY(n) translateZ(15em); radius is in em so it tracks the font size. Two things to know if you re-tune it: backface-visibility:hidden is what stops the far half of the cylinder rendering mirrored/reversed, and the ring deliberately lives in its own band at top:72% rather than centred \u2014 centred it hides behind the headline and reads as stray fragments at the edges, so .hero-core carries extra bottom padding to open that band up. Measured 60fps at 1440x900. Under prefers-reduced-motion the script returns before binding anything, the scene transform is cleared, and the ring parks at a static -18deg so it still reads as a dimensional object.",
     "path": "sections/0026/section.html"
+  },
+  {
+    "id": "0027",
+    "number": 27,
+    "name": "Agency hero: type a business name and a live search result plus site preview assemble themselves from it",
+    "website": "940Digital",
+    "type": "hero",
+    "emotions": [
+      "trustworthy",
+      "confident",
+      "personal",
+      "credible",
+      "plain-spoken"
+    ],
+    "features": [
+      "input-driven-preview",
+      "debounced-text-input",
+      "staged-assembly-reveal",
+      "search-result-mockup",
+      "browser-frame-mockup",
+      "split-layout",
+      "aria-live-region",
+      "dual-cta-buttons",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#1B1D21",
+      "#212429",
+      "#3194E0",
+      "#F7F1E7",
+      "#A8B0BA"
+    ],
+    "fonts": [
+      "Plus Jakarta Sans",
+      "JetBrains Mono"
+    ],
+    "dateAdded": "2026-09-23",
+    "file": "section.html",
+    "notes": "Signature effect: the visitor types their business name and the panel builds a plausible Google result plus a miniature site card from it, in reading order. The generator is the interesting part: SKIP drops articles so 'The Oak Cliff Bakery' monograms as OC rather than TO, and the domain builder trims to the first two meaningful words once a slug passes 26 characters so long names do not produce an absurd URL. Everything runs in the browser and nothing is sent anywhere, which the copy says out loud because that is the trust argument. The result region is aria-live so a screen reader hears it change instead of missing the entire point. Staged reveal is authored per element via data-step rather than one blanket fade, and a forced reflow between removing and re-adding .on is what makes a retype actually replay. Grid is two columns and two rows so mobile collapses to say, then stage, then actions: you type, you see the result, then you decide. Part of the ten hero 940Digital brand series (sections 0027 to 0036); the series log, the contact sheet that renders all ten live, and the written recommendation are in brand-heroes/set-evidence/. Unlike the client-derived sections in this library, this one is NOT de-identified: 940Digital is Owen's own business, so there is no third party to protect and the real wordmark, palette and copy are the point of the section. Brand rules baked in across the whole series: display type at weight 500 with about -0.03em tracking (not 700); #3194E0 never carries text on a light background because it measures 2.90:1, so blue text on sand is #1F6FB0 and a blue fill takes a charcoal label at 5.18:1; every figure is JetBrains Mono with tabular-nums; text containers are sized in ch, not px.",
+    "path": "sections/0027/section.html"
+  },
+  {
+    "id": "0028",
+    "number": 28,
+    "name": "Agency hero: an architectural drawing that drafts itself, then dimensions and annotates its own decisions",
+    "website": "940Digital",
+    "type": "hero",
+    "emotions": [
+      "confident",
+      "thorough",
+      "grounded",
+      "trustworthy",
+      "quiet-confidence"
+    ],
+    "features": [
+      "self-drawing-svg-plan",
+      "stroke-dashoffset-path-drawing",
+      "dimension-lines-and-annotations",
+      "drafting-grid-background",
+      "mobile-viewbox-crop",
+      "replay-control",
+      "numbered-notes-list",
+      "split-layout",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "light",
+    "palette": [
+      "#F7F1E7",
+      "#FFFFFF",
+      "#1B1D21",
+      "#1F6FB0",
+      "#4A4F57"
+    ],
+    "fonts": [
+      "Plus Jakarta Sans",
+      "JetBrains Mono"
+    ],
+    "dateAdded": "2026-09-23",
+    "file": "section.html",
+    "notes": "Signature effect: a page layout drawn as an architect's plan that draws itself, then adds dimension lines and annotations explaining why each region exists. Every path carries pathLength=\"1\" so one duration reads the same on a 40px tick and a 600px frame; without that the long paths crawl and the short ones snap. Timing is authored per path with --delay and --dur custom properties. Two things to know before editing: the annotation positions were fixed after measuring getBBox on the rendered text (two labels were colliding within 1px), so if you move one, re-measure rather than eyeballing it. And below 560px the drawing scales to about 0.55, which would render the 10px annotations at roughly 5px, so the .anno class is hidden and the viewBox crops to the page frame via JS (viewBox cannot be set from CSS). Nothing is lost there because all three annotations are also stated as a real numbered list in the copy. Part of the ten hero 940Digital brand series (sections 0027 to 0036); the series log, the contact sheet that renders all ten live, and the written recommendation are in brand-heroes/set-evidence/. Unlike the client-derived sections in this library, this one is NOT de-identified: 940Digital is Owen's own business, so there is no third party to protect and the real wordmark, palette and copy are the point of the section. Brand rules baked in across the whole series: display type at weight 500 with about -0.03em tracking (not 700); #3194E0 never carries text on a light background because it measures 2.90:1, so blue text on sand is #1F6FB0 and a blue fill takes a charcoal label at 5.18:1; every figure is JetBrains Mono with tabular-nums; text containers are sized in ch, not px.",
+    "path": "sections/0028/section.html"
+  },
+  {
+    "id": "0029",
+    "number": 29,
+    "name": "Agency hero: an itemised price breakdown that totals itself, including the lines that cost nothing",
+    "website": "940Digital",
+    "type": "hero",
+    "emotions": [
+      "plain-spoken",
+      "trustworthy",
+      "direct",
+      "credible",
+      "no-nonsense"
+    ],
+    "features": [
+      "self-totalling-price-list",
+      "count-up-figures",
+      "tabular-numerals",
+      "itemised-document-panel",
+      "zero-cost-line-items",
+      "paper-on-dark-desk",
+      "split-layout",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#1B1D21",
+      "#212429",
+      "#3194E0",
+      "#F7F1E7",
+      "#A8B0BA"
+    ],
+    "fonts": [
+      "Plus Jakarta Sans",
+      "JetBrains Mono"
+    ],
+    "dateAdded": "2026-09-23",
+    "file": "section.html",
+    "notes": "Signature effect: a price document on warm paper against a dark desk, whose rows arrive one at a time while their figures count up, so the total feels earned rather than asserted. The emotional payload is the second group, the lines that read $0: hosting, edits, answering the phone. Deliberate detail: countUp returns early on any zero, because a zero counting to zero is a fidget and the zeroes are the ones carrying the argument. Every amount is present in the markup as real text and the script only animates what is already there, so with JS off the correct figures show and a screen reader never hears a half-counted number. Line items sum to the stated total (600+150+50=800); if you change one, change the total. Tabular numerals plus a right-aligned column is what makes a price list look kept rather than typed. Part of the ten hero 940Digital brand series (sections 0027 to 0036); the series log, the contact sheet that renders all ten live, and the written recommendation are in brand-heroes/set-evidence/. Unlike the client-derived sections in this library, this one is NOT de-identified: 940Digital is Owen's own business, so there is no third party to protect and the real wordmark, palette and copy are the point of the section. Brand rules baked in across the whole series: display type at weight 500 with about -0.03em tracking (not 700); #3194E0 never carries text on a light background because it measures 2.90:1, so blue text on sand is #1F6FB0 and a blue fill takes a charcoal label at 5.18:1; every figure is JetBrains Mono with tabular-nums; text containers are sized in ch, not px.",
+    "path": "sections/0029/section.html"
+  },
+  {
+    "id": "0030",
+    "number": 30,
+    "name": "Agency hero: a real message exchange played at human pace with honest timestamps",
+    "website": "940Digital",
+    "type": "hero",
+    "emotions": [
+      "personal",
+      "warm",
+      "accountable",
+      "trustworthy",
+      "plain-spoken"
+    ],
+    "features": [
+      "paced-message-thread",
+      "typing-indicator",
+      "honest-timestamps",
+      "per-message-timing",
+      "replay-control",
+      "sourced-metric-callout",
+      "split-layout",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "light",
+    "palette": [
+      "#F7F1E7",
+      "#FFFFFF",
+      "#1B1D21",
+      "#1F6FB0",
+      "#4A4F57"
+    ],
+    "fonts": [
+      "Plus Jakarta Sans",
+      "JetBrains Mono"
+    ],
+    "dateAdded": "2026-09-23",
+    "file": "section.html",
+    "notes": "Signature effect: a first message from a business owner and the reply, played back at conversational pace. The restraint that makes it work is that the reply is not instant. The thread stamps 8:42 PM to 8:51 PM and the footer says 'first reply in 9 minutes', which is more persuasive than a claim of zero. Pacing is authored per message via data-wait and data-typing rather than one flat interval, because an even rhythm reads as a machine. The typing indicator is removed the moment its message lands so it is never left spinning. The whole exchange is in the markup as real text; the script only decides when each becomes visible. Also carries the series' metric pattern: a large tabular figure ('9 min') beside a dense block naming how it was measured, ending 'Not a promise. A record.' Note .metric-num needs white-space:nowrap or '9 min' breaks after the 9. Part of the ten hero 940Digital brand series (sections 0027 to 0036); the series log, the contact sheet that renders all ten live, and the written recommendation are in brand-heroes/set-evidence/. Unlike the client-derived sections in this library, this one is NOT de-identified: 940Digital is Owen's own business, so there is no third party to protect and the real wordmark, palette and copy are the point of the section. Brand rules baked in across the whole series: display type at weight 500 with about -0.03em tracking (not 700); #3194E0 never carries text on a light background because it measures 2.90:1, so blue text on sand is #1F6FB0 and a blue fill takes a charcoal label at 5.18:1; every figure is JetBrains Mono with tabular-nums; text containers are sized in ch, not px.",
+    "path": "sections/0030/section.html"
+  },
+  {
+    "id": "0031",
+    "number": 31,
+    "name": "Agency hero: an orthographic exploded diagram of the five layers of a build, lifting whichever layer you point at",
+    "website": "940Digital",
+    "type": "hero",
+    "emotions": [
+      "technical",
+      "capable",
+      "confident",
+      "thorough",
+      "credible"
+    ],
+    "features": [
+      "orthographic-exploded-diagram",
+      "isometric-svg-stack",
+      "hover-and-focus-linked-diagram",
+      "layer-list-control",
+      "staggered-separation-on-load",
+      "split-layout",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#1B1D21",
+      "#212429",
+      "#3194E0",
+      "#F7F1E7",
+      "#A8B0BA"
+    ],
+    "fonts": [
+      "Plus Jakarta Sans",
+      "JetBrains Mono"
+    ],
+    "dateAdded": "2026-09-23",
+    "file": "section.html",
+    "notes": "Signature effect: five 2:1 isometric plates that separate once on load, bottom up, then respond when the visitor points at any layer's name. Deliberately NOT CSS 3D: no perspective, no cursor tilt, no preserve-3d, which is what keeps it distinct from section 0026. It is flat SVG with hand-authored rhombus paths, so it renders identically everywhere and costs nothing to animate. The control surface is a real list of buttons beside it, not the diagram, which means hover, focus and tab all drive it for free and the content is readable text rather than 20 unlabelled paths. Touch has no hover, so a tap latches a layer and a second tap releases it. Important if you edit the art: the viewBox is fitted to the measured getBBox (104 -10 312 506), not a round number. The original 0 0 520 470 clipped the bottom plate and wasted 240 units of dead space. Re-measure after moving anything. Part of the ten hero 940Digital brand series (sections 0027 to 0036); the series log, the contact sheet that renders all ten live, and the written recommendation are in brand-heroes/set-evidence/. Unlike the client-derived sections in this library, this one is NOT de-identified: 940Digital is Owen's own business, so there is no third party to protect and the real wordmark, palette and copy are the point of the section. Brand rules baked in across the whole series: display type at weight 500 with about -0.03em tracking (not 700); #3194E0 never carries text on a light background because it measures 2.90:1, so blue text on sand is #1F6FB0 and a blue fill takes a charcoal label at 5.18:1; every figure is JetBrains Mono with tabular-nums; text containers are sized in ch, not px.",
+    "path": "sections/0031/section.html"
+  },
+  {
+    "id": "0032",
+    "number": 32,
+    "name": "Agency hero: restraint, with a live typographic overlay that measures the rendered text and draws the system it was set on",
+    "website": "940Digital",
+    "type": "hero",
+    "emotions": [
+      "quiet-confidence",
+      "precise",
+      "premium",
+      "confident",
+      "understated"
+    ],
+    "features": [
+      "live-typographic-overlay",
+      "measured-baseline-grid",
+      "canvas-font-metrics",
+      "measure-in-characters",
+      "toggle-switch-control",
+      "restraint-led-layout",
+      "centered-single-column",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "light",
+    "palette": [
+      "#F7F1E7",
+      "#FFFFFF",
+      "#1B1D21",
+      "#1F6FB0",
+      "#4A4F57"
+    ],
+    "fonts": [
+      "Plus Jakarta Sans",
+      "JetBrains Mono"
+    ],
+    "dateAdded": "2026-09-23",
+    "file": "section.html",
+    "notes": "The most restrained section in the library and the one recommended as the 940Digital design language. Almost nothing but type on warm sand. The signature effect only appears if asked: a toggle draws the real typographic system, measured live from the rendered text rather than hardcoded. Real font metrics come from a canvas (measureText('H').actualBoundingBoxAscent for cap height, 'x' for x-height), line boxes come from a Range over the text so wrapped lines are found as they rendered, and fragments sharing a top are merged because getClientRects returns one per inline element. CRITICAL: half-leading is subtracted ((lineHeight - (ascent+descent))/2) or every baseline lands a few pixels high, which is exactly the error this section argues against. Tracking is reported back in em, not the px getComputedStyle returns. It is a toggle rather than hover-only so it exists on touch, and the labels hide below 720px while the guides still draw. Drawing only happens while the overlay is shown. Part of the ten hero 940Digital brand series (sections 0027 to 0036); the series log, the contact sheet that renders all ten live, and the written recommendation are in brand-heroes/set-evidence/. Unlike the client-derived sections in this library, this one is NOT de-identified: 940Digital is Owen's own business, so there is no third party to protect and the real wordmark, palette and copy are the point of the section. Brand rules baked in across the whole series: display type at weight 500 with about -0.03em tracking (not 700); #3194E0 never carries text on a light background because it measures 2.90:1, so blue text on sand is #1F6FB0 and a blue fill takes a charcoal label at 5.18:1; every figure is JetBrains Mono with tabular-nums; text containers are sized in ch, not px.",
+    "path": "sections/0032/section.html"
+  },
+  {
+    "id": "0033",
+    "number": 33,
+    "name": "Agency hero: a scrubbable twenty-one day build log in which two of the nine entries are failures, marked and unsoftened",
+    "website": "940Digital",
+    "type": "hero",
+    "emotions": [
+      "accountable",
+      "honest",
+      "trustworthy",
+      "no-nonsense",
+      "grounded"
+    ],
+    "features": [
+      "drag-scrub-timeline",
+      "native-range-slider",
+      "day-indexed-entries",
+      "failure-entries-marked",
+      "tick-rail-with-states",
+      "split-layout",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#1B1D21",
+      "#212429",
+      "#3194E0",
+      "#E8B84B",
+      "#A8B0BA"
+    ],
+    "fonts": [
+      "Plus Jakarta Sans",
+      "JetBrains Mono"
+    ],
+    "dateAdded": "2026-09-23",
+    "file": "section.html",
+    "notes": "Signature effect: the visitor drags through a real build day by day. It does not play at them, it answers them. The content is the risky part and the reason it works: two entries are failures (day 9, images shipped at 4MB; day 18, the contact form sent empty submissions), they are marked in amber, they are not at the end, and they are not softened. The control is a real <input type=\"range\">, which brings keyboard control, touch dragging and a correct screen reader announcement for free; nothing hand-rolled would get all three right. Ticks are positioned by actual day number over 21, not by index, so the calendar gaps are true. The WebKit track has no native progress element, hence the --pct custom property painting the fill. One nudge animation fires once on first sight so the control reads as draggable without a tooltip. Uses the amber #E8B84B proposed as the brand's fifth colour (9.15:1 on charcoal); its light-mode companion would need to be far darker at #7A5E10, since amber on sand is only 1.64:1. Part of the ten hero 940Digital brand series (sections 0027 to 0036); the series log, the contact sheet that renders all ten live, and the written recommendation are in brand-heroes/set-evidence/. Unlike the client-derived sections in this library, this one is NOT de-identified: 940Digital is Owen's own business, so there is no third party to protect and the real wordmark, palette and copy are the point of the section. Brand rules baked in across the whole series: display type at weight 500 with about -0.03em tracking (not 700); #3194E0 never carries text on a light background because it measures 2.90:1, so blue text on sand is #1F6FB0 and a blue fill takes a charcoal label at 5.18:1; every figure is JetBrains Mono with tabular-nums; text containers are sized in ch, not px.",
+    "path": "sections/0033/section.html"
+  },
+  {
+    "id": "0034",
+    "number": 34,
+    "name": "Agency hero: a genuinely live availability status computed in the business's own timezone, honest enough to say nobody is awake",
+    "website": "940Digital",
+    "type": "hero",
+    "emotions": [
+      "honest",
+      "personal",
+      "credible",
+      "plain-spoken",
+      "accountable"
+    ],
+    "features": [
+      "live-clock",
+      "timezone-aware-status",
+      "intl-datetimeformat",
+      "honest-availability-states",
+      "visitor-timezone-comparison",
+      "tabular-numerals",
+      "split-layout",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "light",
+    "palette": [
+      "#F7F1E7",
+      "#FFFFFF",
+      "#1B1D21",
+      "#1F6FB0",
+      "#4A4F57"
+    ],
+    "fonts": [
+      "Plus Jakarta Sans",
+      "JetBrains Mono"
+    ],
+    "dateAdded": "2026-09-23",
+    "file": "section.html",
+    "notes": "Signature effect: a status that is actually computed instead of a green dot that is always on. Reads the real hour in America/Chicago through Intl.DateTimeFormat.formatToParts, NOT the visitor's clock (which would tell a customer in London that Denton is awake at 4am) and NOT a hardcoded offset (which would be wrong twice a year at the daylight saving shift). Four honest states, and the one that sells is the overnight branch: 'Asleep, almost certainly. Read before 8:00 AM.' Verified by stubbing the Date constructor to 07:30 UTC and confirming it produced 2:30 AM and the asleep state. If the visitor's zone differs, the footnote tells them their own local time, which proves the clock on screen is not just their own. Seconds tick, because a clock that does not is a picture of a clock, but the interval drops to 60s under reduced motion and stops entirely while the tab is hidden. Tabular numerals are load-bearing here: without them the layout shifts every second. Part of the ten hero 940Digital brand series (sections 0027 to 0036); the series log, the contact sheet that renders all ten live, and the written recommendation are in brand-heroes/set-evidence/. Unlike the client-derived sections in this library, this one is NOT de-identified: 940Digital is Owen's own business, so there is no third party to protect and the real wordmark, palette and copy are the point of the section. Brand rules baked in across the whole series: display type at weight 500 with about -0.03em tracking (not 700); #3194E0 never carries text on a light background because it measures 2.90:1, so blue text on sand is #1F6FB0 and a blue fill takes a charcoal label at 5.18:1; every figure is JetBrains Mono with tabular-nums; text containers are sized in ch, not px.",
+    "path": "sections/0034/section.html"
+  },
+  {
+    "id": "0035",
+    "number": 35,
+    "name": "Agency hero: the hero rewrites itself to answer whichever of four fears the visitor picks",
+    "website": "940Digital",
+    "type": "hero",
+    "emotions": [
+      "direct",
+      "accountable",
+      "plain-spoken",
+      "confident",
+      "personable"
+    ],
+    "features": [
+      "self-rewriting-hero",
+      "objection-tabs",
+      "aria-tablist-roving-tabindex",
+      "staggered-panel-reveal",
+      "centered-single-column",
+      "dual-cta-buttons",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "dark",
+    "palette": [
+      "#1B1D21",
+      "#212429",
+      "#3194E0",
+      "#F7F1E7",
+      "#A8B0BA"
+    ],
+    "fonts": [
+      "Plus Jakarta Sans",
+      "JetBrains Mono"
+    ],
+    "dateAdded": "2026-09-23",
+    "file": "section.html",
+    "notes": "Signature effect: instead of arguing the case the author wants to make, the hero asks which case the visitor needs made. Four real fears as chips ('I paid someone and got nothing', 'I cannot afford to get this wrong', 'I do not have time for this', 'I do not know what I need'), and picking one rewrites the headline, body, evidence line and both calls to action together. The runner-up in the series recommendation, and the strongest converter of the ten on a cold visit. Built as a proper ARIA tablist with roving tabindex, arrow keys, Home and End, so a keyboard user tabs past the group in one press and navigates inside it with arrows. Heading semantics matter here and were fixed: an early version gave each of the four panels its own h1, putting four h1s in the markup. The hero's constant question is now the single h1 (carrying the service and market in a visually hidden span) and the four switching headlines are h2, which is what they actually are. Each part of a panel animates on its own small delay so the hero reads as re-set rather than swapped, and it is over in under half a second. Part of the ten hero 940Digital brand series (sections 0027 to 0036); the series log, the contact sheet that renders all ten live, and the written recommendation are in brand-heroes/set-evidence/. Unlike the client-derived sections in this library, this one is NOT de-identified: 940Digital is Owen's own business, so there is no third party to protect and the real wordmark, palette and copy are the point of the section. Brand rules baked in across the whole series: display type at weight 500 with about -0.03em tracking (not 700); #3194E0 never carries text on a light background because it measures 2.90:1, so blue text on sand is #1F6FB0 and a blue fill takes a charcoal label at 5.18:1; every figure is JetBrains Mono with tabular-nums; text containers are sized in ch, not px.",
+    "path": "sections/0035/section.html"
+  },
+  {
+    "id": "0036",
+    "number": 36,
+    "name": "Agency hero: a working file inspector over the handover, where the owner field reads You on all eight items",
+    "website": "940Digital",
+    "type": "hero",
+    "emotions": [
+      "trustworthy",
+      "accountable",
+      "honest",
+      "credible",
+      "grounded"
+    ],
+    "features": [
+      "file-inspector",
+      "aria-listbox-activedescendant",
+      "list-detail-panes",
+      "metadata-rows",
+      "keyboard-arrow-navigation",
+      "split-layout",
+      "prefers-reduced-motion-fallback"
+    ],
+    "colorMode": "light",
+    "palette": [
+      "#F7F1E7",
+      "#FFFFFF",
+      "#1B1D21",
+      "#1F6FB0",
+      "#4A4F57"
+    ],
+    "fonts": [
+      "Plus Jakarta Sans",
+      "JetBrains Mono"
+    ],
+    "dateAdded": "2026-09-23",
+    "file": "section.html",
+    "notes": "Signature effect: a real two-pane inspector over the eight things handed to a client (domain, hosting, Google Business Profile, source, credentials, original photos, analytics, invoice). The quiet payload is that the Owner row reads 'You' on every single one, and the visitor discovers that by clicking rather than being told. Directly answers the most common way a small business gets hurt by a web person, which is that the web person holds the domain. Built as a real ARIA listbox using aria-activedescendant, so focus stays on the list container while assistive tech is told which of eight is current; moving real focus into each row would fight the arrow key handling. Arrow keys, Home and End all work, and the selected row is scrolled into view when arrowing past the visible area. On mobile the panes stack and the list keeps a 178px cap so eight rows of filenames cannot push the detail off the bottom of a phone. Part of the ten hero 940Digital brand series (sections 0027 to 0036); the series log, the contact sheet that renders all ten live, and the written recommendation are in brand-heroes/set-evidence/. Unlike the client-derived sections in this library, this one is NOT de-identified: 940Digital is Owen's own business, so there is no third party to protect and the real wordmark, palette and copy are the point of the section. Brand rules baked in across the whole series: display type at weight 500 with about -0.03em tracking (not 700); #3194E0 never carries text on a light background because it measures 2.90:1, so blue text on sand is #1F6FB0 and a blue fill takes a charcoal label at 5.18:1; every figure is JetBrains Mono with tabular-nums; text containers are sized in ch, not px.",
+    "path": "sections/0036/section.html"
   }
 ];
 

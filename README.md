@@ -39,4 +39,11 @@ To add a section, see **Adding a new section** in [docs/schema.md](docs/schema.m
 
 ## Current count
 
-15 sections. 11 adapted and de-identified from 5 real client builds spanning a real range of tone — rugged trade, elegant/soft, plain-spoken, nature-toned, and premium/dark. 4 are original library builds (not adapted from any client site) covering tones the client work didn't: two brutalist variants, luxury, and dynamic/high-energy. Meant to keep growing — every new site (or every distinct tone worth having on hand) is a chance to add 1-2 more sections before moving on.
+36 sections. 11 adapted and de-identified from 5 real client builds spanning a
+real range of tone; 15 original library builds covering tones the client work
+did not; and 10 more (0027 to 0036) built as the 940Digital brand hero series,
+which are the only sections carrying real rather than de-identified branding
+(see **Own-brand sections** in [docs/schema.md](docs/schema.md)).
+
+The 940Digital series has its own log, contact sheet and written
+recommendation in [brand-heroes/set-evidence/](brand-heroes/set-evidence/).

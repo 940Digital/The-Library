@@ -7,16 +7,16 @@ none repeating an effect already in sections 0001 to 0026 of this library.
 
 | | Hero | Mode | Signature effect |
 |---|---|---|---|
-| 01 | [The Live Preview](hero-01-live-preview.html) | Dark | Type a business name; a search result and site card assemble from it |
-| 02 | [The Drafting Table](hero-02-blueprint.html) | Light | An architectural drawing that drafts, dimensions and annotates itself |
-| 03 | [The Whole Price](hero-03-invoice.html) | Dark | A price breakdown that totals itself, including the lines costing nothing |
-| 04 | [The Reply](hero-04-the-reply.html) | Light | A real exchange at human pace, with honest timestamps |
-| 05 | [The Cutaway](hero-05-cutaway.html) | Dark | An orthographic exploded diagram that lifts the layer you point at |
-| 06 | [Proof Marks](hero-06-proof-marks.html) | Light | Restraint. On request it draws the real type system it was set on |
-| 07 | [The Build Log](hero-07-build-log.html) | Dark | A scrubbable 21 day record, including the two days it went wrong |
-| 08 | [The Desk](hero-08-status.html) | Light | A genuinely live status in the business's own timezone |
-| 09 | [What Is Stopping You](hero-09-objections.html) | Dark | The hero rewrites itself to answer the fear the visitor picks |
-| 10 | [The Open File](hero-10-open-file.html) | Light | A working inspector over the handover; owner reads "You" on all eight |
+| 01 | [The Live Preview](../../sections/0027/section.html) | Dark | Type a business name; a search result and site card assemble from it |
+| 02 | [The Drafting Table](../../sections/0028/section.html) | Light | An architectural drawing that drafts, dimensions and annotates itself |
+| 03 | [The Whole Price](../../sections/0029/section.html) | Dark | A price breakdown that totals itself, including the lines costing nothing |
+| 04 | [The Reply](../../sections/0030/section.html) | Light | A real exchange at human pace, with honest timestamps |
+| 05 | [The Cutaway](../../sections/0031/section.html) | Dark | An orthographic exploded diagram that lifts the layer you point at |
+| 06 | [Proof Marks](../../sections/0032/section.html) | Light | Restraint. On request it draws the real type system it was set on |
+| 07 | [The Build Log](../../sections/0033/section.html) | Dark | A scrubbable 21 day record, including the two days it went wrong |
+| 08 | [The Desk](../../sections/0034/section.html) | Light | A genuinely live status in the business's own timezone |
+| 09 | [What Is Stopping You](../../sections/0035/section.html) | Dark | The hero rewrites itself to answer the fear the visitor picks |
+| 10 | [The Open File](../../sections/0036/section.html) | Light | A working inspector over the handover; owner reads "You" on all eight |
 
 - **[contact-sheet.html](contact-sheet.html)** renders all ten live, side by
   side, with a desktop and phone toggle.
