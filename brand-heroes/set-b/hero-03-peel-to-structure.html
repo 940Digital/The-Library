@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital | Drag across and look underneath</title>
+<meta name="description" content="940Digital builds small business websites with real structure under the design: semantic headings, described images, tap targets and measured contrast. Denton, TX and DFW.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HERO 03 — PEEL TO STRUCTURE
+   Two copies of the SAME markup are stacked. Layout CSS is shared
+   by both, so they line up to the pixel by construction rather
+   than by hand-matched numbers; the skin only changes color,
+   borders and the absolutely positioned annotations, none of
+   which affect layout. Change a size in .page and both layers
+   move together. That is the whole trick, and it is why this
+   does not drift when the text rewraps.
+
+   The handle is a real <input type="range">, so dragging,
+   arrow keys, Home/End and touch all work without reimplementing
+   any of it.
+   ============================================================ */
+
+:root {
+  --ink:   #1B1D21;
+  --white: #FFFFFF;
+  --blue:  #3194E0;      /* on charcoal: 5.18:1 */
+  --blue-ink: #2B73AB;   /* blue text on light: 4.51:1 on sand */
+  --sand:  #F7F1E7;
+
+  --ink-70: rgba(27,29,33,.70);
+  --ink-64: rgba(27,29,33,.64);
+  --ink-12: rgba(27,29,33,.12);
+  --w-62:  rgba(255,255,255,.62);
+  --w-46:  rgba(255,255,255,.46);
+  --w-12:  rgba(255,255,255,.12);
+
+  --display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(.22,.7,.25,1);
+
+  --split: 52%;   /* driven by the range input */
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  padding: clamp(18px,3vh,26px) clamp(18px,4vw,56px) clamp(24px,4vh,40px);
+}
+
+.bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; padding-bottom: clamp(18px,4vh,40px);
+}
+.wm { font-size: 1.26rem; letter-spacing: -.02em; line-height: 1; }
+.wm-a { font-weight: 700; color: var(--ink); }
+.wm-b { font-family: var(--mono); font-weight: 500; color: var(--blue-ink); }
+.bar-note {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ink-64);
+}
+
+.core {
+  flex: 1; display: grid;
+  grid-template-columns: minmax(0,.78fr) minmax(0,1.22fr);
+  gap: clamp(26px,4vw,64px); align-items: center;
+  max-width: 1400px; width: 100%; margin: 0 auto;
+}
+
+.eyebrow {
+  font-family: var(--mono); font-size: .72rem; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--blue-ink); margin: 0 0 18px;
+}
+h1 {
+  font-size: clamp(1.9rem,3.3vw,2.95rem); font-weight: 600;
+  line-height: 1.16; letter-spacing: -.03em; margin: 0 0 18px; max-width: 14ch;
+}
+.lede {
+  font-size: 1.03rem; line-height: 1.6; color: var(--ink-70);
+  margin: 0 0 26px; max-width: 40ch;
+}
+.readout {
+  font-family: var(--mono); font-size: .76rem; line-height: 1.7;
+  color: var(--ink-64); margin: 0 0 26px;
+  padding-left: 14px; border-left: 2px solid var(--blue-ink);
+}
+.readout b { color: var(--ink); font-weight: 500; }
+
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.btn {
+  font-size: .95rem; font-weight: 600; letter-spacing: -.01em;
+  text-decoration: none; padding: 14px 26px; border-radius: 4px;
+  transition: transform .2s var(--ease), background .2s var(--ease);
+}
+.btn-primary { background: var(--ink); color: var(--sand); }
+.btn-primary:hover { background: var(--blue-ink); transform: translateY(-2px); }
+.btn-quiet { color: var(--ink); border-bottom: 1px solid var(--ink-12); border-radius: 0; padding: 14px 2px; }
+.btn-quiet:hover { border-bottom-color: var(--ink); }
+.btn:focus-visible { outline: 3px solid var(--blue-ink); outline-offset: 4px; }
+
+/* ================= the viewer ================= */
+.viewer { position: relative; }
+
+.frame {
+  position: relative;
+  border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--ink-12);
+  box-shadow: 0 26px 60px rgba(27,29,33,.16);
+  background: var(--white);
+}
+.chrome {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 12px; background: #ECE5DA;
+  border-bottom: 1px solid var(--ink-12);
+  position: relative; z-index: 4;
+}
+.chrome i { width: 8px; height: 8px; border-radius: 50%; background: rgba(27,29,33,.18); }
+.chrome .url {
+  margin-left: 8px; font-family: var(--mono); font-size: .68rem;
+  color: var(--ink-64); letter-spacing: .02em;
+}
+
+.stack { position: relative; }
+
+/* Both layers get this. Nothing below may change geometry. */
+/* These four numbers are load-bearing for BOTH layers. The spec layer
+   hangs a mono tag 13px above each annotated box, so the page padding
+   and the flex gap have to stay large enough to hold one, or the tags
+   land on the content above them. Shrink these and the blueprint
+   starts colliding with itself. */
+.page {
+  padding: clamp(21px,2vw,25px);
+  display: flex; flex-direction: column;
+  gap: clamp(20px,1.9vw,24px);
+}
+.p-nav { display: flex; align-items: center; gap: clamp(10px,1.4vw,18px); }
+.p-logo { font-weight: 800; font-size: clamp(.8rem,1.05vw,.95rem); letter-spacing: -.02em; }
+.p-links { display: flex; gap: clamp(9px,1.2vw,16px); margin-left: auto; }
+.p-links span { font-size: clamp(.62rem,.8vw,.74rem); font-weight: 500; }
+.p-navbtn {
+  font-size: clamp(.62rem,.8vw,.74rem); font-weight: 600;
+  padding: 8px 13px; border-radius: 3px;
+}
+.p-hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(12px,1.6vw,20px); align-items: center; }
+/* Explicit margin: the browser default of 1em collapses with the h1
+   margin below and drags the <h1> tag down onto this line. */
+.p-eyebrow { font-family: var(--mono); font-size: clamp(.55rem,.68vw,.64rem); letter-spacing: .12em; text-transform: uppercase; margin: 0; }
+.p-h1 { font-size: clamp(1.05rem,1.9vw,1.6rem); font-weight: 700; line-height: 1.16; letter-spacing: -.025em; margin: 18px 0 18px; }
+.p-copy { font-size: clamp(.66rem,.82vw,.78rem); line-height: 1.55; margin: 0 0 12px; }
+.p-cta { display: flex; gap: 8px; }
+.p-btn { font-size: clamp(.6rem,.78vw,.72rem); font-weight: 600; padding: 10px 15px; border-radius: 3px; }
+.p-img { aspect-ratio: 4/3; border-radius: 5px; }
+.p-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(9px,1.2vw,14px); }
+.p-card { padding: clamp(10px,1.2vw,14px); border-radius: 5px; }
+.p-card h4 { font-size: clamp(.66rem,.85vw,.78rem); font-weight: 700; margin: 0 0 5px; letter-spacing: -.01em; }
+.p-card p { font-size: clamp(.58rem,.74vw,.68rem); line-height: 1.5; margin: 0; }
+
+/* ---- skin A: the finished page ---- */
+.layer-built { position: relative; z-index: 1; background: var(--white); color: var(--ink); }
+.layer-built .p-logo { color: var(--ink); }
+.layer-built .p-links span { color: var(--ink-64); }
+.layer-built .p-navbtn { background: var(--ink); color: var(--white); }
+.layer-built .p-eyebrow { color: var(--blue-ink); }
+.layer-built .p-copy { color: var(--ink-70); }
+.layer-built .p-btn:first-child { background: var(--blue-ink); color: var(--white); }
+.layer-built .p-btn:last-child { border: 1px solid var(--ink-12); color: var(--ink); }
+.layer-built .p-img { background: linear-gradient(140deg,#DCD3C6,#C6BCAD); }
+.layer-built .p-card { background: var(--sand); }
+.layer-built .p-card p { color: var(--ink-64); }
+
+/* ---- skin B: the structure underneath ---- */
+.layer-spec {
+  position: absolute; inset: 0; z-index: 2;
+  background: var(--ink); color: var(--w-62);
+  clip-path: inset(0 0 0 var(--split));
+}
+/* Every structural box gets a hairline and a mono tag. The tags are
+   absolutely positioned so they never push layout around.
+
+   position:relative MUST live on [data-tag] itself. Scoping it to
+   .page > * silently breaks any tag on a nested element (.p-h1 and
+   .p-copy sit inside .p-hero, not directly under .page): the ::before
+   then resolves against .layer-spec and every such tag piles up in the
+   same corner, stacked on top of each other. */
+.layer-spec [data-tag] {
+  position: relative;
+  outline: 1px solid rgba(49,148,224,.5); outline-offset: 2px; border-radius: 2px;
+}
+.layer-spec [data-tag]::before {
+  content: attr(data-tag);
+  position: absolute; left: 0; top: -15px;
+  /* 10px is the floor. Below that the annotations stop being readable
+     and become texture that only looks like information, which is the
+     exact dishonesty this hero is arguing against. */
+  font-family: var(--mono); font-size: 10px; line-height: 1;
+  letter-spacing: .05em; color: var(--blue);
+  white-space: nowrap; pointer-events: none;
+}
+/* A tag on an element near the right edge has to hang from the right,
+   or its text runs straight out of the frame and gets clipped. */
+.layer-spec [data-tag-align="right"]::before { left: auto; right: 0; }
+.layer-spec .p-logo, .layer-spec .p-links span, .layer-spec .p-h1,
+.layer-spec .p-copy, .layer-spec .p-card h4, .layer-spec .p-card p,
+.layer-spec .p-eyebrow { color: var(--w-46); }
+.layer-spec .p-h1 { color: var(--white); }
+.layer-spec .p-navbtn, .layer-spec .p-btn { background: transparent; border: 1px dashed rgba(49,148,224,.45); color: var(--blue); }
+.layer-spec .p-img {
+  background:
+    repeating-linear-gradient(45deg, rgba(49,148,224,.13) 0 6px, transparent 6px 12px);
+  border: 1px solid rgba(49,148,224,.4);
+  display: flex; align-items: center; justify-content: center; text-align: center;
+}
+.layer-spec .p-img::after {
+  content: 'alt="Front of the shop on Oak Street"';
+  font-family: var(--mono); font-size: 10px; line-height: 1.4;
+  color: var(--blue); padding: 0 8px;
+}
+.layer-spec .p-card { border: 1px solid rgba(49,148,224,.3); background: rgba(49,148,224,.05); }
+
+/* ---- the seam ---- */
+.seam {
+  position: absolute; top: 0; bottom: 0; left: var(--split);
+  width: 2px; background: var(--blue); z-index: 3;
+  pointer-events: none;
+  box-shadow: 0 0 0 1px rgba(27,29,33,.25);
+}
+.seam::after {
+  content: ''; position: absolute; left: 50%; top: 50%;
+  width: 40px; height: 40px; margin: -20px 0 0 -20px;
+  border-radius: 50%; background: var(--blue);
+  box-shadow: 0 4px 14px rgba(27,29,33,.35);
+}
+/* Two chevrons drawn on the knob with borders, so there is no icon font
+   and nothing to load. */
+.seam i {
+  position: absolute; left: 50%; top: 50%; z-index: 1;
+  width: 6px; height: 6px; margin-top: -3px;
+  border-top: 2px solid var(--ink); border-right: 2px solid var(--ink);
+}
+.seam i.l { transform: translateX(-11px) rotate(-135deg); }
+.seam i.r { transform: translateX(3px) rotate(45deg); }
+
+/* The real control, laid over the whole viewer. */
+.split-input {
+  position: absolute; inset: 0; z-index: 5;
+  width: 100%; height: 100%; margin: 0;
+  opacity: 0; cursor: ew-resize;
+  -webkit-appearance: none; appearance: none; background: transparent;
+}
+.split-input::-webkit-slider-thumb { -webkit-appearance: none; width: 44px; height: 100%; }
+.split-input::-moz-range-thumb { width: 44px; height: 100%; border: 0; opacity: 0; }
+.split-input:focus-visible + .seam { box-shadow: 0 0 0 3px var(--sand), 0 0 0 6px var(--blue); }
+
+.captions {
+  display: flex; justify-content: space-between; gap: 16px;
+  margin-top: 12px;
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ink-64);
+}
+.captions b { color: var(--ink); font-weight: 500; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 1000px) {
+  .core { grid-template-columns: 1fr; gap: 28px; align-items: start; }
+  h1, .lede { max-width: none; }
+}
+@media (max-width: 640px) {
+  .bar-note { display: none; }
+  .p-hero { grid-template-columns: 1fr; }
+  .p-cards { grid-template-columns: 1fr; }
+  .p-links { display: none; }
+  .btn-primary { width: 100%; text-align: center; }
+  .layer-spec [data-tag]::before { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="bar">
+    <span class="wm"><span class="wm-a">940</span><span class="wm-b">Digital</span></span>
+    <span class="bar-note">Denton, TX &middot; Serving DFW</span>
+  </header>
+
+  <div class="core">
+
+    <div>
+      <p class="eyebrow">Drag across the page</p>
+      <h1>Anyone can show you a picture.</h1>
+      <p class="lede">
+        A design is easy to fake. What is underneath it is not. Drag the handle
+        and look at the same page as a search engine, a screen reader and a
+        phone see it.
+      </p>
+      <p class="readout" id="readout">
+        <b>Structure shown:</b> <span id="pct">48</span>% of the page
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/contact">Get a free build</a>
+        <a class="btn btn-quiet" href="/work">See more of these</a>
+      </div>
+    </div>
+
+    <div class="viewer">
+      <div class="frame">
+        <div class="chrome">
+          <i></i><i></i><i></i>
+          <span class="url">example-client.com</span>
+        </div>
+
+        <div class="stack">
+
+          <!-- Layer A: the finished page -->
+          <div class="layer-built" aria-hidden="true">
+            <div class="page">
+              <div class="p-nav">
+                <span class="p-logo">Oak Street Bakery</span>
+                <span class="p-links"><span>Menu</span><span>Orders</span><span>Visit</span></span>
+                <span class="p-navbtn">Call</span>
+              </div>
+              <div class="p-hero">
+                <div>
+                  <p class="p-eyebrow">Open since 2009</p>
+                  <p class="p-h1">Bread worth the walk across town.</p>
+                  <p class="p-copy">Baked every morning on Oak Street. Order a day ahead for anything with a candle in it.</p>
+                  <div class="p-cta"><span class="p-btn">Order ahead</span><span class="p-btn">See the menu</span></div>
+                </div>
+                <div class="p-img"></div>
+              </div>
+              <div class="p-cards">
+                <div class="p-card"><h4>Daily bread</h4><p>Out of the oven by six.</p></div>
+                <div class="p-card"><h4>Custom cakes</h4><p>Two days notice, usually.</p></div>
+                <div class="p-card"><h4>Wholesale</h4><p>For cafes around Denton.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layer B: identical markup, structural skin -->
+          <div class="layer-spec" aria-hidden="true">
+            <div class="page">
+              <div class="p-nav" data-tag="&lt;nav&gt; landmark">
+                <span class="p-logo">Oak Street Bakery</span>
+                <span class="p-links"><span>Menu</span><span>Orders</span><span>Visit</span></span>
+                <span class="p-navbtn" data-tag="48px target" data-tag-align="right">Call</span>
+              </div>
+              <div class="p-hero">
+                <div>
+                  <p class="p-eyebrow">Open since 2009</p>
+                  <p class="p-h1" data-tag="&lt;h1&gt; one per page">Bread worth the walk across town.</p>
+                  <p class="p-copy" data-tag="contrast 7.4:1">Baked every morning on Oak Street. Order a day ahead for anything with a candle in it.</p>
+                  <div class="p-cta"><span class="p-btn">Order ahead</span><span class="p-btn">See the menu</span></div>
+                </div>
+                <div class="p-img"></div>
+              </div>
+              <div class="p-cards" data-tag="&lt;ul&gt; of services · schema.org">
+                <div class="p-card"><h4>Daily bread</h4><p>Out of the oven by six.</p></div>
+                <div class="p-card"><h4>Custom cakes</h4><p>Two days notice, usually.</p></div>
+                <div class="p-card"><h4>Wholesale</h4><p>For cafes around Denton.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <input class="split-input" type="range" id="split"
+                 min="0" max="100" step="0.5" value="52"
+                 aria-label="Reveal the structure underneath the page">
+          <div class="seam" aria-hidden="true"><i class="l"></i><i class="r"></i></div>
+          <p class="sr-only" id="live" role="status" aria-live="polite"></p>
+
+        </div>
+      </div>
+
+      <p class="captions">
+        <span><b>Left:</b> what your customer sees</span>
+        <span><b>Right:</b> what Google reads</span>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  var input = document.getElementById('split');
+  var stack = input.closest('.stack');
+  var pct   = document.getElementById('pct');
+  var live  = document.getElementById('live');
+
+  /* The range writes one custom property. The clip-path and the seam
+     both read it, so there is a single source of truth for the split
+     and no chance of the line drifting away from the edge of the clip. */
+  function apply(v) {
+    stack.style.setProperty('--split', v + '%');
+    pct.textContent = String(Math.round(100 - v));
+  }
+
+  input.addEventListener('input', function () { apply(Number(input.value)); });
+
+  /* Announce only when the drag settles, so a screen reader is not
+     read a new number on every pixel of movement. */
+  var settle;
+  input.addEventListener('input', function () {
+    clearTimeout(settle);
+    settle = setTimeout(function () {
+      live.textContent = Math.round(100 - Number(input.value)) +
+        ' percent of the page is showing its structure.';
+    }, 350);
+  });
+
+  apply(Number(input.value));
+})();
+</script>
+
+</body>
+</html>

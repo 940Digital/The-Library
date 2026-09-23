@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital | What it costs, who built it, where to find me</title>
+<meta name="description" content="940Digital builds websites for small businesses in Denton and the DFW metroplex. Flat pricing, one person, and a working site before you pay anything.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HERO 04 — MARGIN NOTES
+   Restraint is the effect. The page is mostly empty on purpose.
+   Four claims in the headline carry a hairline and a small
+   number; taking one brings its evidence into the margin, the
+   way a printed book carries a footnote beside the line it
+   belongs to rather than in a bubble over it.
+
+   The notes are real <button>s inside the <h1>, so the heading's
+   text stays a single readable sentence and keyboard users get
+   the evidence by tabbing. Nothing floats, nothing follows the
+   cursor, nothing moves that the visitor did not move.
+   ============================================================ */
+
+:root {
+  --sand: #F7F1E7;
+  --ink:  #1B1D21;
+  --blue-ink: #2B73AB;   /* 4.51:1 on sand */
+  --white: #FFFFFF;
+
+  --ink-70: rgba(27,29,33,.70);
+  --ink-64: rgba(27,29,33,.64);
+  --ink-18: rgba(27,29,33,.18);
+  --ink-10: rgba(27,29,33,.10);
+
+  --display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(.22,.7,.25,1);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--display);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.hero {
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  padding: clamp(22px,4vh,40px) clamp(22px,6vw,90px) clamp(28px,5vh,56px);
+}
+
+.bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; padding-bottom: clamp(40px,10vh,110px);
+}
+.wm { font-size: 1.3rem; letter-spacing: -.02em; line-height: 1; }
+.wm-a { font-weight: 700; color: var(--ink); }
+.wm-b { font-family: var(--mono); font-weight: 500; color: var(--blue-ink); }
+.bar-note {
+  font-family: var(--mono); font-size: .71rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--ink-64);
+}
+
+.core {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(250px, 320px);
+  gap: clamp(34px,6vw,100px);
+  align-items: start;
+  max-width: 1280px; width: 100%;
+  /* auto block margins centre the whole block in the leftover flex
+     space so the hero does not sit high with dead air beneath it. */
+  margin: auto;
+}
+
+/* ---------- the sentence ---------- */
+h1 {
+  /* Weight 500. At this size anything heavier starts shouting, and
+     this hero's whole argument is that it does not need to. */
+  font-size: clamp(2.05rem, 4.9vw, 4.15rem);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -.035em;
+  margin: 0;
+  max-width: 19ch;
+  text-wrap: balance;
+}
+
+.claim {
+  /* These are spans with role="button", deliberately not <button>
+     elements. A real button stays an atomic inline-level box even at
+     display:inline with appearance:none, so it never wraps across
+     lines and it opens a break opportunity right after itself, which
+     drops the following comma onto the next line alone. A span flows
+     as text. Keyboard support is added back in script: Enter and
+     Space both activate, and tabindex="0" puts it in tab order. */
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  position: relative;
+  text-decoration: underline;
+  text-decoration-color: var(--ink-18);
+  text-decoration-thickness: 2px;
+  text-underline-offset: .13em;
+  transition: text-decoration-color .25s var(--ease), color .25s var(--ease);
+}
+.claim:hover { text-decoration-color: var(--blue-ink); }
+.claim[aria-expanded="true"] { color: var(--blue-ink); text-decoration-color: var(--blue-ink); }
+.claim:focus-visible { outline: 3px solid var(--blue-ink); outline-offset: 5px; border-radius: 3px; }
+
+.claim sup {
+  font-family: var(--mono);
+  font-size: .27em;
+  font-weight: 500;
+  vertical-align: super;
+  line-height: 0;
+  margin-left: .12em;
+  letter-spacing: 0;
+  color: var(--blue-ink);
+}
+
+.hint {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  color: var(--ink-64);
+  margin: clamp(26px,4vh,44px) 0 0;
+  display: flex; align-items: center; gap: 10px;
+}
+.hint::before {
+  content: ''; width: 26px; height: 1px; background: var(--ink-18); flex: none;
+}
+
+.actions {
+  margin-top: clamp(30px,5vh,52px);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px;
+}
+.btn {
+  font-size: .98rem; font-weight: 600; letter-spacing: -.01em;
+  text-decoration: none; padding: 15px 30px; border-radius: 4px;
+  transition: transform .2s var(--ease), background .2s var(--ease);
+}
+.btn-primary { background: var(--ink); color: var(--sand); }
+.btn-primary:hover { background: var(--blue-ink); transform: translateY(-2px); }
+.btn-quiet {
+  color: var(--ink); border-bottom: 1px solid var(--ink-18);
+  border-radius: 0; padding: 15px 2px;
+}
+.btn-quiet:hover { border-bottom-color: var(--ink); }
+.btn:focus-visible { outline: 3px solid var(--blue-ink); outline-offset: 4px; }
+
+/* ---------- the margin ---------- */
+.margin {
+  position: relative;
+  padding-top: 8px;
+  border-top: 1px solid var(--ink-18);
+  min-height: 260px;
+}
+.note {
+  position: absolute; left: 0; right: 0; top: 8px;
+  opacity: 0; visibility: hidden;
+  transform: translateY(7px);
+  transition: opacity .34s var(--ease), transform .34s var(--ease), visibility 0s linear .34s;
+}
+.note.on {
+  opacity: 1; visibility: visible; transform: none;
+  transition: opacity .34s var(--ease) .06s, transform .34s var(--ease) .06s, visibility 0s;
+}
+.note-num {
+  font-family: var(--mono); font-size: .72rem; font-weight: 500;
+  letter-spacing: .1em; color: var(--blue-ink);
+  margin: 0 0 12px;
+}
+.note-body {
+  font-size: .97rem; line-height: 1.62; color: var(--ink-70);
+  margin: 0 0 16px;
+}
+.note-body strong { color: var(--ink); font-weight: 600; }
+
+.note dl {
+  margin: 0; padding-top: 14px; border-top: 1px solid var(--ink-10);
+  font-family: var(--mono); font-size: .78rem;
+}
+.note dl div {
+  display: flex; justify-content: space-between; gap: 14px;
+  padding: 5px 0;
+}
+.note dl dt { color: var(--ink-64); margin: 0; }
+.note dl dd { color: var(--ink); margin: 0; font-weight: 500; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 900px) {
+  .core { grid-template-columns: 1fr; gap: 30px; }
+  h1 { max-width: none; }
+  /* On one column the notes cannot sit in a margin, so they take
+     their own block and the stack collapses to the active one. */
+  .margin { min-height: 232px; margin-top: 8px; }
+}
+@media (max-width: 640px) {
+  .bar { padding-bottom: 34px; }
+  .bar-note { display: none; }
+  .btn-primary { width: 100%; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .note { transition: opacity .01s, visibility 0s; transform: none; }
+  .note.on { transition: opacity .01s, visibility 0s; transform: none; }
+  .claim { transition: none; }
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="bar">
+    <span class="wm"><span class="wm-a">940</span><span class="wm-b">Digital</span></span>
+    <span class="bar-note">Denton, TX &middot; Serving DFW</span>
+  </header>
+
+  <div class="core">
+
+    <div>
+      <h1>You will always know <span class="claim" role="button" tabindex="0" data-note="1" aria-expanded="true" aria-controls="note-1">what it costs<sup>1</sup></span>, <span class="claim" role="button" tabindex="0" data-note="2" aria-expanded="false" aria-controls="note-2">who built it<sup>2</sup></span>, and <span class="claim" role="button" tabindex="0" data-note="3" aria-expanded="false" aria-controls="note-3">where to find me<sup>3</sup></span>. You see it <span class="claim" role="button" tabindex="0" data-note="4" aria-expanded="false" aria-controls="note-4">working first<sup>4</sup></span>.</h1>
+
+      <p class="hint">Take any underlined phrase to see the evidence.</p>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="/contact">Ask me anything</a>
+        <a class="btn btn-quiet" href="/pricing">Read the full pricing</a>
+      </div>
+    </div>
+
+    <aside class="margin" aria-label="Evidence for the claims in the headline">
+
+      <div class="note on" id="note-1" role="region" aria-labelledby="claim-label-1">
+        <p class="note-num">Note 01 &middot; What it costs</p>
+        <p class="note-body">
+          Three plans, printed on the pricing page where anyone can read them
+          before calling. <strong>A flat setup fee and a flat monthly fee.</strong>
+          No hourly billing and no scope-creep invoice at the end.
+        </p>
+        <dl>
+          <div><dt>4 pages</dt><dd>$200 + $20/mo</dd></div>
+          <div><dt>10 pages</dt><dd>$400 + $40/mo</dd></div>
+          <div><dt>20 pages</dt><dd>$800 + $80/mo</dd></div>
+        </dl>
+      </div>
+
+      <div class="note" id="note-2" role="region">
+        <p class="note-num">Note 02 &middot; Who built it</p>
+        <p class="note-body">
+          One person, in Denton. <strong>The person who answers your first email
+          is the person writing the code</strong>, and there is nobody to hand
+          you off to. I take a handful of builds at a time so that stays true.
+        </p>
+        <dl>
+          <div><dt>People on your job</dt><dd>1</dd></div>
+          <div><dt>Work sent overseas</dt><dd>None</dd></div>
+          <div><dt>Templates used</dt><dd>None</dd></div>
+        </dl>
+      </div>
+
+      <div class="note" id="note-3" role="region">
+        <p class="note-num">Note 03 &middot; Where to find me</p>
+        <p class="note-body">
+          A phone number and an email address, both going to the same person.
+          <strong>No ticket queue and no support portal.</strong> When your
+          hours change or a photo needs swapping, you send a message and it
+          gets done.
+        </p>
+        <dl>
+          <div><dt>Hosting</dt><dd>Included</dd></div>
+          <div><dt>Updates</dt><dd>Included</dd></div>
+          <div><dt>Who you reach</dt><dd>Me</dd></div>
+        </dl>
+      </div>
+
+      <div class="note" id="note-4" role="region">
+        <p class="note-num">Note 04 &middot; Working first</p>
+        <p class="note-body">
+          I build a real version of your site before you commit to anything.
+          You open it on your own phone and click around.
+          <strong>If it is not what you wanted, you walk away owing nothing.</strong>
+        </p>
+        <dl>
+          <div><dt>Paid up front</dt><dd>$0</dd></div>
+          <div><dt>Contract to see it</dt><dd>None</dd></div>
+          <div><dt>Typical build</dt><dd>10 working days</dd></div>
+        </dl>
+      </div>
+
+    </aside>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  var claims = Array.prototype.slice.call(document.querySelectorAll('.claim'));
+  var notes  = {};
+  claims.forEach(function (c) {
+    notes[c.dataset.note] = document.getElementById('note-' + c.dataset.note);
+  });
+
+  var current = '1';
+
+  function show(id) {
+    if (id === current) return;
+    notes[current].classList.remove('on');
+    notes[id].classList.add('on');
+    claims.forEach(function (c) {
+      c.setAttribute('aria-expanded', String(c.dataset.note === id));
+    });
+    current = id;
+  }
+
+  claims.forEach(function (c) {
+    var id = c.dataset.note;
+
+    /* Pointer opens on hover, which is what makes the thing feel like
+       reading rather than operating a widget. */
+    c.addEventListener('pointerenter', function (e) {
+      if (e.pointerType === 'mouse') show(id);
+    });
+    /* Keyboard and touch both go through click/focus, so every route
+       to the evidence works without a mouse. */
+    c.addEventListener('focus', function () { show(id); });
+    c.addEventListener('click', function () { show(id); });
+    /* A span with role="button" gets no native key handling, so both
+       activation keys are wired by hand. Space is prevented from
+       scrolling the page. */
+    c.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        show(id);
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

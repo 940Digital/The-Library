@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital | Every part of the page has a reason</title>
+<meta name="description" content="940Digital builds small business websites where every element earns its place, from the phone number to the hours. Denton, Texas and the DFW metroplex.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HERO 07 — ASSEMBLY
+   The whole layout is on screen from the first frame as dashed
+   slots carrying their own measurements. Parts then drop into
+   the slots one at a time, and as each lands the left column
+   states why that part exists.
+
+   Same principle as hero 02: the plan is visible before the work
+   starts. Revealing slots one at a time would make it a magic
+   trick; showing all of them and filling them in makes it a
+   build. When the run finishes the parts become buttons, so the
+   reasoning stays reachable instead of scrolling past once.
+   ============================================================ */
+
+:root {
+  --white: #FFFFFF;
+  --sand:  #F7F1E7;
+  --ink:   #1B1D21;
+  --blue-ink: #2B73AB;   /* 5.07:1 on white, 4.51:1 on sand */
+  --blue:  #3194E0;      /* fills and rules only on light grounds */
+
+  --ink-70: rgba(27,29,33,.70);
+  --ink-64: rgba(27,29,33,.64);
+  --ink-14: rgba(27,29,33,.14);
+  --ink-08: rgba(27,29,33,.08);
+
+  --display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(.2,.75,.25,1);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  padding: clamp(20px,3vh,28px) clamp(20px,5vw,60px) clamp(24px,4vh,40px);
+}
+
+.bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; padding-bottom: clamp(20px,4vh,44px);
+}
+.wm { font-size: 1.28rem; letter-spacing: -.02em; line-height: 1; }
+.wm-a { font-weight: 700; color: var(--ink); }
+.wm-b { font-family: var(--mono); font-weight: 500; color: var(--blue-ink); }
+.bar-note {
+  font-family: var(--mono); font-size: .71rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--ink-64);
+}
+
+.core {
+  flex: 1; display: grid;
+  grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr);
+  gap: clamp(28px,4.5vw,72px);
+  align-items: center;
+  max-width: 1340px; width: 100%; margin: 0 auto;
+}
+
+.eyebrow {
+  font-family: var(--mono); font-size: .72rem; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--blue-ink); margin: 0 0 16px;
+}
+h1 {
+  font-size: clamp(1.85rem,3.5vw,2.9rem);
+  font-weight: 600; line-height: 1.16; letter-spacing: -.032em;
+  margin: 0 0 18px; max-width: 15ch; text-wrap: balance;
+}
+.lede {
+  font-size: 1.01rem; line-height: 1.62; color: var(--ink-70);
+  margin: 0 0 26px; max-width: 40ch;
+}
+
+/* ---------- the reason readout ---------- */
+.reason {
+  border-top: 1px solid var(--ink-14);
+  padding-top: 16px;
+  /* Fixed height: the reasons vary in length and the CTAs below must
+     not jump every time one is replaced. */
+  min-height: 132px;
+}
+.reason-step {
+  font-family: var(--mono); font-size: .71rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--blue-ink); margin: 0 0 8px;
+}
+.reason-name {
+  font-size: 1.12rem; font-weight: 600; letter-spacing: -.02em;
+  margin: 0 0 7px; color: var(--ink);
+}
+.reason-why {
+  font-size: .95rem; line-height: 1.58; color: var(--ink-70);
+  margin: 0; max-width: 38ch;
+}
+.reason.swap .reason-step,
+.reason.swap .reason-name,
+.reason.swap .reason-why { animation: rise .38s var(--ease) both; }
+.reason.swap .reason-name { animation-delay: .04s; }
+.reason.swap .reason-why  { animation-delay: .08s; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.actions {
+  margin-top: clamp(20px,3vh,30px);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 13px 20px;
+}
+.btn {
+  font-size: .96rem; font-weight: 600; letter-spacing: -.01em;
+  text-decoration: none; padding: 14px 27px; border-radius: 4px;
+  transition: transform .2s var(--ease), background .2s var(--ease);
+}
+.btn-primary { background: var(--ink); color: var(--white); }
+.btn-primary:hover { background: var(--blue-ink); transform: translateY(-2px); }
+.btn-quiet { color: var(--ink); border-bottom: 1px solid var(--ink-14); border-radius: 0; padding: 14px 2px; }
+.btn-quiet:hover { border-bottom-color: var(--ink); }
+.replay {
+  font-family: var(--mono); font-size: .71rem; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--blue-ink);
+  background: none; border: 1px solid var(--ink-14); border-radius: 4px;
+  padding: 11px 14px; cursor: pointer;
+  transition: border-color .2s var(--ease);
+}
+.replay:hover { border-color: var(--blue-ink); }
+.btn:focus-visible, .replay:focus-visible { outline: 3px solid var(--blue-ink); outline-offset: 4px; }
+
+/* ---------- the stage ---------- */
+.frame {
+  border: 1px solid var(--ink-14);
+  border-radius: 10px; overflow: hidden;
+  background: var(--sand);
+  box-shadow: 0 24px 56px rgba(27,29,33,.13);
+}
+.chrome {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 12px; background: #EFE8DC;
+  border-bottom: 1px solid var(--ink-14);
+}
+.chrome i { width: 8px; height: 8px; border-radius: 50%; background: rgba(27,29,33,.16); }
+.chrome .url {
+  margin-left: 8px; font-family: var(--mono); font-size: .68rem; color: var(--ink-64);
+}
+
+.stage {
+  padding: clamp(14px,1.8vw,20px);
+  display: flex; flex-direction: column;
+  gap: clamp(9px,1.1vw,12px);
+}
+
+/* A slot is the plan: dashed, measured, present from frame one. */
+.slot {
+  position: relative;
+  border: 1px dashed rgba(43,115,171,.42);
+  border-radius: 5px;
+  background: rgba(43,115,171,.035);
+}
+.slot::after {
+  content: attr(data-size);
+  position: absolute; right: 7px; top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--mono); font-size: 10px; line-height: 1;
+  color: var(--blue-ink); opacity: .75;
+  pointer-events: none;
+  transition: opacity .3s var(--ease);
+}
+.slot.filled::after { opacity: 0; }
+/* The part sits at inset:0 of the slot's padding box, so it covers the
+   fill but never the border. Without this the dashed plan line stays
+   ringed around every finished block. */
+.slot.filled {
+  border-color: transparent;
+  background: transparent;
+  transition: border-color .42s var(--ease), background .42s var(--ease);
+}
+
+.part {
+  position: absolute; inset: 0;
+  border-radius: 5px; background: var(--white);
+  border: 1px solid var(--ink-08);
+  box-shadow: 0 2px 8px rgba(27,29,33,.06);
+  display: flex; align-items: center;
+  padding: 0 clamp(10px,1.2vw,15px);
+  gap: 10px;
+  opacity: 0;
+  transform: translateX(26px) scale(.985);
+  transition: opacity .42s var(--ease), transform .42s var(--ease), box-shadow .2s var(--ease);
+  text-align: left; font: inherit; color: inherit;
+  width: 100%; cursor: default;
+}
+.slot.filled .part { opacity: 1; transform: none; }
+.stage.done .part { cursor: pointer; }
+.stage.done .part:hover,
+.stage.done .part.active {
+  box-shadow: 0 0 0 2px var(--blue-ink), 0 6px 18px rgba(27,29,33,.12);
+}
+.part:focus-visible { outline: 3px solid var(--blue-ink); outline-offset: 3px; }
+
+.part-num {
+  font-family: var(--mono); font-size: .64rem; font-weight: 500;
+  color: var(--blue-ink); flex: none; letter-spacing: .04em;
+}
+.part-label {
+  font-size: clamp(.68rem,.86vw,.82rem); font-weight: 600;
+  letter-spacing: -.01em; color: var(--ink);
+}
+.part-sub {
+  font-family: var(--mono); font-size: clamp(.56rem,.7vw,.66rem);
+  color: var(--ink-64); margin-left: auto; flex: none;
+}
+
+/* Slot heights double as the visual rhythm of a real page. */
+.s-header  { height: clamp(38px,4.6vw,52px); }
+.s-hero    { height: clamp(78px,9.5vw,110px); }
+.s-proof   { height: clamp(34px,4.1vw,46px); }
+.s-services{ height: clamp(58px,7vw,80px); }
+.s-cta     { height: clamp(40px,4.8vw,54px); }
+.s-footer  { height: clamp(34px,4.1vw,46px); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 950px) {
+  .core { grid-template-columns: 1fr; gap: 26px; align-items: start; }
+  h1, .lede, .reason-why { max-width: none; }
+  .reason { min-height: 108px; }
+}
+@media (max-width: 640px) {
+  .bar-note { display: none; }
+  .btn-primary { width: 100%; text-align: center; }
+  .part-sub { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .part, .slot.filled { transition: none; }
+  .slot::after { transition: none; }
+  .reason.swap .reason-step,
+  .reason.swap .reason-name,
+  .reason.swap .reason-why { animation: none; }
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="bar">
+    <span class="wm"><span class="wm-a">940</span><span class="wm-b">Digital</span></span>
+    <span class="bar-note">Denton, TX &middot; Serving DFW</span>
+  </header>
+
+  <div class="core">
+
+    <div>
+      <p class="eyebrow">Watch it go together</p>
+      <h1>Nothing on the page is there because it looked nice.</h1>
+      <p class="lede">
+        Every block below earns its place, and I can tell you exactly why it is
+        there and why it is in that order. Most templates cannot.
+      </p>
+
+      <div class="reason" id="reason" aria-live="polite">
+        <p class="reason-step" id="r-step">Step 00 of 06</p>
+        <p class="reason-name" id="r-name">The plan</p>
+        <p class="reason-why"  id="r-why">Six blocks, measured before anything gets built. Watch each one drop in.</p>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="/contact">Get yours built free</a>
+        <button class="replay" type="button" id="replay">Build it again</button>
+      </div>
+    </div>
+
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span class="url">your-business.com</span></div>
+      <div class="stage" id="stage"></div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  var PARTS = [
+    {
+      cls: 's-header', size: '52px', label: 'Your phone number, top right',
+      sub: 'tel: link',
+      why: 'More than half the people who find you want to call, not read. It is the first thing placed and it stays visible when the page scrolls.'
+    },
+    {
+      cls: 's-hero', size: '110px', label: 'What you do and where you do it',
+      sub: 'h1',
+      why: 'One sentence a stranger understands in two seconds, carrying the service and the town. This is also the line Google reads first.'
+    },
+    {
+      cls: 's-proof', size: '46px', label: 'Reviews, before the sales pitch',
+      sub: 'schema',
+      why: 'Proof goes above the pitch because a skeptical visitor believes your customers before they believe you.'
+    },
+    {
+      cls: 's-services', size: '80px', label: 'What you actually sell',
+      sub: 'one page each',
+      why: 'Written in the words your customers use when they search, and each one gets its own page so it can rank on its own.'
+    },
+    {
+      cls: 's-cta', size: '54px', label: 'One obvious next step',
+      sub: '48px target',
+      why: 'A single action, large enough to hit with a thumb. Two competing buttons here is how a page quietly loses jobs.'
+    },
+    {
+      cls: 's-footer', size: '46px', label: 'Hours, address, service area',
+      sub: 'LocalBusiness',
+      why: 'They will check whether you are open and whether you come to them. Making that hard to find is how you lose a ready customer.'
+    }
+  ];
+
+  var stage  = document.getElementById('stage');
+  var reason = document.getElementById('reason');
+  var rStep  = document.getElementById('r-step');
+  var rName  = document.getElementById('r-name');
+  var rWhy   = document.getElementById('r-why');
+  var replay = document.getElementById('replay');
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- build the slots ---------- */
+  var slots = PARTS.map(function (p, i) {
+    var slot = document.createElement('div');
+    slot.className = 'slot ' + p.cls;
+    slot.setAttribute('data-size', p.size);
+
+    var part = document.createElement('button');
+    part.type = 'button';
+    part.className = 'part';
+    part.disabled = true;
+
+    var num = document.createElement('span');
+    num.className = 'part-num';
+    num.textContent = '0' + (i + 1);
+
+    var label = document.createElement('span');
+    label.className = 'part-label';
+    label.textContent = p.label;
+
+    var sub = document.createElement('span');
+    sub.className = 'part-sub';
+    sub.textContent = p.sub;
+
+    part.appendChild(num); part.appendChild(label); part.appendChild(sub);
+    part.addEventListener('click', function () { select(i, true); });
+
+    slot.appendChild(part);
+    stage.appendChild(slot);
+    return { slot: slot, part: part };
+  });
+
+  /* ---------- the readout ---------- */
+  function say(step, name, why) {
+    rStep.textContent = step;
+    rName.textContent = name;
+    rWhy.textContent  = why;
+    if (reduce) return;
+    reason.classList.remove('swap');
+    /* Force a reflow so the animation restarts on every swap rather
+       than only running the first time the class is added. */
+    void reason.offsetWidth;
+    reason.classList.add('swap');
+  }
+
+  function select(i, manual) {
+    var p = PARTS[i];
+    say('Step 0' + (i + 1) + ' of 06', p.label, p.why);
+    slots.forEach(function (s, n) { s.part.classList.toggle('active', manual && n === i); });
+  }
+
+  /* ---------- the run ---------- */
+  var timers = [];
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+  function finish() {
+    stage.classList.add('done');
+    slots.forEach(function (s) { s.part.disabled = false; });
+  }
+
+  function showAll() {
+    clearTimers();
+    slots.forEach(function (s) { s.slot.classList.add('filled'); });
+    say('Six of six', 'Built', 'Every block is placed. Take any one of them to read why it is there.');
+    finish();
+  }
+
+  function run() {
+    clearTimers();
+    stage.classList.remove('done');
+    slots.forEach(function (s) {
+      s.slot.classList.remove('filled');
+      s.part.classList.remove('active');
+      s.part.disabled = true;
+    });
+    say('Step 00 of 06', 'The plan', 'Six blocks, measured before anything gets built. Watch each one drop in.');
+
+    PARTS.forEach(function (p, i) {
+      timers.push(setTimeout(function () {
+        slots[i].slot.classList.add('filled');
+        select(i, false);
+        if (i === PARTS.length - 1) {
+          timers.push(setTimeout(function () {
+            say('Six of six', 'Built', 'Every block is placed. Take any one of them to read why it is there.');
+            finish();
+          }, 1500));
+        }
+      }, 700 + i * 900));
+    });
+  }
+
+  replay.addEventListener('click', function () {
+    if (reduce) { showAll(); return; }
+    run();
+  });
+
+  if (reduce) {
+    showAll();
+  } else {
+    var started = false;
+    var start = function () {
+      if (started) return;
+      started = true;
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (e) {
+          if (e[0].isIntersecting) { io.disconnect(); run(); }
+        }, { threshold: .2 });
+        io.observe(stage);
+      } else { run(); }
+    };
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(start);
+      setTimeout(start, 800);
+    } else { start(); }
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital | A website with the price on it</title>
+<meta name="description" content="940Digital builds websites for small businesses in Denton and across Dallas-Fort Worth. Flat setup fee, flat monthly fee, both visible before you call.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HERO 01 — THE ESTIMATE LINE
+   The headline is a working control. Three words in the sentence
+   are buttons; changing one recomputes the money on a digit-roll
+   odometer and rewrites the deliverables underneath with pages
+   that business actually needs.
+
+   The option lists are NOT inside the <h1>. They are built into
+   document.body only while a menu is open, so the heading's text
+   content is always exactly one clean sentence for search
+   engines and screen readers. Putting <select> in the heading
+   leaks every <option> into the h1 text, which is the trap this
+   markup exists to avoid.
+   ============================================================ */
+
+:root {
+  --sand:   #F7F1E7;
+  --ink:    #1B1D21;
+  --blue:   #3194E0;
+  --white:  #FFFFFF;
+
+  /* Brand blue is 5.18:1 on charcoal and passes there. On sand it is
+     only 2.90:1, which fails AA even for large text, so blue TEXT on
+     light backgrounds uses --blue-ink: the same brand blue mixed 28%
+     toward the brand charcoal. 4.51:1 on sand, 5.07:1 on white. The
+     pure brand blue is still used for fills and for text on charcoal. */
+  --blue-ink: #2B73AB;
+
+  /* Tints derived from the four brand colors only. Muted ink bottoms
+     out at 64%: below about 62% it drops under 4.5:1 on sand. */
+  --ink-70: rgba(27, 29, 33, .70);
+  --ink-64: rgba(27, 29, 33, .64);
+  --ink-14: rgba(27, 29, 33, .14);
+  --blue-14: rgba(43, 115, 171, .16);
+
+  --display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  --s1: 8px; --s2: 16px; --s3: 24px; --s4: 40px;
+
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--display);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--s3) clamp(20px, 5vw, 64px) var(--s4);
+}
+
+/* ---------- brand bar ---------- */
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  /* Vertical rhythm tracks viewport height so the CTA stays above
+     the fold on a short laptop as well as a tall monitor. */
+  padding-bottom: clamp(30px, 7vh, 72px);
+}
+.wm { font-size: 1.28rem; letter-spacing: -.02em; line-height: 1; }
+.wm-a { font-family: var(--display); font-weight: 700; color: var(--ink); }
+/* Wordmark keeps the 940 / Digital relationship exactly; only the
+   blue is optically corrected for a light ground. On charcoal it
+   reverts to pure #3194E0. */
+.wm-b { font-family: var(--mono); font-weight: 500; color: var(--blue-ink); }
+
+.bar-note {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-64);
+}
+
+/* ---------- the sentence ---------- */
+.core { max-width: 1180px; width: 100%; margin: auto 0; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .74rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--blue-ink);
+  margin: 0 0 var(--s3);
+}
+
+h1 {
+  /* 600 at a large size. Heavier reads louder and cheaper. */
+  font-size: clamp(1.8rem, 4.2vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.24;
+  letter-spacing: -.028em;
+  margin: 0;
+  max-width: 22ch;
+}
+
+.tok {
+  font: inherit;
+  color: var(--blue-ink);
+  background: none;
+  border: 0;
+  border-bottom: 2px solid var(--blue-14);
+  border-radius: 2px;
+  padding: 0 .68em 0 0;
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color .22s var(--ease);
+}
+.tok::after {
+  content: '';
+  position: absolute;
+  right: .1em;
+  top: .5em;
+  width: .3em;
+  height: .3em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  opacity: .5;
+  transition: transform .22s var(--ease), opacity .22s var(--ease);
+}
+.tok:hover { border-bottom-color: var(--blue-ink); }
+.tok:hover::after { opacity: 1; }
+.tok[aria-expanded="true"] { border-bottom-color: var(--blue-ink); }
+.tok[aria-expanded="true"]::after { transform: rotate(225deg) translate(-2px, -2px); opacity: 1; }
+.tok:focus-visible { outline: 3px solid var(--blue-ink); outline-offset: 5px; }
+
+/* ---------- the menu (lives on <body>) ---------- */
+.menu {
+  position: fixed;
+  z-index: 60;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  min-width: 190px;
+  background: var(--white);
+  border: 1px solid var(--ink-14);
+  border-radius: 6px;
+  box-shadow: 0 18px 44px rgba(27, 29, 33, .16);
+  font-family: var(--display);
+  transform-origin: top left;
+  animation: menu-in .17s var(--ease) both;
+}
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-5px) scale(.985); }
+  to   { opacity: 1; transform: none; }
+}
+.menu li {
+  font-size: .97rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ink-70);
+  padding: 10px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+}
+.menu li:hover, .menu li.active { background: rgba(43, 115, 171, .11); color: var(--ink); }
+.menu li[aria-selected="true"] { color: var(--blue-ink); font-weight: 600; }
+.menu li[aria-selected="true"]::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blue-ink); flex: none; }
+.menu:focus { outline: none; }
+
+/* ---------- money ---------- */
+.money-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: clamp(24px, 4vw, 56px);
+  margin-top: clamp(26px, 5vh, 56px);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--ink-14);
+}
+.fig-label {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-64);
+  margin: 0 0 var(--s1);
+}
+.fig {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: clamp(2.3rem, 5.6vw, 3.7rem);
+  line-height: 1;
+  letter-spacing: -.035em;
+  color: var(--ink);
+}
+.fig .suffix {
+  font-size: .3em;
+  font-weight: 500;
+  letter-spacing: .02em;
+  color: var(--ink-64);
+  margin-left: .62em;
+  align-self: center;
+}
+
+/* Odometer: each digit is a 0-9 column that slides. */
+.odo { display: inline-flex; }
+.odo .col { display: block; height: 1em; overflow: hidden; }
+.odo .strip {
+  display: block;
+  transition: transform .52s var(--ease);
+  will-change: transform;
+}
+.odo .strip span { display: block; height: 1em; line-height: 1; }
+
+/* ---------- includes ---------- */
+.includes {
+  margin-top: clamp(22px, 4vh, 40px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  gap: var(--s2) var(--s4);
+  max-width: 1000px;
+}
+.inc-group h2 {
+  font-family: var(--mono);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-64);
+  margin: 0 0 var(--s2);
+}
+.inc-group ul { list-style: none; margin: 0; padding: 0; }
+.inc-group li {
+  font-size: .95rem;
+  line-height: 1.5;
+  color: var(--ink-70);
+  padding: 5px 0 5px 22px;
+  position: relative;
+}
+.inc-group li::before {
+  content: '';
+  position: absolute;
+  left: 2px; top: 12px;
+  width: 9px; height: 1px;
+  background: var(--blue-ink);
+}
+.inc-group li.fresh { animation: settle .55s var(--ease) both; }
+@keyframes settle {
+  from { opacity: 0; transform: translateY(5px); color: var(--blue-ink); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- actions ---------- */
+.actions {
+  margin-top: clamp(26px, 5vh, 56px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2) var(--s3);
+}
+.btn {
+  font-family: var(--display);
+  font-size: .98rem;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  text-decoration: none;
+  padding: 15px 28px;
+  border-radius: 4px;
+  transition: transform .2s var(--ease), background .2s var(--ease);
+}
+.btn-primary { background: var(--ink); color: var(--sand); }
+.btn-primary:hover { background: var(--blue-ink); transform: translateY(-2px); }
+.btn-quiet {
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink-14);
+  border-radius: 0;
+  padding: 15px 2px;
+}
+.btn-quiet:hover { border-bottom-color: var(--ink); }
+.btn:focus-visible { outline: 3px solid var(--blue-ink); outline-offset: 4px; }
+
+.fineprint {
+  font-size: .88rem;
+  line-height: 1.55;
+  color: var(--ink-64);
+  margin: var(--s3) 0 0;
+  max-width: 56ch;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 640px) {
+  .bar-note { display: none; }
+  h1 { max-width: none; }
+  .btn-primary { width: 100%; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .odo .strip { transition: none; }
+  .inc-group li.fresh { animation: none; }
+  .menu { animation: none; }
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="bar">
+    <span class="wm"><span class="wm-a">940</span><span class="wm-b">Digital</span></span>
+    <span class="bar-note">Denton, TX &middot; Serving DFW</span>
+  </header>
+
+  <div class="core">
+    <p class="eyebrow">Change any part of this sentence</p>
+
+    <h1>A
+      <button class="tok" type="button" data-tok="size" aria-haspopup="listbox" aria-expanded="false"><span data-label>four-page</span></button>
+      website for a
+      <button class="tok" type="button" data-tok="biz" aria-haspopup="listbox" aria-expanded="false"><span data-label>bakery</span></button>
+      in
+      <button class="tok" type="button" data-tok="city" aria-haspopup="listbox" aria-expanded="false"><span data-label>Denton</span></button>
+      costs this much.
+    </h1>
+
+    <p class="sr-only" id="live" role="status" aria-live="polite"></p>
+
+    <div class="money-row">
+      <div>
+        <p class="fig-label">To build it</p>
+        <p class="fig"><span aria-hidden="true">$</span><span class="odo" id="odo-setup" aria-hidden="true"></span><span class="suffix">one time</span></p>
+      </div>
+      <div>
+        <p class="fig-label">To keep it running</p>
+        <p class="fig"><span aria-hidden="true">$</span><span class="odo" id="odo-month" aria-hidden="true"></span><span class="suffix">per month</span></p>
+      </div>
+    </div>
+
+    <div class="includes">
+      <div class="inc-group">
+        <h2>Every plan</h2>
+        <ul id="list-always"></ul>
+      </div>
+      <div class="inc-group">
+        <h2 id="head-pages">Pages a bakery needs</h2>
+        <ul id="list-pages"></ul>
+      </div>
+      <div class="inc-group">
+        <h2 id="head-local">Found in Denton</h2>
+        <ul id="list-local"></ul>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="/contact">Start with a free build</a>
+      <a class="btn btn-quiet" href="/work">See sites I have built</a>
+    </div>
+
+    <p class="fineprint">
+      I build a working version of your site before you pay anything. If it is
+      not what you wanted, you walk away and it costs you nothing.
+    </p>
+  </div>
+
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  var PLANS = {
+    basic: { setup: 200, month: 20, label: 'four-page' },
+    plus:  { setup: 400, month: 40, label: 'ten-page' },
+    pro:   { setup: 800, month: 80, label: 'twenty-page' }
+  };
+
+  var ALWAYS = [
+    'Hosting and the domain wiring',
+    'Updates when your business changes',
+    'A phone number that reaches me',
+    'Built by hand, no template'
+  ];
+
+  var BIZ = {
+    bakery: {
+      name: 'bakery',
+      pages: ['Menu with real prices', 'Hours and holiday closures', 'Custom order request form'],
+      search: 'bakery near me'
+    },
+    roofing: {
+      name: 'roofing company',
+      pages: ['Storm damage landing page', 'One page per service area', 'Financing explained plainly'],
+      search: 'roof repair'
+    },
+    dental: {
+      name: 'dental practice',
+      pages: ['New patient intake form', 'Insurance you accept', 'Dentist and hygienist bios'],
+      search: 'dentist accepting new patients'
+    },
+    law: {
+      name: 'law firm',
+      pages: ['One page per practice area', 'Attorney profiles', 'Consultation request form'],
+      search: 'attorney free consultation'
+    },
+    gym: {
+      name: 'gym',
+      pages: ['Class schedule that stays current', 'Membership tiers with prices', 'Trainer profiles'],
+      search: 'gyms with classes'
+    },
+    landscaping: {
+      name: 'landscaping company',
+      pages: ['Seasonal service pages', 'Before and after gallery', 'Quote request form'],
+      search: 'landscaping company'
+    }
+  };
+
+  var OPTIONS = {
+    size: [
+      { value: 'basic', label: 'four-page' },
+      { value: 'plus',  label: 'ten-page' },
+      { value: 'pro',   label: 'twenty-page' }
+    ],
+    biz: Object.keys(BIZ).map(function (k) { return { value: k, label: BIZ[k].name }; }),
+    city: ['Denton', 'Dallas', 'Fort Worth', 'Frisco', 'Plano', 'McKinney']
+            .map(function (c) { return { value: c, label: c }; })
+  };
+
+  var state = { size: 'basic', biz: 'bakery', city: 'Denton' };
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- odometer ----------
+     Rebuilds only when the digit count changes; otherwise it reuses
+     the existing columns so the strips animate rather than snapping
+     to fresh DOM. */
+  function Odometer(el) { this.el = el; this.len = -1; }
+  Odometer.prototype.build = function (len) {
+    this.el.textContent = '';
+    for (var i = 0; i < len; i++) {
+      var col = document.createElement('span');
+      col.className = 'col';
+      var strip = document.createElement('span');
+      strip.className = 'strip';
+      for (var d = 0; d <= 9; d++) {
+        var s = document.createElement('span');
+        s.textContent = String(d);
+        strip.appendChild(s);
+      }
+      col.appendChild(strip);
+      this.el.appendChild(col);
+    }
+    this.len = len;
+  };
+  Odometer.prototype.set = function (value) {
+    var str = String(value);
+    if (str.length !== this.len) this.build(str.length);
+    var strips = this.el.querySelectorAll('.strip');
+    for (var i = 0; i < strips.length; i++) {
+      /* Later digits lag slightly so the number settles left to right
+         the way a mechanical counter does. */
+      strips[i].style.transitionDelay = reduce ? '0ms' : (i * 55) + 'ms';
+      strips[i].style.transform = 'translateY(' + (-Number(str.charAt(i))) + 'em)';
+    }
+  };
+
+  var odoSetup = new Odometer(document.getElementById('odo-setup'));
+  var odoMonth = new Odometer(document.getElementById('odo-month'));
+
+  /* ---------- list painting ---------- */
+  function paint(ul, items, animate) {
+    ul.textContent = '';
+    items.forEach(function (text, i) {
+      var li = document.createElement('li');
+      li.textContent = text;
+      if (animate && !reduce) {
+        li.className = 'fresh';
+        li.style.animationDelay = (i * 45) + 'ms';
+      }
+      ul.appendChild(li);
+    });
+  }
+
+  var elAlways  = document.getElementById('list-always');
+  var elPages   = document.getElementById('list-pages');
+  var elLocal   = document.getElementById('list-local');
+  var headPages = document.getElementById('head-pages');
+  var headLocal = document.getElementById('head-local');
+  var live      = document.getElementById('live');
+
+  var first = true;
+
+  function render(changed) {
+    var plan = PLANS[state.size];
+    var biz  = BIZ[state.biz];
+    var city = state.city;
+
+    odoSetup.set(plan.setup);
+    odoMonth.set(plan.month);
+
+    if (first) paint(elAlways, ALWAYS, false);
+
+    headPages.textContent = 'Pages a ' + biz.name + ' needs';
+    if (first || changed === 'biz') paint(elPages, biz.pages, !first);
+
+    headLocal.textContent = 'Found in ' + city;
+    if (first || changed === 'biz' || changed === 'city') {
+      paint(elLocal, [
+        'Ranked for "' + biz.search + '" in ' + city,
+        'Google Business Profile set up',
+        'Written so AI search can quote it'
+      ], !first);
+    }
+
+    live.textContent = 'A ' + plan.label + ' website for a ' + biz.name +
+      ' in ' + city + ' costs $' + plan.setup + ' to build and $' +
+      plan.month + ' per month.';
+
+    first = false;
+  }
+
+  /* ---------- listbox ----------
+     Built on <body> while open so nothing leaks into the <h1>. */
+  var openKey = null, menuEl = null, activeIndex = 0, openerEl = null;
+
+  function closeMenu(refocus) {
+    if (!menuEl) return;
+    menuEl.remove();
+    menuEl = null;
+    if (openerEl) {
+      openerEl.setAttribute('aria-expanded', 'false');
+      if (refocus) openerEl.focus();
+    }
+    openKey = null;
+    openerEl = null;
+    document.removeEventListener('pointerdown', onOutside, true);
+    window.removeEventListener('resize', onReflow);
+    window.removeEventListener('scroll', onReflow, true);
+  }
+
+  function onOutside(e) {
+    if (menuEl && !menuEl.contains(e.target) && e.target !== openerEl && !openerEl.contains(e.target)) {
+      closeMenu(false);
+    }
+  }
+  function onReflow() { closeMenu(false); }
+
+  function place() {
+    var r = openerEl.getBoundingClientRect();
+    var mh = menuEl.offsetHeight;
+    var mw = menuEl.offsetWidth;
+    /* Flip above when there is no room below, and keep it on screen
+       horizontally on narrow viewports. */
+    var top = (r.bottom + 8 + mh > window.innerHeight - 8) ? (r.top - mh - 8) : (r.bottom + 8);
+    var left = Math.min(r.left, window.innerWidth - mw - 12);
+    menuEl.style.top = Math.max(8, top) + 'px';
+    menuEl.style.left = Math.max(12, left) + 'px';
+  }
+
+  function setActive(i) {
+    var items = menuEl.querySelectorAll('li');
+    if (!items.length) return;
+    activeIndex = (i + items.length) % items.length;
+    for (var n = 0; n < items.length; n++) items[n].classList.toggle('active', n === activeIndex);
+    menuEl.setAttribute('aria-activedescendant', items[activeIndex].id);
+    items[activeIndex].scrollIntoView({ block: 'nearest' });
+  }
+
+  function choose(i) {
+    var opt = OPTIONS[openKey][i];
+    state[openKey] = opt.value;
+    openerEl.querySelector('[data-label]').textContent = opt.label;
+    var key = openKey;
+    closeMenu(true);
+    render(key);
+  }
+
+  function openMenu(btn) {
+    var key = btn.getAttribute('data-tok');
+    if (openKey === key) { closeMenu(true); return; }
+    closeMenu(false);
+
+    openKey = key;
+    openerEl = btn;
+    btn.setAttribute('aria-expanded', 'true');
+
+    menuEl = document.createElement('ul');
+    menuEl.className = 'menu';
+    menuEl.setAttribute('role', 'listbox');
+    menuEl.setAttribute('aria-label', btn.textContent.trim() + ' options');
+    menuEl.tabIndex = -1;
+
+    OPTIONS[key].forEach(function (opt, i) {
+      var li = document.createElement('li');
+      li.id = 'opt-' + key + '-' + i;
+      li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', String(opt.value === state[key]));
+      li.textContent = opt.label;
+      li.addEventListener('pointerup', function () { choose(i); });
+      li.addEventListener('pointermove', function () { setActive(i); });
+      menuEl.appendChild(li);
+    });
+
+    document.body.appendChild(menuEl);
+    place();
+    menuEl.focus();
+
+    var sel = OPTIONS[key].findIndex(function (o) { return o.value === state[key]; });
+    setActive(sel < 0 ? 0 : sel);
+
+    document.addEventListener('pointerdown', onOutside, true);
+    window.addEventListener('resize', onReflow);
+    window.addEventListener('scroll', onReflow, true);
+  }
+
+  document.querySelectorAll('.tok').forEach(function (btn) {
+    btn.addEventListener('click', function () { openMenu(btn); });
+    btn.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); openMenu(btn); }
+    });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (!menuEl) return;
+    switch (e.key) {
+      case 'Escape':    e.preventDefault(); closeMenu(true); break;
+      case 'ArrowDown': e.preventDefault(); setActive(activeIndex + 1); break;
+      case 'ArrowUp':   e.preventDefault(); setActive(activeIndex - 1); break;
+      case 'Home':      e.preventDefault(); setActive(0); break;
+      case 'End':       e.preventDefault(); setActive(OPTIONS[openKey].length - 1); break;
+      case 'Enter':
+      case ' ':         e.preventDefault(); choose(activeIndex); break;
+      case 'Tab':       closeMenu(false); break;
+    }
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>

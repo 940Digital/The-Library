@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital | This page just measured itself</title>
+<meta name="description" content="940Digital builds fast, accessible websites for small businesses in Denton and DFW, and publishes the measurements instead of adjectives.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HERO 09 — THE INSTRUMENT
+   Every number on this page is measured from this page, live, at
+   runtime. Nothing is typed in.
+
+   Load timing comes from PerformanceNavigationTiming, the node
+   count from the live DOM, weight and request count from the
+   resource timing entries, and the contrast figure is computed
+   here with the real WCAG relative-luminance formula against the
+   colours the browser actually resolved.
+
+   The important rule: when a reading cannot be taken (resource
+   timing is unavailable over file://, and cross-origin responses
+   report transferSize 0 without Timing-Allow-Origin), it says so
+   instead of printing a plausible number. A page arguing that
+   you should check the numbers cannot invent any of them.
+   ============================================================ */
+
+:root {
+  --white: #FFFFFF;
+  --ink:   #1B1D21;
+  --sand:  #F7F1E7;
+  --blue:  #3194E0;      /* on charcoal: 5.18:1 */
+  --blue-ink: #2B73AB;   /* on white: 5.07:1 */
+
+  --ink-70: rgba(27,29,33,.70);
+  --ink-64: rgba(27,29,33,.64);
+  --ink-14: rgba(27,29,33,.14);
+
+  --w-86: rgba(255,255,255,.86);
+  --w-62: rgba(255,255,255,.62);
+  --w-46: rgba(255,255,255,.46);
+  --w-14: rgba(255,255,255,.14);
+
+  --display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(.22,.7,.25,1);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  padding: clamp(20px,3vh,28px) clamp(20px,5vw,60px) clamp(24px,4vh,40px);
+}
+
+.bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; padding-bottom: clamp(24px,5vh,52px);
+}
+.wm { font-size: 1.28rem; letter-spacing: -.02em; line-height: 1; }
+.wm-a { font-weight: 700; color: var(--ink); }
+.wm-b { font-family: var(--mono); font-weight: 500; color: var(--blue-ink); }
+.bar-note {
+  font-family: var(--mono); font-size: .71rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--ink-64);
+}
+
+.core { max-width: 1240px; width: 100%; margin: auto; }
+
+.head { max-width: 62ch; margin-bottom: clamp(20px,3.4vh,34px); }
+.eyebrow {
+  font-family: var(--mono); font-size: .72rem; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--blue-ink); margin: 0 0 14px;
+}
+h1 {
+  font-size: clamp(1.8rem,3.5vw,2.85rem);
+  font-weight: 600; line-height: 1.15; letter-spacing: -.032em;
+  margin: 0 0 14px; max-width: 24ch; text-wrap: balance;
+}
+.lede {
+  font-size: 1rem; line-height: 1.6; color: var(--ink-70);
+  margin: 0; max-width: 54ch;
+}
+
+/* ---------- the instrument ---------- */
+.panel {
+  background: var(--ink);
+  border-radius: 10px;
+  padding: clamp(16px,2vw,24px);
+  color: var(--white);
+}
+.panel-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+  padding-bottom: 14px; margin-bottom: 4px;
+  border-bottom: 1px solid var(--w-14);
+}
+.panel-title {
+  font-family: var(--mono); font-size: .71rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--w-62); margin: 0;
+}
+.panel-title .dot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue); margin-right: 8px; vertical-align: middle;
+}
+.panel-title .dot.live { animation: pulse 1.1s var(--ease) infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+
+.remeasure {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--blue);
+  background: none; border: 1px solid var(--w-14); border-radius: 4px;
+  padding: 9px 13px; cursor: pointer;
+  transition: border-color .2s var(--ease);
+}
+.remeasure:hover { border-color: var(--blue); }
+.remeasure:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+.readings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+  gap: 0;
+  margin: 0;
+}
+.reading {
+  padding: clamp(14px,1.8vw,20px) clamp(12px,1.4vw,18px);
+  border-right: 1px solid var(--w-14);
+}
+.reading:last-child { border-right: 0; }
+
+.reading dt {
+  font-family: var(--mono); font-size: .68rem; font-weight: 400;
+  letter-spacing: .07em; text-transform: uppercase;
+  color: var(--w-46); margin: 0 0 10px; line-height: 1.4;
+}
+.reading dd { margin: 0; }
+
+.value {
+  display: flex; align-items: baseline; gap: 3px;
+  font-family: var(--mono); font-weight: 700;
+  font-size: clamp(1.5rem,2.3vw,2rem);
+  line-height: 1; letter-spacing: -.03em;
+  color: var(--white);
+  min-height: 1em;
+}
+.value .unit {
+  font-size: .46em; font-weight: 500; letter-spacing: 0;
+  color: var(--w-46);
+}
+.value.measuring { color: var(--w-46); }
+.value.unavailable {
+  font-size: clamp(.78rem,1.02vw,.88rem); font-weight: 400;
+  letter-spacing: 0; color: var(--w-46); line-height: 1.45;
+}
+
+.verdict {
+  font-size: .8rem; line-height: 1.5; color: var(--w-62);
+  margin: 9px 0 0;
+}
+.verdict b { color: var(--blue); font-weight: 500; }
+
+.note {
+  font-family: var(--mono); font-size: .71rem; line-height: 1.6;
+  color: var(--ink-64); margin: 14px 0 0;
+  padding-left: 13px; border-left: 2px solid var(--blue-ink);
+  max-width: 76ch;
+}
+
+.actions {
+  margin-top: clamp(20px,3.4vh,32px);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 13px 22px;
+}
+.btn {
+  font-size: .96rem; font-weight: 600; letter-spacing: -.01em;
+  text-decoration: none; padding: 14px 27px; border-radius: 4px;
+  transition: transform .2s var(--ease), background .2s var(--ease);
+}
+.btn-primary { background: var(--ink); color: var(--white); }
+.btn-primary:hover { background: var(--blue-ink); transform: translateY(-2px); }
+.btn-quiet { color: var(--ink); border-bottom: 1px solid var(--ink-14); border-radius: 0; padding: 14px 2px; }
+.btn-quiet:hover { border-bottom-color: var(--ink); }
+.btn:focus-visible { outline: 3px solid var(--blue-ink); outline-offset: 4px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 880px) {
+  .reading { border-right: 0; border-bottom: 1px solid var(--w-14); }
+  .reading:last-child { border-bottom: 0; }
+}
+@media (max-width: 640px) {
+  .bar-note { display: none; }
+  .btn-primary { width: 100%; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel-title .dot.live { animation: none; }
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="bar">
+    <span class="wm"><span class="wm-a">940</span><span class="wm-b">Digital</span></span>
+    <span class="bar-note">Denton, TX &middot; Serving DFW</span>
+  </header>
+
+  <div class="core">
+
+    <div class="head">
+      <p class="eyebrow">Measured, not claimed</p>
+      <h1>Everybody says their sites are fast. This one just checked.</h1>
+      <p class="lede">
+        These numbers came from the page you are reading, taken by your own
+        browser a moment ago. Nothing below is typed in by hand, and anything
+        that cannot be measured says so.
+      </p>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <p class="panel-title"><span class="dot live" id="dot"></span><span id="panelState">Taking readings</span></p>
+        <button class="remeasure" type="button" id="remeasure">Measure again</button>
+      </div>
+
+      <dl class="readings" id="readings">
+        <div class="reading">
+          <dt>Ready to use in</dt>
+          <dd>
+            <p class="value measuring" id="v-load">&mdash;</p>
+            <p class="verdict" id="d-load">&nbsp;</p>
+          </dd>
+        </div>
+        <div class="reading">
+          <dt>Elements on the page</dt>
+          <dd>
+            <p class="value measuring" id="v-nodes">&mdash;</p>
+            <p class="verdict" id="d-nodes">&nbsp;</p>
+          </dd>
+        </div>
+        <div class="reading">
+          <dt>Files fetched</dt>
+          <dd>
+            <p class="value measuring" id="v-req">&mdash;</p>
+            <p class="verdict" id="d-req">&nbsp;</p>
+          </dd>
+        </div>
+        <div class="reading">
+          <dt>Weight over the wire</dt>
+          <dd>
+            <p class="value measuring" id="v-weight">&mdash;</p>
+            <p class="verdict" id="d-weight">&nbsp;</p>
+          </dd>
+        </div>
+        <div class="reading">
+          <dt>Headline contrast</dt>
+          <dd>
+            <p class="value measuring" id="v-contrast">&mdash;</p>
+            <p class="verdict" id="d-contrast">&nbsp;</p>
+          </dd>
+        </div>
+      </dl>
+
+      <p class="sr-only" id="live" role="status" aria-live="polite"></p>
+    </div>
+
+    <p class="note">
+      Your site gets the same treatment. I measure it before launch, I show you
+      the numbers, and I do not call anything fast without one.
+    </p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="/contact">Have yours measured free</a>
+      <a class="btn btn-quiet" href="/services">How I build them</a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var live   = document.getElementById('live');
+  var dot    = document.getElementById('dot');
+  var state  = document.getElementById('panelState');
+
+  function $(id) { return document.getElementById(id); }
+
+  /* ---------- real WCAG contrast, computed from resolved colours ---------- */
+  function parseRGB(str) {
+    var m = String(str).match(/rgba?\(([^)]+)\)/);
+    if (!m) return null;
+    var p = m[1].split(',').map(function (n) { return parseFloat(n); });
+    return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+  }
+  function channel(c) {
+    c = c / 255;
+    return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  }
+  function luminance(c) {
+    return 0.2126 * channel(c.r) + 0.7152 * channel(c.g) + 0.0722 * channel(c.b);
+  }
+  /* Walk up until a non-transparent background is found, the way the
+     compositor does, so the figure reflects what is actually behind
+     the text rather than the element's own empty background. */
+  function effectiveBg(el) {
+    var node = el;
+    while (node && node !== document.documentElement) {
+      var bg = parseRGB(getComputedStyle(node).backgroundColor);
+      if (bg && bg.a > 0) return bg;
+      node = node.parentElement;
+    }
+    return { r: 255, g: 255, b: 255, a: 1 };
+  }
+  function contrastOf(el) {
+    var fg = parseRGB(getComputedStyle(el).color);
+    var bg = effectiveBg(el);
+    if (!fg) return null;
+    /* Flatten a translucent foreground onto its background first. */
+    if (fg.a < 1) {
+      fg = {
+        r: fg.r * fg.a + bg.r * (1 - fg.a),
+        g: fg.g * fg.a + bg.g * (1 - fg.a),
+        b: fg.b * fg.a + bg.b * (1 - fg.a)
+      };
+    }
+    var l1 = luminance(fg), l2 = luminance(bg);
+    var hi = Math.max(l1, l2), lo = Math.min(l1, l2);
+    return (hi + 0.05) / (lo + 0.05);
+  }
+
+  /* ---------- the readings ---------- */
+  function readLoad() {
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (nav && nav.domContentLoadedEventEnd > 0) {
+      return { n: Math.max(1, Math.round(nav.domContentLoadedEventEnd)), unit: 'ms' };
+    }
+    /* No navigation timing: report the time to this script instead, and
+       label it honestly rather than passing it off as a load figure. */
+    var now = Math.round(performance.now());
+    if (now > 0) return { n: now, unit: 'ms', approx: true };
+    return null;
+  }
+
+  function readResources() {
+    if (!performance.getEntriesByType) return null;
+    var res = performance.getEntriesByType('resource');
+    if (!res || !res.length) return null;
+    return res;
+  }
+
+  function fmtBytes(b) {
+    if (b < 1024) return { n: b, unit: 'B' };
+    return { n: Math.round(b / 1024 * 10) / 10, unit: 'KB' };
+  }
+
+  /* ---------- painting ---------- */
+  function setValue(el, text, unit, cls) {
+    el.className = 'value' + (cls ? ' ' + cls : '');
+    el.textContent = '';
+    var v = document.createTextNode(text);
+    el.appendChild(v);
+    if (unit) {
+      var u = document.createElement('span');
+      u.className = 'unit';
+      u.textContent = unit;
+      el.appendChild(u);
+    }
+  }
+
+  /* Count a number up to its reading. The count is cosmetic; the value
+     it lands on is the measured one. */
+  function countTo(el, target, unit, decimals) {
+    if (reduce) {
+      setValue(el, decimals ? target.toFixed(decimals) : String(target), unit);
+      return;
+    }
+    var dur = 620, t0 = null;
+    function frame(ts) {
+      if (t0 === null) t0 = ts;
+      var t = Math.min(1, (ts - t0) / dur);
+      var e = 1 - Math.pow(1 - t, 3);
+      var v = target * e;
+      setValue(el, decimals ? v.toFixed(decimals) : String(Math.round(v)), unit);
+      if (t < 1) requestAnimationFrame(frame);
+      else setValue(el, decimals ? target.toFixed(decimals) : String(target), unit);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function unavailable(el, why) {
+    setValue(el, why, null, 'unavailable');
+  }
+
+  function measure() {
+    dot.classList.add('live');
+    state.textContent = 'Taking readings';
+
+    var results = [];
+
+    var steps = [
+      function () {
+        var r = readLoad();
+        if (!r) { unavailable($('v-load'), 'Not reported by this browser'); $('d-load').textContent = ''; return; }
+        countTo($('v-load'), r.n, r.unit);
+        $('d-load').innerHTML = r.approx
+          ? 'Time to this script. <b>Full timing unavailable here</b>'
+          : 'Google starts complaining past <b>2,500 ms</b>';
+        results.push('ready in ' + r.n + ' milliseconds');
+      },
+      function () {
+        var n = document.getElementsByTagName('*').length;
+        countTo($('v-nodes'), n, null);
+        $('d-nodes').innerHTML = 'A page builder typically ships <b>1,500 and up</b>';
+        results.push(n + ' elements');
+      },
+      function () {
+        var res = readResources();
+        if (!res) {
+          unavailable($('v-req'), 'Resource timing is off on this connection');
+          $('d-req').textContent = '';
+          return;
+        }
+        countTo($('v-req'), res.length + 1, null);
+        $('d-req').innerHTML = 'Every extra file is another <b>round trip</b>';
+        results.push((res.length + 1) + ' files');
+      },
+      function () {
+        var res = readResources();
+        var total = 0, known = 0;
+        if (res) {
+          res.forEach(function (r) {
+            if (r.transferSize > 0) { total += r.transferSize; known++; }
+          });
+        }
+        if (!known) {
+          /* transferSize is 0 for cross-origin responses without
+             Timing-Allow-Origin, and over file://. Saying so beats
+             printing a zero that looks like a brilliant score. */
+          unavailable($('v-weight'), 'Sizes withheld by the browser here');
+          $('d-weight').textContent = '';
+          return;
+        }
+        var f = fmtBytes(total);
+        countTo($('v-weight'), f.n, f.unit, f.unit === 'KB' ? 1 : 0);
+        $('d-weight').innerHTML = 'The average site now ships <b>over 2,000 KB</b>';
+        results.push(f.n + ' ' + f.unit);
+      },
+      function () {
+        var c = contrastOf(document.querySelector('h1'));
+        if (!c) { unavailable($('v-contrast'), 'Could not resolve colours'); return; }
+        countTo($('v-contrast'), Math.round(c * 10) / 10, ':1', 1);
+        $('d-contrast').innerHTML = c >= 4.5
+          ? 'Passes <b>WCAG AA</b>, which needs 4.5:1'
+          : 'Below the <b>4.5:1</b> WCAG AA minimum';
+        results.push('contrast ' + (Math.round(c * 10) / 10) + ' to 1');
+      }
+    ];
+
+    steps.forEach(function (fn, i) {
+      setTimeout(fn, reduce ? 0 : 260 + i * 300);
+    });
+
+    setTimeout(function () {
+      dot.classList.remove('live');
+      state.textContent = 'Readings complete';
+      live.textContent = 'Measurements taken: ' + results.join(', ') + '.';
+    }, reduce ? 10 : 260 + steps.length * 300 + 300);
+  }
+
+  document.getElementById('remeasure').addEventListener('click', function () {
+    ['v-load','v-nodes','v-req','v-weight','v-contrast'].forEach(function (id) {
+      setValue($(id), '—', null, 'measuring');
+    });
+    ['d-load','d-nodes','d-req','d-weight','d-contrast'].forEach(function (id) {
+      $(id).innerHTML = '&nbsp;';
+    });
+    measure();
+  });
+
+  /* Wait for load so navigation timing is complete; measuring during
+     load would report a domContentLoadedEventEnd of 0. */
+  if (document.readyState === 'complete') setTimeout(measure, 120);
+  else window.addEventListener('load', function () { setTimeout(measure, 120); });
+})();
+</script>
+
+</body>
+</html>

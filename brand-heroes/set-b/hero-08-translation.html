@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital | What you were told, and what it meant</title>
+<meta name="description" content="940Digital works without the agency vocabulary: no vague page-one promises, no scope-creep invoices, no account managers. Websites for small businesses in Denton and DFW.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HERO 08 — TRANSLATION
+   Two columns of real sentences, physically linked. Taking a
+   phrase on the left draws a curve to what it actually meant on
+   the right and drops everything else back.
+
+   The connector is a live SVG path measured from the two boxes'
+   real rects, not a decorative flourish placed by eye. It is
+   redrawn on resize, on font load and on scroll, because the
+   moment a connector drifts off its endpoints the whole device
+   reads as sloppy rather than precise.
+
+   Under 860px there are no two columns to connect, so the pairs
+   stack and the SVG is removed entirely.
+   ============================================================ */
+
+:root {
+  --ink:   #1B1D21;
+  --white: #FFFFFF;
+  --blue:  #3194E0;   /* 5.18:1 on charcoal */
+  --sand:  #F7F1E7;
+
+  --w-86: rgba(255,255,255,.86);
+  --w-62: rgba(255,255,255,.62);
+  --w-46: rgba(255,255,255,.46);
+  --w-14: rgba(255,255,255,.14);
+  --w-07: rgba(255,255,255,.07);
+
+  --display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(.22,.7,.25,1);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  padding: clamp(20px,3vh,28px) clamp(20px,5vw,60px) clamp(24px,4vh,40px);
+}
+
+.bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; padding-bottom: clamp(18px,3.5vh,36px);
+}
+.wm { font-size: 1.28rem; letter-spacing: -.02em; line-height: 1; }
+.wm-a { font-weight: 700; color: var(--white); }
+.wm-b { font-family: var(--mono); font-weight: 500; color: var(--blue); }
+.bar-note {
+  font-family: var(--mono); font-size: .71rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--w-46);
+}
+
+.core { max-width: 1280px; width: 100%; margin: auto; }
+
+.head { margin-bottom: clamp(16px,2.8vh,28px); max-width: 68ch; }
+.eyebrow {
+  font-family: var(--mono); font-size: .72rem; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--blue); margin: 0 0 14px;
+}
+h1 {
+  font-size: clamp(1.75rem,3.3vw,2.7rem);
+  font-weight: 600; line-height: 1.15; letter-spacing: -.032em;
+  margin: 0 0 14px; max-width: 26ch; text-wrap: balance;
+}
+.lede {
+  font-size: 1rem; line-height: 1.6; color: var(--w-62);
+  margin: 0; max-width: 52ch;
+}
+
+/* ---------- the two columns ---------- */
+.pairs { position: relative; }
+
+.cols {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr clamp(56px,7vw,110px) 1fr;
+  gap: 0 0;
+  align-items: start;
+}
+.col-head {
+  font-family: var(--mono); font-size: .69rem; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--w-46); margin: 0 0 12px; padding: 0 2px;
+}
+.col-head.right { color: var(--blue); }
+
+.side { display: flex; flex-direction: column; gap: 7px; }
+.spacer { pointer-events: none; }
+
+.row {
+  display: block; width: 100%; text-align: left;
+  font: inherit; color: inherit;
+  background: var(--w-07);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 11px 14px;
+  margin: 0; cursor: pointer;
+  font-size: clamp(.83rem,1.02vw,.95rem);
+  line-height: 1.45;
+  transition: opacity .28s var(--ease), background .28s var(--ease),
+              border-color .28s var(--ease), color .28s var(--ease);
+}
+.row.said  { color: var(--w-62); }
+.row.meant { color: var(--w-62); background: transparent; border-color: var(--w-14); cursor: default; }
+
+/* Everything that is not the active pair recedes. */
+.pairs.picked .row { opacity: .3; }
+.pairs.picked .row.on { opacity: 1; }
+.row.said.on  { background: rgba(49,148,224,.14); border-color: var(--blue); color: var(--white); }
+.row.meant.on { border-color: var(--blue); color: var(--w-86); background: rgba(49,148,224,.07); }
+.row:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; opacity: 1 !important; }
+
+.link-layer {
+  position: absolute; inset: 0; z-index: 0;
+  pointer-events: none; overflow: visible;
+}
+.link-layer path {
+  fill: none; stroke: var(--blue); stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity .26s var(--ease);
+}
+.link-layer path.on { opacity: 1; }
+
+.answer {
+  margin-top: clamp(18px,3vh,30px);
+  padding-top: clamp(16px,2.6vh,24px);
+  border-top: 1px solid var(--w-14);
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 14px clamp(20px,3vw,40px);
+}
+.answer p {
+  margin: 0; font-size: .97rem; line-height: 1.55;
+  color: var(--w-62); max-width: 46ch; flex: 1 1 320px;
+}
+.answer p strong { color: var(--white); font-weight: 600; }
+
+.btn {
+  font-size: .96rem; font-weight: 600; letter-spacing: -.01em;
+  text-decoration: none; padding: 14px 27px; border-radius: 4px;
+  transition: transform .2s var(--ease), background .2s var(--ease);
+  flex: none;
+}
+.btn-primary { background: var(--blue); color: var(--ink); }
+.btn-primary:hover { background: var(--sand); transform: translateY(-2px); }
+.btn-quiet { color: var(--white); border-bottom: 1px solid var(--w-14); border-radius: 0; padding: 14px 2px; }
+.btn-quiet:hover { border-bottom-color: var(--white); }
+.btn:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 860px) {
+  /* One column: there is nothing to connect, so the pairs stack and
+     the connector layer is taken out rather than left drawing curves
+     between boxes that are no longer side by side. */
+  .link-layer { display: none; }
+  .cols { display: block; }
+  .col-head { display: none; }
+  .side { display: contents; }
+  .spacer { display: none; }
+  .pairs.picked .row { opacity: 1; }
+  .row { margin-bottom: 0; }
+  .pair-m { margin-bottom: 14px; }
+  .row.said { border-radius: 6px 6px 0 0; }
+  .row.meant {
+    border-radius: 0 0 6px 6px; border-top: 0;
+    position: relative; padding-left: 30px;
+  }
+  .row.meant::before {
+    content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
+    width: 1px; background: var(--blue);
+  }
+}
+@media (max-width: 640px) {
+  .bar-note { display: none; }
+  .btn-primary { width: 100%; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row, .link-layer path { transition: none; }
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="bar">
+    <span class="wm"><span class="wm-a">940</span><span class="wm-b">Digital</span></span>
+    <span class="bar-note">Denton, TX &middot; Serving DFW</span>
+  </header>
+
+  <div class="core">
+
+    <div class="head">
+      <p class="eyebrow">You have heard these before</p>
+      <h1>Five sentences that have already cost somebody a lot of money.</h1>
+      <p class="lede">
+        Take one on the left and see what it turned out to mean. If you have
+        paid for a website before, at least one of these will be familiar.
+      </p>
+    </div>
+
+    <div class="pairs" id="pairs">
+      <svg class="link-layer" id="links" aria-hidden="true"></svg>
+
+      <div class="cols" id="cols">
+        <div>
+          <p class="col-head">What you were told</p>
+          <div class="side" id="sideSaid"></div>
+        </div>
+        <div class="spacer" aria-hidden="true"></div>
+        <div>
+          <p class="col-head right">What it meant</p>
+          <div class="side" id="sideMeant"></div>
+        </div>
+      </div>
+      <p class="sr-only" id="live" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="answer">
+      <p>
+        I cannot promise you page one on a date, and I will not tell you that.
+        <strong>What I will do is show you the work before you pay, put the
+        price in writing, and pick up when you call.</strong>
+      </p>
+      <a class="btn btn-primary" href="/contact">Start with a free build</a>
+      <a class="btn btn-quiet" href="/pricing">See the real prices</a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  var PAIRS = [
+    { said: '"We will get you on page one."',
+      meant: 'No keyword named, no date given, and no way for you to check whether it ever happened.' },
+    { said: '"It is a completely custom design."',
+      meant: 'A theme somebody bought, with your logo dropped into the corner of it.' },
+    { said: '"Your site is all set."',
+      meant: 'Nobody has opened it since launch. The hours are wrong and a service you stopped offering is still on there.' },
+    { said: '"That is outside the current scope."',
+      meant: 'An invoice, because you asked to change your own phone number.' },
+    { said: '"Let me loop in the team on that."',
+      meant: 'Three weeks, then an answer from somebody who has never seen your business.' }
+  ];
+
+  var sideSaid  = document.getElementById('sideSaid');
+  var sideMeant = document.getElementById('sideMeant');
+  var pairsEl   = document.getElementById('pairs');
+  var svg       = document.getElementById('links');
+  var live      = document.getElementById('live');
+
+  var wide = window.matchMedia('(min-width: 861px)');
+  var saidRows = [], meantRows = [], paths = [];
+  var active = 0;
+
+  PAIRS.forEach(function (p, i) {
+    var a = document.createElement('button');
+    a.type = 'button';
+    a.className = 'row said';
+    a.textContent = p.said;
+    a.setAttribute('aria-describedby', 'meant-' + i);
+    a.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') pick(i); });
+    a.addEventListener('focus', function () { pick(i); });
+    a.addEventListener('click', function () { pick(i); });
+
+    var b = document.createElement('div');
+    b.className = 'row meant';
+    b.id = 'meant-' + i;
+    b.textContent = p.meant;
+
+    /* On the stacked layout the two halves of a pair must sit next to
+       each other, so each pair gets its own wrapper there. .side uses
+       display:contents at that width to let these through. */
+    var wrapA = document.createElement('div');
+    wrapA.className = 'pair-m';
+    wrapA.appendChild(a); wrapA.appendChild(b);
+
+    sideSaid.appendChild(wrapA);
+    saidRows.push(a); meantRows.push(b);
+
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    svg.appendChild(path);
+    paths.push(path);
+  });
+
+  /* On wide layouts the "meant" rows belong in the right column, so
+     they are moved out of their pair wrapper at build time and moved
+     back when the layout collapses. */
+  function layout() {
+    if (wide.matches) {
+      meantRows.forEach(function (b) { sideMeant.appendChild(b); });
+    } else {
+      meantRows.forEach(function (b, i) { saidRows[i].parentNode.appendChild(b); });
+    }
+  }
+
+  function draw() {
+    if (!wide.matches) return;
+    var box = pairsEl.getBoundingClientRect();
+    svg.setAttribute('viewBox', '0 0 ' + box.width + ' ' + box.height);
+    svg.setAttribute('width', box.width);
+    svg.setAttribute('height', box.height);
+
+    for (var i = 0; i < PAIRS.length; i++) {
+      var a = saidRows[i].getBoundingClientRect();
+      var b = meantRows[i].getBoundingClientRect();
+      var x1 = a.right - box.left, y1 = a.top + a.height / 2 - box.top;
+      var x2 = b.left  - box.left, y2 = b.top + b.height / 2 - box.top;
+      var dx = Math.max(24, (x2 - x1) * 0.55);
+      paths[i].setAttribute('d',
+        'M' + x1 + ',' + y1 +
+        ' C' + (x1 + dx) + ',' + y1 + ' ' + (x2 - dx) + ',' + y2 + ' ' + x2 + ',' + y2);
+    }
+  }
+
+  function pick(i) {
+    active = i;
+    pairsEl.classList.add('picked');
+    saidRows.forEach(function (r, n) { r.classList.toggle('on', n === i); });
+    meantRows.forEach(function (r, n) { r.classList.toggle('on', n === i); });
+    paths.forEach(function (p, n) { p.classList.toggle('on', n === i); });
+    live.textContent = PAIRS[i].said + ' Meant: ' + PAIRS[i].meant;
+  }
+
+  function refresh() { layout(); draw(); pick(active); }
+
+  window.addEventListener('resize', function () {
+    clearTimeout(refresh._t);
+    refresh._t = setTimeout(refresh, 120);
+  });
+  /* Scroll matters because the rects are viewport-relative; without
+     this the curves detach from their boxes as the page moves. */
+  window.addEventListener('scroll', draw, { passive: true });
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(refresh);
+    setTimeout(refresh, 800);
+  }
+  refresh();
+})();
+</script>
+
+</body>
+</html>
