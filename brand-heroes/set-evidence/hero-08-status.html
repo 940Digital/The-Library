@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital Hero 08 | Where I actually am right now</title>
+<meta name="description" content="A live, honest status: the real time in Denton, whether I am at the desk, and when you would actually hear back. 940Digital builds websites for small businesses across Dallas-Fort Worth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   940DIGITAL HERO 08 - "THE DESK"
+   Thesis: every site claims to be available. This one tells you
+   the truth, including when the truth is that I am asleep.
+   Signature effect: a genuinely live status. Real Denton time
+   computed in America/Chicago rather than the visitor's clock,
+   a real weekday and hour test, and a response estimate that
+   changes to match. At two in the morning it says so.
+   ============================================================ */
+
+:root {
+  --sand:       #F7F1E7;
+  --sand-warm:  #F1E9DA;
+  --sand-line:  #E2D7C4;
+  --charcoal:   #1B1D21;
+  --ink-soft:   #4A4F57;   /* 7.34:1 on sand */
+  --ink-quiet:  #5B6069;   /* 5.63:1 on sand */
+  --blue:       #3194E0;
+  --blue-deep:  #1F6FB0;   /* 4.72:1 on sand */
+  --white:      #FFFFFF;
+
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--sand);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  background: var(--sand);
+  color: var(--charcoal);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(900px 620px at 84% 6%, rgba(255,255,255,.9), transparent 60%);
+  pointer-events: none;
+}
+
+.wrap { position: relative; width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+
+.masthead { padding: 30px 0 0; }
+.wordmark { display: inline-flex; align-items: baseline; gap: 1px; font-size: 20px; letter-spacing: -0.02em; text-decoration: none; }
+.wm-num    { font-weight: 700; color: var(--charcoal); }
+.wm-script { font-family: var(--font-mono); font-weight: 500; color: var(--blue-deep); }
+
+.core {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: 70px;
+  padding: 54px 0 44px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--blue-deep); margin: 0 0 22px;
+}
+h1 {
+  margin: 0 0 22px;
+  font-size: clamp(2.2rem, 4.2vw, 3.5rem);
+  font-weight: 500; line-height: 1.07; letter-spacing: -0.032em;
+  max-width: 14ch;
+}
+.lede {
+  margin: 0 0 32px;
+  font-size: 1.0625rem; line-height: 1.62;
+  color: var(--ink-soft); max-width: 43ch;
+}
+
+.actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center;
+  background: var(--blue); color: var(--charcoal);   /* 5.18:1 */
+  font-weight: 700; font-size: 0.95rem; letter-spacing: -0.01em;
+  padding: 13px 24px; border-radius: 6px; text-decoration: none;
+  transition: background .16s ease, transform .16s ease;
+}
+.btn:hover { background: #57A6E7; transform: translateY(-1px); }
+.btn:focus-visible { outline: 2px solid var(--charcoal); outline-offset: 3px; }
+.link-quiet {
+  font-size: 0.9375rem; color: var(--ink-soft); text-decoration: none;
+  border-bottom: 1px solid rgba(27,29,33,.28); padding-bottom: 2px;
+}
+.link-quiet:hover { color: var(--charcoal); border-color: var(--charcoal); }
+
+/* ============================================================
+   THE STATUS
+   Set as a printed card rather than a dashboard. Hairlines and
+   type doing the work, no panels stacked on panels.
+   ============================================================ */
+.desk {
+  border-top: 2px solid var(--charcoal);
+  padding-top: 20px;
+}
+
+.status-line {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 18px;
+}
+.lamp {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ink-quiet);
+  flex: none;
+  position: relative;
+}
+.lamp.live { background: var(--blue-deep); }
+.lamp.live::after {
+  content: '';
+  position: absolute; inset: -5px;
+  border-radius: 50%;
+  border: 1px solid rgba(31,111,176,.4);
+  animation: ring 2.6s ease-out infinite;
+}
+@keyframes ring {
+  0%   { transform: scale(.7); opacity: .9; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.status-txt {
+  font-size: 1.25rem; font-weight: 600; letter-spacing: -0.022em;
+}
+
+/* The clock. Tabular figures so the seconds changing never shifts the
+   layout by a hair, which is the entire reason to use them here. */
+.clock {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(3rem, 7.5vw, 4.75rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin: 0 0 6px;
+  color: var(--charcoal);
+}
+.clock .sec {
+  font-size: 0.42em;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink-quiet);
+  vertical-align: baseline;
+  margin-left: 6px;
+}
+.clock-sub {
+  font-family: var(--font-mono);
+  font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-quiet);
+  margin: 0 0 24px;
+}
+
+.facts { list-style: none; margin: 0; padding: 0; }
+.facts li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--sand-line);
+  font-size: 0.9375rem;
+}
+.facts .k { color: var(--ink-soft); }
+.facts .v {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.875rem;
+  color: var(--charcoal);
+  text-align: right;
+}
+.facts .v b { font-weight: 700; }
+
+.honest {
+  margin: 20px 0 0;
+  padding: 14px 16px;
+  background: var(--sand-warm);
+  border-left: 2px solid var(--blue-deep);
+  font-size: 0.875rem; line-height: 1.6;
+  color: var(--ink-soft);
+}
+.honest b { color: var(--charcoal); font-weight: 600; }
+
+.tz-note {
+  margin: 14px 2px 0;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-quiet);
+}
+
+@media (max-width: 980px) {
+  .core { grid-template-columns: 1fr; gap: 44px; padding: 38px 0 34px; }
+  h1 { max-width: 18ch; }
+}
+@media (max-width: 560px) {
+  .wrap { padding: 0 18px; }
+  h1 { font-size: 2rem; }
+  .status-txt { font-size: 1.1rem; }
+  .btn { width: 100%; justify-content: center; }
+  .actions { gap: 18px; }
+  .facts li { grid-template-columns: 1fr; gap: 3px; }
+  .facts .v { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lamp.live::after { animation: none; opacity: 0; }
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="masthead">
+    <div class="wrap">
+      <a href="/" class="wordmark" aria-label="940Digital home">
+        <span class="wm-num">940</span><span class="wm-script">Digital</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="wrap core">
+
+    <div class="say">
+      <p class="eyebrow">Denton &amp; Dallas-Fort Worth</p>
+
+      <h1>Every site says available. This one tells you the truth.</h1>
+
+      <p class="lede">
+        There is no queue here and nobody covering for me, so the honest
+        version is a clock. If it is the middle of the night in Denton, this
+        page will say so instead of pretending somebody is standing by.
+      </p>
+
+      <div class="actions">
+        <a class="btn" href="/contact">Send it now anyway</a>
+        <a class="link-quiet" href="tel:+19405550118">(940) 555-0118</a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <!-- Everything below is rendered from the real clock on load. The
+           markup ships with a plain, always-true fallback so the page never
+           shows an empty or wrong state before the script runs. -->
+      <div class="desk">
+        <div class="status-line">
+          <span class="lamp" id="lamp" aria-hidden="true"></span>
+          <span class="status-txt" id="statusTxt">Checking the clock</span>
+        </div>
+
+        <p class="clock" id="clock" aria-live="off">
+          --:--<span class="sec" id="sec">--</span>
+        </p>
+        <p class="clock-sub" id="clockSub">Local time in Denton, Texas</p>
+
+        <ul class="facts">
+          <li>
+            <span class="k">If you send something right now</span>
+            <span class="v" id="etaVal"><b>&mdash;</b></span>
+          </li>
+          <li>
+            <span class="k">Median first reply, last twelve months</span>
+            <span class="v"><b>9 min</b></span>
+          </li>
+          <li>
+            <span class="k">People who will read it</span>
+            <span class="v"><b>1</b></span>
+          </li>
+          <li>
+            <span class="k">Builds I can take this month</span>
+            <span class="v"><b>2 of 4</b></span>
+          </li>
+        </ul>
+
+        <p class="honest" id="honest">
+          <b>Weekends count.</b> I answer on Saturday and Sunday, just later in
+          the day. If something is actually broken on your live site, call
+          instead of writing. The phone wakes me up and email does not.
+        </p>
+
+        <p class="tz-note" id="tzNote">All times America/Chicago</p>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+(function () {
+  var clock     = document.getElementById('clock');
+  var secEl     = document.getElementById('sec');
+  var clockSub  = document.getElementById('clockSub');
+  var lamp      = document.getElementById('lamp');
+  var statusTxt = document.getElementById('statusTxt');
+  var etaVal    = document.getElementById('etaVal');
+  var tzNote    = document.getElementById('tzNote');
+  var reduce    = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var ZONE = 'America/Chicago';
+
+  /* Reading the parts in the business's own zone, not the visitor's. A
+     visitor in London must see Denton's hour, otherwise the whole claim is
+     a lie told politely. Intl handles the daylight saving shift on its own,
+     which a hardcoded offset would get wrong twice a year. */
+  function dentonParts() {
+    var fmt = new Intl.DateTimeFormat('en-US', {
+      timeZone: ZONE,
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      hour12: false, weekday: 'short'
+    });
+    var out = {};
+    fmt.formatToParts(new Date()).forEach(function (p) { out[p.type] = p.value; });
+    return {
+      hour:    parseInt(out.hour, 10),
+      minute:  parseInt(out.minute, 10),
+      second:  parseInt(out.second, 10),
+      weekday: out.weekday
+    };
+  }
+
+  function twelveHour(h) {
+    var hr = h % 12;
+    if (hr === 0) hr = 12;
+    return hr;
+  }
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  /* Four honest states. The overnight one is the reason this hero exists:
+     saying "I am asleep, you will hear from me before eight" is worth more
+     than a green dot that is always on. */
+  function readState(p) {
+    var weekend = (p.weekday === 'Sat' || p.weekday === 'Sun');
+    var h = p.hour;
+
+    if (h >= 0 && h < 7) {
+      return {
+        live: false,
+        label: 'Asleep, almost certainly',
+        eta: 'Read before 8:00 AM'
+      };
+    }
+    if (weekend) {
+      return {
+        live: h >= 10 && h < 20,
+        label: h >= 10 && h < 20 ? 'Around, but it is the weekend' : 'Off for the evening',
+        eta: h >= 10 && h < 20 ? 'Usually within a few hours' : 'Read in the morning'
+      };
+    }
+    if (h >= 7 && h < 9) {
+      return { live: true, label: 'Up and going through messages', eta: 'Usually within the hour' };
+    }
+    if (h >= 9 && h < 18) {
+      return { live: true, label: 'At the desk', eta: 'Usually within 15 minutes' };
+    }
+    if (h >= 18 && h < 22) {
+      return { live: true, label: 'Still working, just slower', eta: 'Usually within the hour' };
+    }
+    return { live: false, label: 'Done for the night', eta: 'Read before 8:00 AM' };
+  }
+
+  function render() {
+    var p = dentonParts();
+    var s = readState(p);
+
+    clock.firstChild.nodeValue = twelveHour(p.hour) + ':' + pad(p.minute);
+    secEl.textContent = pad(p.second);
+
+    clockSub.textContent =
+      'Denton, Texas  ' + (p.hour < 12 ? 'AM' : 'PM') + '  ' + p.weekday;
+
+    lamp.classList.toggle('live', s.live);
+    statusTxt.textContent = s.label;
+    etaVal.innerHTML = '<b>' + s.eta + '</b>';
+  }
+
+  /* Tell the visitor when their clock and Denton's disagree. It is a small
+     courtesy and it proves the time on screen is not just their own. */
+  function noteZone() {
+    var mine = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (mine && mine !== ZONE) {
+      var here = new Date().toLocaleTimeString('en-US', {
+        hour: 'numeric', minute: '2-digit'
+      });
+      tzNote.textContent = 'All times America/Chicago. It is ' + here + ' where you are.';
+    }
+  }
+
+  render();
+  noteZone();
+
+  /* Seconds tick, because a clock that does not is a picture of a clock.
+     Under reduced motion it settles to once a minute, and it stops entirely
+     while the tab is in the background rather than burning a timer. */
+  var timer = null;
+  function startTicking() {
+    stopTicking();
+    timer = setInterval(render, reduce ? 60000 : 1000);
+  }
+  function stopTicking() {
+    if (timer) { clearInterval(timer); timer = null; }
+  }
+
+  startTicking();
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { stopTicking(); }
+    else { render(); startTicking(); }
+  });
+})();
+</script>
+
+</body>
+</html>

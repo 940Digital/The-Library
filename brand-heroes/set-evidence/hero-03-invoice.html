@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital Hero 03 | The whole price, before you ask for it</title>
+<meta name="description" content="What a five-page website actually costs with 940Digital, itemised line by line. Web design and search presence for small businesses in Dallas-Fort Worth and Denton.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   940DIGITAL HERO 03 - "THE WHOLE PRICE"
+   Thesis: the number is the scariest part of hiring anyone, so
+   the number goes first, itemised, with the zeroes shown too.
+   Signature effect: a price breakdown that totals itself in
+   front of you, including the lines that cost nothing.
+   ============================================================ */
+
+:root {
+  --charcoal:      #1B1D21;
+  --charcoal-deep: #151719;
+  --blue:          #3194E0;
+  --blue-deep:     #1F6FB0;
+  --sand:          #F7F1E7;
+  --sand-line:     #E3D9C8;
+  --white:         #FFFFFF;
+
+  --ink-soft:   #4A4F57;   /* 7.34:1 on sand */
+  --ink-quiet:  #5B6069;   /* 5.63:1 on sand */
+  --grey:       #A8B0BA;   /* 7.70:1 on charcoal */
+  --grey-quiet: #8A9099;   /* 5.25:1 on charcoal */
+
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--charcoal);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  color: var(--white);
+  background: var(--charcoal);
+  overflow: hidden;
+}
+/* One soft pool of light falling on the desk from the upper right, where the
+   document sits. Nothing moves. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(760px 620px at 76% 8%, rgba(49,148,224,.12), transparent 64%);
+  pointer-events: none;
+}
+
+.wrap {
+  position: relative;
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.masthead { padding: 30px 0 0; }
+.wordmark {
+  display: inline-flex; align-items: baseline; gap: 1px;
+  font-size: 20px; letter-spacing: -0.02em; text-decoration: none;
+}
+.wm-num    { font-weight: 700; color: var(--white); }
+.wm-script { font-family: var(--font-mono); font-weight: 500; color: var(--blue); }
+
+.core {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 72px;
+  padding: 60px 0 48px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--blue); margin: 0 0 22px;
+}
+
+h1 {
+  margin: 0 0 22px;
+  font-size: clamp(2.2rem, 4vw, 3.3rem);
+  font-weight: 500;
+  line-height: 1.07;
+  letter-spacing: -0.032em;
+  max-width: 15ch;
+}
+.lede {
+  margin: 0 0 30px;
+  font-size: 1.0625rem; line-height: 1.62;
+  color: var(--grey); max-width: 44ch;
+}
+
+.pull {
+  border-left: 2px solid var(--blue);
+  padding: 4px 0 4px 18px;
+  margin: 0 0 34px;
+  font-size: 1rem; line-height: 1.6;
+  color: var(--grey);
+  max-width: 42ch;
+}
+.pull b { color: var(--white); font-weight: 600; }
+
+.actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center;
+  background: var(--blue); color: var(--charcoal);   /* 5.18:1 */
+  font-weight: 700; font-size: 0.95rem; letter-spacing: -0.01em;
+  padding: 13px 24px; border-radius: 6px; text-decoration: none;
+  transition: background .16s ease, transform .16s ease;
+}
+.btn:hover { background: #46A2E8; transform: translateY(-1px); }
+.btn:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+.link-quiet {
+  font-size: 0.9375rem; color: var(--grey); text-decoration: none;
+  border-bottom: 1px solid rgba(168,176,186,.35); padding-bottom: 2px;
+}
+.link-quiet:hover { color: var(--white); border-color: var(--white); }
+
+/* ============================================================
+   THE DOCUMENT
+   A real sheet of paper on a dark desk.
+   ============================================================ */
+.doc {
+  position: relative;
+  background: var(--sand);
+  color: var(--charcoal);
+  border-radius: 4px;
+  padding: 34px 34px 28px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.10),
+    0 40px 80px -34px rgba(0,0,0,.78);
+}
+/* The torn-off top edge of a pad, drawn rather than imaged */
+.doc::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: -7px; height: 7px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--sand) 0 9px,
+    transparent 9px 18px
+  );
+  border-radius: 3px 3px 0 0;
+  opacity: .55;
+}
+
+.doc-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1.5px solid var(--charcoal);
+}
+.doc-title {
+  margin: 0;
+  font-size: 1.0625rem; font-weight: 700; letter-spacing: -0.02em;
+}
+.doc-sub {
+  margin: 5px 0 0;
+  font-family: var(--font-mono);
+  font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-quiet);
+}
+.doc-stamp {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--blue-deep);                    /* 4.72:1 on sand */
+  border: 1px solid rgba(31,111,176,.45);
+  border-radius: 3px;
+  padding: 5px 9px;
+  white-space: nowrap;
+  flex: none;
+}
+
+.group-label {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--ink-quiet);
+  margin: 20px 0 6px;
+}
+
+/* Rows. Tabular numerals so every amount lines up on the decimal, which is
+   the single thing that makes a price list look like it was kept properly. */
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--sand-line);
+}
+.row-name { font-size: 0.9375rem; line-height: 1.4; }
+.row-note {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--ink-quiet);
+  margin-top: 2px;
+}
+.row-amt {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.row.free .row-amt { color: var(--blue-deep); }
+
+.total {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1.5px solid var(--charcoal);
+}
+.total-label { font-size: 0.9375rem; font-weight: 700; letter-spacing: -0.01em; }
+.total-sub {
+  display: block; font-weight: 400;
+  font-size: 0.8125rem; color: var(--ink-quiet); margin-top: 3px;
+}
+.total-amt {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 2rem; font-weight: 700; letter-spacing: -0.03em;
+  line-height: 1;
+}
+.after {
+  margin: 16px 0 0;
+  font-size: 0.8125rem; line-height: 1.55; color: var(--ink-soft);
+}
+.after b { font-weight: 700; color: var(--charcoal); }
+
+/* Rows arrive one at a time, which is what makes the total feel earned
+   rather than asserted. */
+.row, .total, .group-label { opacity: 0; transform: translateY(5px); }
+.doc.go .row,
+.doc.go .total,
+.doc.go .group-label {
+  animation: rowIn .38s cubic-bezier(.22,1,.36,1) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes rowIn { to { opacity: 1; transform: translateY(0); } }
+
+.strip {
+  display: flex; gap: 32px; flex-wrap: wrap;
+  padding: 0 0 30px;
+  font-family: var(--font-mono);
+  font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--grey-quiet);
+}
+.strip b { font-weight: 500; color: var(--grey); }
+
+@media (max-width: 980px) {
+  .core { grid-template-columns: 1fr; gap: 52px; padding: 44px 0 36px; }
+  h1 { max-width: 18ch; }
+}
+@media (max-width: 560px) {
+  .wrap { padding: 0 18px; }
+  h1 { font-size: 2rem; }
+  .doc { padding: 26px 20px 22px; }
+  .doc-head { flex-direction: column; gap: 12px; }
+  .total-amt { font-size: 1.75rem; }
+  .btn { width: 100%; justify-content: center; }
+  .actions { gap: 18px; }
+  .strip { gap: 10px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row, .total, .group-label,
+  .doc.go .row, .doc.go .total, .doc.go .group-label {
+    opacity: 1 !important; transform: none !important; animation: none !important;
+  }
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="masthead">
+    <div class="wrap">
+      <a href="/" class="wordmark" aria-label="940Digital home">
+        <span class="wm-num">940</span><span class="wm-script">Digital</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="wrap core">
+
+    <div class="say">
+      <p class="eyebrow">Denton &amp; Dallas-Fort Worth</p>
+
+      <h1>The whole price, before you have to ask for it.</h1>
+
+      <p class="lede">
+        You should not have to sit through a call to find out what a website
+        costs. Here is the entire thing, itemised, including the parts other
+        people charge you for later.
+      </p>
+
+      <p class="pull">
+        <b>The lines that say zero are the point.</b> Hosting, edits, and the
+        work of keeping it running are not add-ons I come back for. They are
+        in the number you already saw.
+      </p>
+
+      <div class="actions">
+        <a class="btn" href="/contact">Talk about your build</a>
+        <a class="link-quiet" href="/pricing">See every plan</a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <!-- Every amount is present in the markup as real text, so the correct
+           figures show with JavaScript off and screen readers never hear a
+           half-counted number. The script only animates what is already here. -->
+      <article class="doc" id="doc">
+        <div class="doc-head">
+          <div>
+            <h2 class="doc-title">Five-page website, built from scratch</h2>
+            <p class="doc-sub">Typical small business build &middot; Denton, TX</p>
+          </div>
+          <span class="doc-stamp">No deposit to start</span>
+        </div>
+
+        <p class="group-label" style="--d:.06s">What you are paying for</p>
+
+        <div class="row" style="--d:.14s">
+          <span class="row-name">Design and build, five pages
+            <span class="row-note">Written and laid out for your business, not a theme</span>
+          </span>
+          <span class="row-amt" data-to="600">$600</span>
+        </div>
+
+        <div class="row" style="--d:.24s">
+          <span class="row-name">Search setup and Google Business Profile
+            <span class="row-note">So the map listing and the site agree with each other</span>
+          </span>
+          <span class="row-amt" data-to="150">$150</span>
+        </div>
+
+        <div class="row" style="--d:.34s">
+          <span class="row-name">Photography pass and content write-up
+            <span class="row-note">Your real work and your real words</span>
+          </span>
+          <span class="row-amt" data-to="50">$50</span>
+        </div>
+
+        <p class="group-label" style="--d:.46s">What other people bill you for later</p>
+
+        <div class="row free" style="--d:.54s">
+          <span class="row-name">Hosting, SSL, and the domain pointed correctly</span>
+          <span class="row-amt" data-to="0">$0</span>
+        </div>
+
+        <div class="row free" style="--d:.62s">
+          <span class="row-name">Edits when your hours, prices, or services change</span>
+          <span class="row-amt" data-to="0">$0</span>
+        </div>
+
+        <div class="row free" style="--d:.70s">
+          <span class="row-name">Answering the phone when you call me</span>
+          <span class="row-amt" data-to="0">$0</span>
+        </div>
+
+        <div class="total" style="--d:.86s">
+          <span class="total-label">Total to get online
+            <span class="total-sub">One payment, due when you are happy with it</span>
+          </span>
+          <span class="total-amt" data-to="800">$800</span>
+        </div>
+
+        <p class="after">
+          After that it is <b>$45 a month</b> for hosting and unlimited edits,
+          cancel whenever you want. No setup fee, no contract, no percentage of
+          anything.
+        </p>
+      </article>
+    </div>
+
+  </div>
+
+  <div class="wrap">
+    <p class="strip">
+      <span><b>You pay</b> when it is finished</span>
+      <span><b>You own</b> the site and the domain</span>
+      <span><b>Cancel</b> any month</span>
+    </p>
+  </div>
+
+</section>
+
+<script>
+(function () {
+  var doc    = document.getElementById('doc');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var amts   = Array.prototype.slice.call(doc.querySelectorAll('[data-to]'));
+
+  function money(n) { return '$' + n.toLocaleString('en-US'); }
+
+  /* Counts an amount up to the figure already written in the markup. Zero
+     rows are left alone: a zero that counts to zero is a fidget, and the
+     zeroes are the ones carrying the argument. */
+  function countUp(el) {
+    var to = parseInt(el.getAttribute('data-to'), 10);
+    if (!to) return;
+
+    var dur   = 620;
+    var start = null;
+
+    function frame(ts) {
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      /* easeOutCubic: fast commitment, soft landing */
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = money(Math.round(to * eased));
+      if (p < 1) requestAnimationFrame(frame);
+      else el.textContent = money(to);
+    }
+    el.textContent = money(0);
+    requestAnimationFrame(frame);
+  }
+
+  function run() {
+    doc.classList.add('go');
+    if (reduce) return;
+
+    amts.forEach(function (el) {
+      /* Start each count as its row arrives, using the same delay the CSS
+         uses, so the number and the row move together. */
+      var host  = el.closest('.row') || el.closest('.total');
+      var delay = parseFloat((host.style.getPropertyValue('--d') || '0s')) * 1000;
+      setTimeout(function () { countUp(el); }, delay + 60);
+    });
+  }
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    doc.classList.add('go');
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { run(); io.disconnect(); }
+      });
+    }, { threshold: 0.3 });
+    io.observe(doc);
+  }
+})();
+</script>
+
+</body>
+</html>

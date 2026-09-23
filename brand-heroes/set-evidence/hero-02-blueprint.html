@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital Hero 02 | Nothing about this is hidden from you</title>
+<meta name="description" content="940Digital draws the plan before the build. Websites and search presence for small businesses across Dallas-Fort Worth and Denton.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   940DIGITAL HERO 02 - "THE DRAFTING TABLE"
+   Thesis: I will show you the plan before I build the thing,
+   and I will tell you why every piece of it is there.
+   Signature effect: an architectural drawing that drafts itself
+   line by line, then dimensions and annotates its own decisions.
+   Light mode, so the palette is proven in both directions.
+   ============================================================ */
+
+:root {
+  --sand:       #F7F1E7;
+  --sand-deep:  #EFE7D9;
+  --ink:        #1B1D21;
+  --ink-soft:   #4A4F57;   /* 7.34:1 on sand */
+  --ink-quiet:  #5B6069;   /* 5.63:1 on sand */
+  --blue:       #3194E0;   /* drawn lines only, never text on sand */
+  --blue-deep:  #1F6FB0;   /* 4.72:1 on sand - this carries text */
+  --white:      #FFFFFF;
+
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* Drafting rhythm: everything lands on a 6px module */
+  --u: 6px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--sand);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  overflow: hidden;
+  background: var(--sand);
+}
+
+/* Drafting paper: a faint square grid, plus a heavier line every 5th.
+   Kept very low contrast so it reads as paper texture and never competes
+   with the drawing sitting on top of it. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(27,29,33,.050) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(27,29,33,.050) 1px, transparent 1px),
+    linear-gradient(to right, rgba(27,29,33,.028) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(27,29,33,.028) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  pointer-events: none;
+}
+
+.wrap {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ---------- title block, drawn like a drawing's title block ---------- */
+.titleblock {
+  padding: 28px 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+.wm-num    { font-weight: 700; color: var(--ink); }
+.wm-script { font-family: var(--font-mono); font-weight: 500; color: var(--blue-deep); }
+
+.sheet-no {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-quiet);
+  display: flex;
+  gap: 18px;
+}
+.sheet-no b { font-weight: 500; color: var(--ink-soft); }
+
+.core {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  align-items: center;
+  gap: 64px;
+  padding: 56px 0 40px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue-deep);
+  margin: 0 0 calc(var(--u) * 4);
+}
+
+h1 {
+  margin: 0 0 calc(var(--u) * 4);
+  font-size: clamp(2.25rem, 4.2vw, 3.55rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.032em;
+  color: var(--ink);
+  max-width: 14ch;
+}
+h1 strong { font-weight: 700; }
+
+.lede {
+  margin: 0 0 calc(var(--u) * 5);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  color: var(--ink-soft);
+  max-width: 42ch;
+}
+
+/* A short honest spec list, set like drawing notes */
+.notes {
+  list-style: none;
+  margin: 0 0 calc(var(--u) * 6);
+  padding: 0;
+  border-top: 1px solid rgba(27,29,33,.14);
+}
+.notes li {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(27,29,33,.14);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.notes .n {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--blue-deep);
+  padding-top: 3px;
+}
+
+.actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  /* charcoal label on brand blue: 5.18:1 */
+  background: var(--blue);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  padding: 13px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  transition: background .16s ease, transform .16s ease;
+}
+.btn:hover { background: #57A6E7; transform: translateY(-1px); }
+.btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.link-quiet {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(27,29,33,.28);
+  padding-bottom: 2px;
+}
+.link-quiet:hover { color: var(--ink); border-color: var(--ink); }
+
+/* ============================================================
+   THE DRAWING
+   ============================================================ */
+.plan { position: relative; }
+.plan svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+/* Every drawn path normalises to pathLength="1" so one duration reads the
+   same on a 40px tick and a 600px frame. Without this the long paths crawl
+   and the short ones snap. */
+.draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+.plan.go .draw {
+  animation: drawIn var(--dur, .7s) cubic-bezier(.65,0,.35,1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes drawIn { to { stroke-dashoffset: 0; } }
+
+.fadein { opacity: 0; }
+.plan.go .fadein {
+  animation: fadeIn .5s ease forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes fadeIn { to { opacity: 1; } }
+
+.ln-structure { stroke: var(--ink); stroke-width: 1.5; }
+.ln-detail    { stroke: rgba(27,29,33,.42); stroke-width: 1; }
+.ln-dim       { stroke: var(--blue); stroke-width: 1; }
+.fill-blue    { fill: var(--blue); }
+.fill-ink     { fill: rgba(27,29,33,.10); }
+
+.t-dim {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  fill: var(--blue-deep);
+}
+.t-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  fill: var(--ink-soft);
+}
+.t-label b { font-weight: 700; fill: var(--ink); }
+
+.replay {
+  position: absolute;
+  right: 0;
+  bottom: -34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: 0;
+  padding: 4px 2px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-quiet);
+}
+.replay:hover { color: var(--blue-deep); }
+.replay:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.replay svg { width: 12px; height: 12px; }
+
+.strip {
+  border-top: 1px solid rgba(27,29,33,.14);
+  padding: 16px 0 26px;
+  display: flex;
+  gap: 34px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-quiet);
+}
+.strip b { font-weight: 500; color: var(--ink-soft); }
+
+@media (max-width: 980px) {
+  .core { grid-template-columns: 1fr; gap: 56px; padding: 40px 0 32px; }
+  h1 { max-width: 18ch; }
+  .plan { order: 2; }
+  .replay { position: static; margin-top: 18px; }
+}
+/* Below 560px the drawing scales to roughly 0.55, which would render the
+   10px annotation type at about 5px. Rather than ship type nobody can read,
+   the plan crops to the page frame itself and the annotations drop out. The
+   notes list above the drawing already states all three of them in real text,
+   so no information is lost on a phone. */
+@media (max-width: 560px) {
+  .anno { display: none; }
+  .wrap { padding: 0 18px; }
+  .titleblock { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .sheet-no { gap: 14px; flex-wrap: wrap; }
+  h1 { font-size: 2.05rem; }
+  .core { gap: 44px; }
+  .btn { width: 100%; justify-content: center; }
+  .actions { gap: 18px; }
+  .strip { gap: 10px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plan .draw { stroke-dashoffset: 0 !important; animation: none !important; }
+  .plan .fadein { opacity: 1 !important; animation: none !important; }
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="wrap titleblock">
+    <a href="/" class="wordmark" aria-label="940Digital home">
+      <span class="wm-num">940</span><span class="wm-script">Digital</span>
+    </a>
+    <p class="sheet-no">
+      <span><b>Sheet</b> A-01</span>
+      <span><b>Scale</b> 1:1</span>
+      <span><b>Drawn by</b> Owen</span>
+    </p>
+  </header>
+
+  <div class="wrap core">
+
+    <div class="say">
+      <p class="eyebrow">Denton &amp; Dallas-Fort Worth</p>
+
+      <h1>I draw the plan <strong>before</strong> I build the thing.</h1>
+
+      <p class="lede">
+        You should know what every part of your site is for, and why it is
+        sized the way it is, before anyone writes a line of code. So that is
+        where I start. Here is a real one.
+      </p>
+
+      <ol class="notes">
+        <li><span class="n">01</span><span>Your service and your city sit in the main heading, because that is what people and search engines both read first.</span></li>
+        <li><span class="n">02</span><span>One thing to click above the fold. Two choices is already one too many.</span></li>
+        <li><span class="n">03</span><span>Proof sits above the pitch. Reviews and real work outrank adjectives.</span></li>
+      </ol>
+
+      <div class="actions">
+        <a class="btn" href="/contact">Get your plan drawn</a>
+        <a class="link-quiet" href="/work">See finished builds</a>
+      </div>
+    </div>
+
+    <figure class="plan" id="plan">
+      <!-- The drawing is decorative in the sense that all of its information
+           is repeated in the notes list above, so it carries a plain summary
+           for screen readers rather than 20 unlabelled path elements. -->
+      <svg viewBox="0 0 620 470" role="img"
+           aria-label="An architectural-style drawing of a web page layout. The page frame is dimensioned at 1440 by 900 pixels. Labelled regions read: navigation, 56 pixels tall; the main heading block; a single call to action; a proof row of three panels; and a footer. Annotations note that the heading carries the service and the city, that there is one call to action above the fold, and that proof sits above the pitch.">
+
+        <!-- ---------- sheet border ---------- -->
+        <path class="draw ln-detail" pathLength="1" style="--delay:.00s;--dur:.9s"
+              d="M8 8 H612 V462 H8 Z"/>
+
+        <!-- ---------- page frame ---------- -->
+        <path class="draw ln-structure" pathLength="1" style="--delay:.28s;--dur:.85s"
+              d="M74 54 H546 V416 H74 Z"/>
+
+        <!-- ---------- nav band ---------- -->
+        <path class="draw ln-detail" pathLength="1" style="--delay:.70s;--dur:.4s"
+              d="M74 96 H546"/>
+        <g class="fadein" style="--delay:.90s">
+          <rect x="92" y="68" width="44" height="10" rx="2" class="fill-blue"/>
+          <rect x="424" y="69" width="30" height="8" rx="2" class="fill-ink"/>
+          <rect x="462" y="69" width="30" height="8" rx="2" class="fill-ink"/>
+          <rect x="500" y="66" width="30" height="14" rx="3" class="fill-blue"/>
+        </g>
+
+        <!-- ---------- headline block ---------- -->
+        <path class="draw ln-detail" pathLength="1" style="--delay:.95s;--dur:.45s"
+              d="M92 126 H400"/>
+        <path class="draw ln-detail" pathLength="1" style="--delay:1.06s;--dur:.45s"
+              d="M92 152 H348"/>
+        <path class="draw ln-detail" pathLength="1" style="--delay:1.17s;--dur:.35s"
+              d="M92 178 H262"/>
+
+        <!-- ---------- single CTA ---------- -->
+        <g class="fadein" style="--delay:1.36s">
+          <rect x="92" y="204" width="108" height="26" rx="4" class="fill-blue"/>
+        </g>
+
+        <!-- ---------- proof row ---------- -->
+        <path class="draw ln-structure" pathLength="1" style="--delay:1.52s;--dur:.5s"
+              d="M92 272 H232 V356 H92 Z"/>
+        <path class="draw ln-structure" pathLength="1" style="--delay:1.66s;--dur:.5s"
+              d="M240 272 H380 V356 H240 Z"/>
+        <path class="draw ln-structure" pathLength="1" style="--delay:1.80s;--dur:.5s"
+              d="M388 272 H528 V356 H388 Z"/>
+
+        <!-- ---------- footer ---------- -->
+        <path class="draw ln-detail" pathLength="1" style="--delay:1.98s;--dur:.4s"
+              d="M74 384 H546"/>
+
+        <!-- ---------- dimension lines ---------- -->
+        <!-- overall width -->
+        <g class="draw ln-dim anno" pathLength="1" style="--delay:2.16s;--dur:.6s">
+          <path pathLength="1" d="M74 34 H546"/>
+        </g>
+        <g class="fadein anno" style="--delay:2.40s">
+          <path d="M74 29 V39 M546 29 V39" stroke="#3194E0" stroke-width="1"/>
+          <rect x="278" y="24" width="64" height="16" rx="2" fill="#F7F1E7"/>
+          <text class="t-dim" x="310" y="36" text-anchor="middle">1440 PX</text>
+        </g>
+
+        <!-- nav height -->
+        <g class="fadein anno" style="--delay:2.52s">
+          <path d="M56 54 V96" stroke="#3194E0" stroke-width="1"/>
+          <path d="M51 54 H61 M51 96 H61" stroke="#3194E0" stroke-width="1"/>
+          <text class="t-dim" x="46" y="79" text-anchor="end">56</text>
+        </g>
+
+        <!-- overall height -->
+        <g class="fadein anno" style="--delay:2.60s">
+          <path d="M566 54 V416" stroke="#3194E0" stroke-width="1"/>
+          <path d="M561 54 H571 M561 416 H571" stroke="#3194E0" stroke-width="1"/>
+          <text class="t-dim" x="576" y="239">900</text>
+        </g>
+
+        <!-- ---------- leader lines and annotations ---------- -->
+        <g class="fadein anno" style="--delay:2.74s">
+          <path d="M404 139 H432" stroke="rgba(27,29,33,.42)" stroke-width="1"/>
+          <circle cx="402" cy="139" r="2.5" class="fill-blue"/>
+          <text class="t-label" x="438" y="136">SERVICE + CITY</text>
+          <text class="t-label" x="438" y="150">IN THE H1</text>
+        </g>
+
+        <g class="fadein anno" style="--delay:2.88s">
+          <path d="M204 217 H250" stroke="rgba(27,29,33,.42)" stroke-width="1"/>
+          <circle cx="202" cy="217" r="2.5" class="fill-blue"/>
+          <text class="t-label" x="256" y="214">ONE CALL TO ACTION,</text>
+          <text class="t-label" x="256" y="228">NOT THREE</text>
+        </g>
+
+        <!-- Measured: the "NOT THREE" annotation ends at y=231, so this band
+             starts at 252 to keep a clear gap rather than touching it. -->
+        <g class="fadein anno" style="--delay:3.02s">
+          <path d="M92 260 H528" stroke="rgba(49,148,224,.5)" stroke-width="1" stroke-dasharray="3 3"/>
+          <text class="t-label" x="92" y="252"><tspan font-weight="700" fill="#1B1D21">PROOF</tspan> SITS ABOVE THE PITCH</text>
+        </g>
+
+        <g class="fadein anno" style="--delay:3.16s">
+          <text class="t-label" x="92" y="408">FOOTER / NAP + HOURS</text>
+        </g>
+      </svg>
+
+      <button class="replay" id="replay" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/>
+        </svg>
+        Draw it again
+      </button>
+    </figure>
+
+  </div>
+
+  <div class="wrap">
+    <p class="strip">
+      <span><b>Plan first</b>, then build</span>
+      <span><b>You approve</b> before code starts</span>
+      <span><b>One person</b> on your account</span>
+      <span><b>No contract</b> to begin</span>
+    </p>
+  </div>
+
+</section>
+
+<script>
+(function () {
+  var plan   = document.getElementById('plan');
+  var replay = document.getElementById('replay');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function drawNow() { plan.classList.add('go'); }
+
+  function reset() {
+    plan.classList.remove('go');
+    /* Reflow between removing and re-adding the class, otherwise the browser
+       collapses both into one recalculation and nothing replays. */
+    void plan.offsetWidth;
+    drawNow();
+  }
+
+  if (reduce.matches) {
+    /* The CSS already pins every path to its finished state. Adding .go here
+       keeps the DOM in one consistent state either way. */
+    drawNow();
+  } else if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          drawNow();
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.25 });
+    io.observe(plan);
+  } else {
+    drawNow();
+  }
+
+  replay.addEventListener('click', function () {
+    if (reduce.matches) return;
+    reset();
+  });
+
+  /* viewBox cannot be set from CSS, so the mobile crop is done here. The
+     cropped box frames the page drawing itself and drops the margin the
+     dimension lines and annotations lived in. */
+  var svg      = plan.querySelector('svg');
+  var FULL     = '0 0 620 470';
+  var CROPPED  = '62 42 500 392';
+  var small    = window.matchMedia('(max-width: 560px)');
+
+  function fitBox() {
+    svg.setAttribute('viewBox', small.matches ? CROPPED : FULL);
+  }
+  fitBox();
+  if (small.addEventListener) {
+    small.addEventListener('change', fitBox);
+  } else if (small.addListener) {
+    small.addListener(fitBox);
+  }
+})();
+</script>
+
+</body>
+</html>

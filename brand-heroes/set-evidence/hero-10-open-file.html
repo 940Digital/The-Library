@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital Hero 10 | Everything, in your name, on day one</title>
+<meta name="description" content="The complete handover list: domain, hosting, source, credentials, all registered to you. 940Digital builds websites for small businesses in Dallas-Fort Worth and Denton.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   940DIGITAL HERO 10 - "THE OPEN FILE"
+   Thesis: the single most common way a small business gets hurt
+   by a web person is that the web person holds the keys. So the
+   hero is the key ring, itemised, with the owner column visible
+   on every row.
+   Signature effect: a working inspector. Real list, real
+   selection, real detail. The quiet payload is that the Owner
+   field reads "You" on all eight, and the visitor discovers
+   that themselves by clicking rather than being told.
+   ============================================================ */
+
+:root {
+  --sand:       #F7F1E7;
+  --sand-warm:  #F1E9DA;
+  --sand-sel:   #E9E0CE;
+  --sand-line:  #E0D5C1;
+  --charcoal:   #1B1D21;
+  --ink-soft:   #4A4F57;   /* 7.34:1 on sand */
+  --ink-quiet:  #5B6069;   /* 5.63:1 on sand */
+  --blue:       #3194E0;
+  --blue-deep:  #1F6FB0;   /* 4.72:1 on sand */
+  --white:      #FFFFFF;
+
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--sand);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  background: var(--sand);
+  color: var(--charcoal);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(880px 620px at 10% 4%, rgba(255,255,255,.9), transparent 58%);
+  pointer-events: none;
+}
+
+.wrap { position: relative; width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+.masthead { padding: 30px 0 0; }
+.wordmark { display: inline-flex; align-items: baseline; gap: 1px; font-size: 20px; letter-spacing: -0.02em; text-decoration: none; }
+.wm-num    { font-weight: 700; color: var(--charcoal); }
+.wm-script { font-family: var(--font-mono); font-weight: 500; color: var(--blue-deep); }
+
+.core {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  align-items: center;
+  gap: 60px;
+  padding: 50px 0 40px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--blue-deep); margin: 0 0 20px;
+}
+h1 {
+  margin: 0 0 20px;
+  font-size: clamp(2.15rem, 3.9vw, 3.2rem);
+  font-weight: 500; line-height: 1.07; letter-spacing: -0.032em;
+  max-width: 14ch;
+}
+.lede {
+  margin: 0 0 28px;
+  font-size: 1.0625rem; line-height: 1.62;
+  color: var(--ink-soft); max-width: 40ch;
+}
+.pull {
+  border-left: 2px solid var(--blue-deep);
+  padding: 4px 0 4px 18px;
+  margin: 0 0 30px;
+  font-size: 0.9375rem; line-height: 1.6;
+  color: var(--ink-soft); max-width: 40ch;
+}
+.pull b { color: var(--charcoal); font-weight: 600; }
+
+.actions { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center;
+  background: var(--blue); color: var(--charcoal);   /* 5.18:1 */
+  font-weight: 700; font-size: 0.95rem; letter-spacing: -0.01em;
+  padding: 13px 24px; border-radius: 6px; text-decoration: none;
+  transition: background .16s ease, transform .16s ease;
+}
+.btn:hover { background: #57A6E7; transform: translateY(-1px); }
+.btn:focus-visible { outline: 2px solid var(--charcoal); outline-offset: 3px; }
+.link-quiet {
+  font-size: 0.9375rem; color: var(--ink-soft); text-decoration: none;
+  border-bottom: 1px solid rgba(27,29,33,.28); padding-bottom: 2px;
+}
+.link-quiet:hover { color: var(--charcoal); border-color: var(--charcoal); }
+
+/* ============================================================
+   THE INSPECTOR
+   ============================================================ */
+.files {
+  background: var(--white);
+  border: 1px solid var(--sand-line);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 30px 62px -34px rgba(27,29,33,.32);
+}
+.files-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--sand-line);
+  background: var(--sand-warm);
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase;
+  color: var(--ink-quiet);
+}
+.files-head .count { margin-left: auto; color: var(--blue-deep); font-weight: 700; }
+
+.panes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  min-height: 356px;
+}
+
+/* ---------- left: the list ---------- */
+.list {
+  list-style: none;
+  margin: 0; padding: 6px 0;
+  border-right: 1px solid var(--sand-line);
+  overflow-y: auto;
+  max-height: 356px;
+}
+.item {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 16px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  border-left: 2px solid transparent;
+}
+.item:hover { background: var(--sand-warm); }
+.item[aria-selected="true"] {
+  background: var(--sand-sel);
+  border-left-color: var(--blue-deep);
+  color: var(--charcoal);
+  font-weight: 600;
+}
+.list:focus-visible { outline: 2px solid var(--blue-deep); outline-offset: -2px; }
+
+.ic { color: var(--blue-deep); }
+.ic svg { width: 15px; height: 15px; display: block; }
+.fname {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: -0.01em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.fsize {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 10.5px;
+  color: var(--ink-quiet);
+  white-space: nowrap;
+}
+
+/* ---------- right: the detail ---------- */
+.detail { padding: 22px 24px; }
+.d-kind {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--blue-deep);
+  margin: 0 0 8px;
+}
+.d-title {
+  margin: 0 0 12px;
+  font-size: 1.2rem; font-weight: 600; letter-spacing: -0.022em; line-height: 1.25;
+}
+.d-body {
+  margin: 0 0 20px;
+  font-size: 0.9375rem; line-height: 1.6;
+  color: var(--ink-soft);
+  min-height: 5.6em;
+}
+.d-rows { border-top: 1px solid var(--sand-line); }
+.d-row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--sand-line);
+  font-size: 0.8125rem;
+}
+.d-k {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-quiet);
+  padding-top: 2px;
+}
+.d-v { color: var(--charcoal); }
+.d-v.owner {
+  font-weight: 700;
+  color: var(--blue-deep);
+}
+
+.files-foot {
+  border-top: 1px solid var(--sand-line);
+  background: var(--sand-warm);
+  padding: 12px 18px;
+  font-family: var(--font-mono);
+  font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-quiet);
+}
+.files-foot b { color: var(--blue-deep); font-weight: 700; }
+
+.hint {
+  margin: 12px 2px 0;
+  font-size: 0.75rem; color: var(--ink-quiet);
+}
+
+/* Detail fades between selections rather than snapping, which is the
+   difference between an inspector and a flicker. */
+.detail.swap { animation: swapIn .26s cubic-bezier(.22,1,.36,1); }
+@keyframes swapIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1040px) {
+  .core { grid-template-columns: 1fr; gap: 40px; padding: 36px 0 32px; }
+  h1 { max-width: 18ch; }
+  .lede, .pull { max-width: 52ch; }
+}
+@media (max-width: 680px) {
+  .wrap { padding: 0 18px; }
+  h1 { font-size: 2rem; }
+  /* The two panes stack. The list keeps a capped height so the detail is
+     never pushed off the bottom of a phone by eight rows of file names. */
+  .panes { grid-template-columns: 1fr; min-height: 0; }
+  .list { border-right: 0; border-bottom: 1px solid var(--sand-line); max-height: 178px; }
+  .detail { padding: 18px 16px; }
+  .d-body { min-height: 0; }
+  .d-row { grid-template-columns: 84px 1fr; gap: 10px; }
+  .btn { width: 100%; justify-content: center; }
+  .actions { gap: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail.swap { animation: none; }
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="masthead">
+    <div class="wrap">
+      <a href="/" class="wordmark" aria-label="940Digital home">
+        <span class="wm-num">940</span><span class="wm-script">Digital</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="wrap core">
+
+    <div class="say">
+      <p class="eyebrow">Denton &amp; Dallas-Fort Worth</p>
+
+      <h1>Everything is in your name from the first day.</h1>
+
+      <p class="lede">
+        The usual way this goes wrong is not bad design. It is that the person
+        who built your site owns your domain, and one day they stop answering.
+      </p>
+
+      <p class="pull">
+        <b>Open any of the eight.</b> Check the owner line on each one. That
+        is the entire argument, and you do not have to take my word for it.
+      </p>
+
+      <div class="actions">
+        <a class="btn" href="/contact">Start a build</a>
+        <a class="link-quiet" href="/about">Why I work this way</a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="files">
+        <div class="files-head">
+          <span>Handover</span>
+          <span>&middot;</span>
+          <span>yourbusiness.com</span>
+          <span class="count">8 items</span>
+        </div>
+
+        <div class="panes">
+          <!-- A real listbox: arrow keys, Home and End, roving tabindex, and
+               a correct announcement of which of eight is selected. -->
+          <ul class="list" id="list" role="listbox" aria-label="Handover items" tabindex="0">
+            <li class="item" role="option" id="f0" aria-selected="true"
+                data-kind="Registrar record"
+                data-title="Your domain name"
+                data-body="Registered in your business name, on an account created with your email and your card. I have never once put a client domain in my own name, because that is the single thing that turns a disagreement into a hostage situation."
+                data-where="Namecheap, your account"
+                data-leave="Nothing to transfer. It was never mine.">
+              <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+              <span class="fname">domain-registration.pdf</span>
+              <span class="fsize">84 KB</span>
+            </li>
+
+            <li class="item" role="option" id="f1" aria-selected="false"
+                data-kind="Hosting"
+                data-title="Where the site actually lives"
+                data-body="The project sits on a Vercel account in your name. I am added as a collaborator so I can push updates, and you can remove me from that project in about four clicks without asking me first."
+                data-where="Vercel, your account"
+                data-leave="Remove me as a collaborator. The site keeps running.">
+              <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span>
+              <span class="fname">hosting-transfer.pdf</span>
+              <span class="fsize">61 KB</span>
+            </li>
+
+            <li class="item" role="option" id="f2" aria-selected="false"
+                data-kind="Listing"
+                data-title="Your Google Business Profile"
+                data-body="You are the primary owner. I am a manager, which lets me fix your hours and post updates and lets you revoke me instantly. Handing this one over is where a lot of people quietly keep control, because it is the listing that actually brings the calls."
+                data-where="Google, your account"
+                data-leave="Remove my manager access. Two clicks.">
+              <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+              <span class="fname">google-business-profile.txt</span>
+              <span class="fsize">2 KB</span>
+            </li>
+
+            <li class="item" role="option" id="f3" aria-selected="false"
+                data-kind="Code"
+                data-title="The whole site, as files"
+                data-body="Every page, every stylesheet, every image, in a folder you can hand to literally any other developer. No page builder licence, no proprietary theme, nothing that stops working the day you stop paying somebody."
+                data-where="Sent to you, and in your repository"
+                data-leave="Hand the folder to whoever comes next.">
+              <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m8 8-5 4 5 4M16 8l5 4-5 4"/></svg></span>
+              <span class="fname">site-source.zip</span>
+              <span class="fsize">4.2 MB</span>
+            </li>
+
+            <li class="item" role="option" id="f4" aria-selected="false"
+                data-kind="Credentials"
+                data-title="Every password, written down"
+                data-body="Registrar, host, Google, analytics, and the email that sends your form submissions. Written out in one document and handed to you at the end, rather than living only in my head where it is useless to you."
+                data-where="Given to you in writing"
+                data-leave="Change them all. I would expect you to.">
+              <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+              <span class="fname">credentials.pdf</span>
+              <span class="fsize">39 KB</span>
+            </li>
+
+            <li class="item" role="option" id="f5" aria-selected="false"
+                data-kind="Images"
+                data-title="The original photographs"
+                data-body="Full resolution originals, not just the compressed copies the site uses. If you ever want a sign, a truck wrap, a flyer, or a different website entirely, you already have the files at the size a printer needs."
+                data-where="Sent to you on handover"
+                data-leave="Use them anywhere. They are photographs of your business.">
+              <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="m3 17 5-5 4 4 3-2 6 5"/></svg></span>
+              <span class="fname">photos-originals</span>
+              <span class="fsize">214 MB</span>
+            </li>
+
+            <li class="item" role="option" id="f6" aria-selected="false"
+                data-kind="Reporting"
+                data-title="The numbers, not a summary of them"
+                data-body="Direct access to the analytics, so you can check how many people called you last month without waiting on a report from me. If the numbers are bad you will see that at the same moment I do."
+                data-where="Your Google account"
+                data-leave="Keep watching them. Nothing changes.">
+              <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+              <span class="fname">analytics-access.txt</span>
+              <span class="fsize">1 KB</span>
+            </li>
+
+            <li class="item" role="option" id="f7" aria-selected="false"
+                data-kind="Billing"
+                data-title="One invoice, no surprises on it"
+                data-body="The figure you agreed at the start, with nothing added for hosting, edits, or the phone calls in between. If something came up that would have changed this number, you heard about it before the work happened, not on the bill."
+                data-where="Emailed to you"
+                data-leave="Paid in full, and no contract behind it.">
+              <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2Z"/><path d="M10 8h4M10 12h4"/></svg></span>
+              <span class="fname">final-invoice.pdf</span>
+              <span class="fsize">52 KB</span>
+            </li>
+          </ul>
+
+          <div class="detail" id="detail" aria-live="polite">
+            <p class="d-kind" id="dKind">Registrar record</p>
+            <h2 class="d-title" id="dTitle">Your domain name</h2>
+            <p class="d-body" id="dBody">
+              Registered in your business name, on an account created with your
+              email and your card. I have never once put a client domain in my
+              own name, because that is the single thing that turns a
+              disagreement into a hostage situation.
+            </p>
+            <div class="d-rows">
+              <div class="d-row">
+                <span class="d-k">Owner</span>
+                <span class="d-v owner">You</span>
+              </div>
+              <div class="d-row">
+                <span class="d-k">Held at</span>
+                <span class="d-v" id="dWhere">Namecheap, your account</span>
+              </div>
+              <div class="d-row">
+                <span class="d-k">If you leave</span>
+                <span class="d-v" id="dLeave">Nothing to transfer. It was never mine.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="files-foot">
+          Owner on all eight items: <b>you</b>
+        </div>
+      </div>
+
+      <p class="hint">Use the arrow keys, or click any row.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+(function () {
+  var list   = document.getElementById('list');
+  var items  = Array.prototype.slice.call(list.querySelectorAll('[role="option"]'));
+  var detail = document.getElementById('detail');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var dKind  = document.getElementById('dKind');
+  var dTitle = document.getElementById('dTitle');
+  var dBody  = document.getElementById('dBody');
+  var dWhere = document.getElementById('dWhere');
+  var dLeave = document.getElementById('dLeave');
+
+  var current = 0;
+
+  function select(ix) {
+    ix = Math.max(0, Math.min(items.length - 1, ix));
+    current = ix;
+
+    items.forEach(function (li, i) {
+      li.setAttribute('aria-selected', i === ix ? 'true' : 'false');
+    });
+
+    var d = items[ix];
+    dKind.textContent  = d.getAttribute('data-kind');
+    dTitle.textContent = d.getAttribute('data-title');
+    dBody.textContent  = d.getAttribute('data-body');
+    dWhere.textContent = d.getAttribute('data-where');
+    dLeave.textContent = d.getAttribute('data-leave');
+
+    /* aria-activedescendant keeps focus on the listbox itself while telling
+       assistive technology which option is current. Moving real focus into
+       each row instead would fight the arrow key handling. */
+    list.setAttribute('aria-activedescendant', d.id);
+
+    if (!reduce) {
+      detail.classList.remove('swap');
+      void detail.offsetWidth;
+      detail.classList.add('swap');
+    }
+
+    /* Keep the selected row in view when arrowing past the visible area. */
+    var r = d.getBoundingClientRect();
+    var b = list.getBoundingClientRect();
+    if (r.top < b.top)        list.scrollTop -= (b.top - r.top);
+    if (r.bottom > b.bottom)  list.scrollTop += (r.bottom - b.bottom);
+  }
+
+  items.forEach(function (li, i) {
+    li.addEventListener('click', function () {
+      select(i);
+      list.focus();
+    });
+  });
+
+  list.addEventListener('keydown', function (e) {
+    var next = null;
+    if (e.key === 'ArrowDown') next = current + 1;
+    if (e.key === 'ArrowUp')   next = current - 1;
+    if (e.key === 'Home')      next = 0;
+    if (e.key === 'End')       next = items.length - 1;
+
+    if (next !== null) {
+      e.preventDefault();
+      select(next);
+    }
+  });
+
+  select(0);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital Hero 06 | The part you were never meant to notice</title>
+<meta name="description" content="Craft you are not supposed to see is the difference between a site that feels cheap and one that does not. 940Digital builds websites for small businesses in Dallas-Fort Worth and Denton.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   940DIGITAL HERO 06 - "PROOF MARKS"
+   Thesis: the reason one site feels expensive and another feels
+   cheap is a hundred decisions you were never meant to see.
+   Signature effect: restraint. The hero is almost nothing but
+   type. Ask it to, and it draws the actual typographic system
+   it was set on, measured live from the rendered text: real
+   baselines, real x-height, the real measure in characters.
+   Nothing here is decorative. Every line is a fact about the
+   page it is drawn on.
+   ============================================================ */
+
+:root {
+  --sand:      #F7F1E7;
+  --sand-line: #E4DACA;
+  --charcoal:  #1B1D21;
+  --ink-soft:  #4A4F57;   /* 7.34:1 on sand */
+  --ink-quiet: #5B6069;   /* 5.63:1 on sand */
+  --blue:      #3194E0;   /* guides only, never text on sand */
+  --blue-deep: #1F6FB0;   /* 4.72:1 on sand, carries the labels */
+
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--sand);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  background: var(--sand);
+  color: var(--charcoal);
+}
+
+.wrap { position: relative; width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+
+.masthead {
+  padding: 34px 0 0;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 20px;
+}
+.wordmark { display: inline-flex; align-items: baseline; gap: 1px; font-size: 20px; letter-spacing: -0.02em; text-decoration: none; }
+.wm-num    { font-weight: 700; color: var(--charcoal); }
+.wm-script { font-family: var(--font-mono); font-weight: 500; color: var(--blue-deep); }
+
+/* The switch. Hover alone would hide this entirely on a phone, and the
+   whole point is that the craft is available to anyone who looks. */
+.toggle {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: none; border: 0; padding: 6px 2px; cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-quiet);
+}
+.toggle:hover { color: var(--blue-deep); }
+.toggle:focus-visible { outline: 2px solid var(--charcoal); outline-offset: 3px; }
+.switch {
+  width: 30px; height: 16px; border-radius: 8px;
+  border: 1px solid var(--sand-line);
+  background: rgba(27,29,33,.07);
+  position: relative; flex: none;
+  transition: background .2s ease, border-color .2s ease;
+}
+.switch::after {
+  content: '';
+  position: absolute; top: 2px; left: 2px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ink-quiet);
+  transition: transform .2s cubic-bezier(.4,0,.2,1), background .2s ease;
+}
+.toggle[aria-pressed="true"] .switch {
+  background: rgba(49,148,224,.22);
+  border-color: rgba(31,111,176,.5);
+}
+.toggle[aria-pressed="true"] .switch::after {
+  transform: translateX(14px);
+  background: var(--blue-deep);
+}
+
+/* ---------- the type, which is nearly the whole hero ---------- */
+.core {
+  flex: 1;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 0 60px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--blue-deep);
+  margin: 0 0 40px;
+}
+
+.measured { position: relative; }
+
+h1 {
+  position: relative;
+  margin: 0 0 40px;
+  font-size: clamp(2.5rem, 6.2vw, 5rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  max-width: 17ch;
+  color: var(--charcoal);
+}
+h1 em { font-style: normal; color: var(--blue-deep); }
+
+.lede {
+  margin: 0 0 48px;
+  font-size: 1.125rem; line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 46ch;
+}
+
+.actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center;
+  background: var(--charcoal); color: var(--sand);   /* 15.02:1 */
+  font-weight: 600; font-size: 0.95rem; letter-spacing: -0.01em;
+  padding: 14px 26px; border-radius: 4px; text-decoration: none;
+  transition: background .16s ease;
+}
+.btn:hover { background: #2C3037; }
+.btn:focus-visible { outline: 2px solid var(--charcoal); outline-offset: 3px; }
+.link-quiet {
+  font-size: 0.9375rem; color: var(--ink-soft); text-decoration: none;
+  border-bottom: 1px solid rgba(27,29,33,.28); padding-bottom: 2px;
+}
+.link-quiet:hover { color: var(--charcoal); border-color: var(--charcoal); }
+
+/* ============================================================
+   THE OVERLAY
+   Drawn into an absolutely positioned SVG that covers the
+   measured block. All geometry comes from the live DOM.
+   ============================================================ */
+.marks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .28s ease;
+  overflow: visible;
+}
+.measured.show .marks { opacity: 1; }
+
+.m-baseline { stroke: var(--blue); stroke-width: 1; }
+.m-xband    { fill: rgba(49,148,224,.10); }
+.m-capline  { stroke: rgba(49,148,224,.45); stroke-width: 1; stroke-dasharray: 3 3; }
+.m-edge     { stroke: rgba(31,111,176,.55); stroke-width: 1; }
+.m-tick     { stroke: var(--blue); stroke-width: 1; }
+.m-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px; letter-spacing: 0.08em;
+  fill: var(--blue-deep);
+}
+
+.foot {
+  border-top: 1px solid var(--sand-line);
+  padding: 18px 0 30px;
+  display: flex; gap: 36px; flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-quiet);
+}
+.foot b { font-weight: 500; color: var(--ink-soft); }
+
+@media (max-width: 720px) {
+  .wrap { padding: 0 20px; }
+  .masthead { padding: 24px 0 0; }
+  .core { padding: 48px 0 40px; }
+  .eyebrow { margin-bottom: 26px; }
+  h1 { margin-bottom: 28px; max-width: none; }
+  .lede { font-size: 1.0625rem; margin-bottom: 34px; }
+  .btn { width: 100%; justify-content: center; }
+  .actions { gap: 18px; }
+  .foot { gap: 10px 24px; }
+  /* The labels are 9.5px and would crowd at this width. The guides still
+     draw, because the lines themselves are the thing worth seeing. */
+  .m-label { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marks { transition: none; }
+  .switch::after { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="wrap masthead">
+    <a href="/" class="wordmark" aria-label="940Digital home">
+      <span class="wm-num">940</span><span class="wm-script">Digital</span>
+    </a>
+
+    <button class="toggle" id="toggle" type="button" aria-pressed="false" aria-controls="marks">
+      <span class="switch" aria-hidden="true"></span>
+      Show the workings
+    </button>
+  </header>
+
+  <div class="wrap core">
+    <p class="eyebrow">Denton &amp; Dallas-Fort Worth</p>
+
+    <div class="measured" id="measured">
+      <!-- The overlay is generated, aria-hidden, and purely a view of the
+           text beside it. Nothing here is information you can only get by
+           seeing it. -->
+      <svg class="marks" id="marks" aria-hidden="true"></svg>
+
+      <h1 id="headline">A site feels cheap for reasons nobody can <em>name</em>.</h1>
+
+      <p class="lede">
+        It is never one thing. It is the line length, the weight of the
+        heading, whether the spacing was decided or defaulted. You will not
+        notice any of it. You will only notice that you trusted the other one.
+      </p>
+    </div>
+
+    <div class="actions">
+      <a class="btn" href="/contact">Start a build</a>
+      <a class="link-quiet" href="/work">See the difference side by side</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <p class="foot">
+      <span><b>Every page</b> set by hand</span>
+      <span><b>No themes</b>, no page builders</span>
+      <span><b>One person</b> accountable for it</span>
+    </p>
+  </div>
+
+</section>
+
+<script>
+(function () {
+  var measured = document.getElementById('measured');
+  var marks    = document.getElementById('marks');
+  var h1       = document.getElementById('headline');
+  var toggle   = document.getElementById('toggle');
+  var SVGNS    = 'http://www.w3.org/2000/svg';
+
+  function el(name, attrs) {
+    var n = document.createElementNS(SVGNS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    return n;
+  }
+
+  /* Real font metrics for the headline's computed font, read from a canvas
+     rather than guessed. actualBoundingBoxAscent of a cap and of an x give
+     the cap height and the x-height for this exact face at this exact size,
+     which is what makes the bands land on the letters instead of near them. */
+  function metrics(cs) {
+    var c   = document.createElement('canvas');
+    var ctx = c.getContext('2d');
+    ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+
+    var cap = ctx.measureText('H');
+    var ex  = ctx.measureText('x');
+    var asc = cap.fontBoundingBoxAscent  || parseFloat(cs.fontSize) * 0.95;
+    var dsc = cap.fontBoundingBoxDescent || parseFloat(cs.fontSize) * 0.25;
+
+    return {
+      ascent:  asc,
+      descent: dsc,
+      cap:     cap.actualBoundingBoxAscent || parseFloat(cs.fontSize) * 0.72,
+      xheight: ex.actualBoundingBoxAscent  || parseFloat(cs.fontSize) * 0.52
+    };
+  }
+
+  /* Line boxes for the headline, taken from a Range over its text so wrapped
+     lines are found as they actually rendered rather than as they were
+     authored. */
+  function lineRects(node) {
+    var r = document.createRange();
+    r.selectNodeContents(node);
+    var rects = Array.prototype.slice.call(r.getClientRects());
+
+    /* getClientRects can return several fragments per visual line (one per
+       inline element, such as the <em>). Merge anything sharing a top. */
+    var merged = [];
+    rects.forEach(function (rect) {
+      if (rect.width < 1 || rect.height < 1) return;
+      var hit = null;
+      for (var i = 0; i < merged.length; i++) {
+        if (Math.abs(merged[i].top - rect.top) < 3) { hit = merged[i]; break; }
+      }
+      if (hit) {
+        hit.left   = Math.min(hit.left, rect.left);
+        hit.right  = Math.max(hit.right, rect.right);
+        hit.bottom = Math.max(hit.bottom, rect.bottom);
+      } else {
+        merged.push({ top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right });
+      }
+    });
+    return merged.sort(function (a, b) { return a.top - b.top; });
+  }
+
+  function draw() {
+    var host = measured.getBoundingClientRect();
+    var cs   = getComputedStyle(h1);
+    var m    = metrics(cs);
+    var lh   = parseFloat(cs.lineHeight);
+    var fs   = parseFloat(cs.fontSize);
+
+    /* Half leading: the gap CSS adds above the ascent when line-height is
+       larger than the font's own box. Without subtracting it every baseline
+       lands too high by a few pixels, which is exactly the kind of error
+       this hero is arguing against. */
+    var half = (lh - (m.ascent + m.descent)) / 2;
+
+    marks.setAttribute('viewBox', '0 0 ' + host.width + ' ' + host.height);
+    marks.setAttribute('width', host.width);
+    marks.setAttribute('height', host.height);
+    while (marks.firstChild) marks.removeChild(marks.firstChild);
+
+    var lines = lineRects(h1);
+    if (!lines.length) return;
+
+    var leftEdge  = Infinity;
+    var rightEdge = 0;
+
+    lines.forEach(function (line, i) {
+      var top      = line.top - host.top;
+      var left     = line.left - host.left;
+      var right    = line.right - host.left;
+      var baseline = top + half + m.ascent;
+
+      leftEdge  = Math.min(leftEdge, left);
+      rightEdge = Math.max(rightEdge, right);
+
+      /* x-height band: from the baseline up by the measured x-height */
+      marks.appendChild(el('rect', {
+        'class': 'm-xband',
+        x: left, y: baseline - m.xheight,
+        width: right - left, height: m.xheight
+      }));
+
+      /* cap line */
+      marks.appendChild(el('path', {
+        'class': 'm-capline',
+        d: 'M' + left + ' ' + (baseline - m.cap) + ' H' + right
+      }));
+
+      /* the baseline itself, run past the text on both sides so it reads as
+         a rule the type is sitting on */
+      marks.appendChild(el('path', {
+        'class': 'm-baseline',
+        d: 'M' + (left - 16) + ' ' + baseline + ' H' + (right + 16)
+      }));
+
+      marks.appendChild(el('path', {
+        'class': 'm-tick',
+        d: 'M' + (left - 16) + ' ' + (baseline - 4) + ' V' + (baseline + 4)
+      }));
+
+      var label = el('text', { 'class': 'm-label', x: right + 22, y: baseline + 3 });
+      label.textContent = 'BASELINE ' + (i + 1);
+      marks.appendChild(label);
+    });
+
+    /* Left optical edge, shared by the headline and the paragraph */
+    marks.appendChild(el('path', {
+      'class': 'm-edge',
+      d: 'M' + (leftEdge - 16) + ' 0 V' + host.height
+    }));
+
+    /* The measure, reported in characters rather than pixels, because
+       characters are the unit that actually governs readability. */
+    var lede     = measured.querySelector('.lede');
+    var ledeRect = lede.getBoundingClientRect();
+    var ledeCS   = getComputedStyle(lede);
+    var c        = document.createElement('canvas').getContext('2d');
+    c.font = ledeCS.fontStyle + ' ' + ledeCS.fontWeight + ' ' + ledeCS.fontSize + ' ' + ledeCS.fontFamily;
+    var chWidth  = c.measureText('0').width || 1;
+    var chars    = Math.round(ledeRect.width / chWidth);
+
+    var y  = ledeRect.top - host.top - 14;
+    var x1 = ledeRect.left - host.left;
+    var x2 = ledeRect.right - host.left;
+
+    marks.appendChild(el('path', { 'class': 'm-edge', d: 'M' + x1 + ' ' + y + ' H' + x2 }));
+    marks.appendChild(el('path', { 'class': 'm-tick', d: 'M' + x1 + ' ' + (y - 4) + ' V' + (y + 4) }));
+    marks.appendChild(el('path', { 'class': 'm-tick', d: 'M' + x2 + ' ' + (y - 4) + ' V' + (y + 4) }));
+
+    var ml = el('text', { 'class': 'm-label', x: x1 + 8, y: y - 8 });
+    ml.textContent = 'MEASURE ' + chars + ' CHARACTERS';
+    marks.appendChild(ml);
+
+    /* Tracking is authored in em and only reported in px by getComputedStyle.
+       Converting it back is the honest readout: -0.035em is a decision,
+       -2.6908px is a rounding artefact of this particular viewport. */
+    var trackPx = parseFloat(cs.letterSpacing);
+    var trackEm = isNaN(trackPx) ? 0 : trackPx / fs;
+    var ratio   = (lh / fs).toFixed(2);
+
+    var tl = el('text', { 'class': 'm-label', x: 0, y: -14 });
+    tl.textContent =
+      Math.round(fs) + ' / ' + Math.round(lh) + ' (' + ratio + ')' + '   ' +
+      'WEIGHT ' + cs.fontWeight + '   ' +
+      'TRACKING ' + (trackEm >= 0 ? '+' : '') + trackEm.toFixed(3) + 'EM';
+    marks.appendChild(tl);
+  }
+
+  var shown = false;
+  function setShown(next) {
+    shown = next;
+    measured.classList.toggle('show', shown);
+    toggle.setAttribute('aria-pressed', shown ? 'true' : 'false');
+    if (shown) draw();
+  }
+
+  toggle.addEventListener('click', function () { setShown(!shown); });
+
+  /* Redraw on anything that could reflow the text. Only while visible, so a
+     visitor who never asks for the overlay never pays for the measuring. */
+  var rt;
+  window.addEventListener('resize', function () {
+    if (!shown) return;
+    clearTimeout(rt);
+    rt = setTimeout(draw, 120);
+  });
+
+  /* The headline's metrics are wrong until its webfont is the face actually
+     rendered, so wait for it before any measurement is trusted. */
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { if (shown) draw(); });
+  }
+})();
+</script>
+
+</body>
+</html>

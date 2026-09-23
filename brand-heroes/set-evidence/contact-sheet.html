@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital hero series | Contact sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Contact sheet: all ten heroes rendered live, side by side, at the same
+   scale, so they can be judged against each other rather than in sequence.
+   Each preview is the real file in an iframe, not a screenshot, so whatever
+   you see here is what the hero actually does. */
+
+:root {
+  --charcoal:      #1B1D21;
+  --charcoal-lift: #212429;
+  --charcoal-edge: #2E333A;
+  --blue:          #3194E0;
+  --sand:          #F7F1E7;
+  --white:         #FFFFFF;
+  --grey:          #A8B0BA;
+  --grey-quiet:    #8A9099;
+
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--charcoal);
+  color: var(--white);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { width: 100%; max-width: 1560px; margin: 0 auto; padding: 0 28px; }
+
+header { padding: 40px 0 28px; border-bottom: 1px solid var(--charcoal-edge); }
+.wordmark { display: inline-flex; align-items: baseline; gap: 1px; font-size: 20px; letter-spacing: -0.02em; text-decoration: none; }
+.wm-num    { font-weight: 700; color: var(--white); }
+.wm-script { font-family: var(--font-mono); font-weight: 500; color: var(--blue); }
+
+h1 {
+  margin: 20px 0 10px;
+  font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+  font-weight: 500; line-height: 1.08; letter-spacing: -0.032em;
+}
+.sub {
+  margin: 0; max-width: 62ch;
+  font-size: 1rem; line-height: 1.6; color: var(--grey);
+}
+
+.controls {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 22px 0 26px;
+  position: sticky; top: 0; z-index: 10;
+  background: var(--charcoal);
+  border-bottom: 1px solid var(--charcoal-edge);
+}
+.ctl-label {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--grey-quiet); margin-right: 6px;
+}
+.seg {
+  display: inline-flex; border: 1px solid var(--charcoal-edge); border-radius: 999px; overflow: hidden;
+}
+.seg button {
+  font-family: var(--font-mono);
+  font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  background: transparent; color: var(--grey);
+  border: 0; padding: 9px 16px; cursor: pointer;
+}
+.seg button[aria-pressed="true"] { background: var(--blue); color: var(--charcoal); font-weight: 700; }
+.seg button:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 30px;
+  padding: 30px 0 60px;
+}
+.grid.phone { grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); }
+
+.card {
+  background: var(--charcoal-lift);
+  border: 1px solid var(--charcoal-edge);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+
+.shot {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #0E1013;
+  border-bottom: 1px solid var(--charcoal-edge);
+}
+/* The iframe renders at a full desktop or phone width and is then scaled
+   down. Scaling rather than narrowing is the whole point: a 1440px hero
+   squeezed into a 420px iframe would just trigger its own mobile layout and
+   show you something that is not the thing being compared. */
+.shot iframe {
+  border: 0;
+  transform-origin: 0 0;
+  display: block;
+  pointer-events: none;
+}
+
+.meta { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
+.meta-top { display: flex; align-items: baseline; gap: 10px; }
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+  color: var(--blue); flex: none;
+}
+.name { font-size: 1rem; font-weight: 600; letter-spacing: -0.018em; line-height: 1.25; }
+.mode {
+  margin-left: auto; flex: none;
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--grey-quiet);
+  border: 1px solid var(--charcoal-edge); border-radius: 3px; padding: 3px 7px;
+}
+.thesis { margin: 0; font-size: 0.8125rem; line-height: 1.55; color: var(--grey); }
+.effect {
+  margin: 0; padding-top: 9px; border-top: 1px solid var(--charcoal-edge);
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.06em; line-height: 1.5;
+  color: var(--grey-quiet);
+}
+.effect b { color: var(--blue); font-weight: 500; }
+.open {
+  margin-top: auto; padding-top: 12px;
+  font-size: 0.8125rem; color: var(--white);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.3);
+  align-self: flex-start;
+}
+.open:hover { border-color: var(--blue); color: var(--blue); }
+
+footer {
+  border-top: 1px solid var(--charcoal-edge);
+  padding: 22px 0 50px;
+  font-family: var(--font-mono);
+  font-size: 10.5px; letter-spacing: 0.08em;
+  color: var(--grey-quiet);
+}
+
+@media (max-width: 560px) {
+  .wrap { padding: 0 16px; }
+  .grid, .grid.phone { grid-template-columns: 1fr; gap: 22px; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <a href="/" class="wordmark"><span class="wm-num">940</span><span class="wm-script">Digital</span></a>
+    <h1>Ten heroes, one of which becomes the brand</h1>
+    <p class="sub">
+      Every panel below is the real file running live, not a screenshot. Switch
+      between desktop and phone to compare how each one holds up, and open any
+      of them full size to actually use the effect. The previews are not
+      interactive in place, deliberately, so that scrolling this page does not
+      trigger ten animations at once.
+    </p>
+  </header>
+
+  <div class="controls">
+    <span class="ctl-label">Preview at</span>
+    <span class="seg">
+      <button type="button" id="btnDesktop" aria-pressed="true">Desktop 1440</button>
+      <button type="button" id="btnPhone"   aria-pressed="false">Phone 375</button>
+    </span>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <article class="card" data-src="hero-01-live-preview.html">
+      <div class="shot"></div>
+      <div class="meta">
+        <div class="meta-top">
+          <span class="num">01</span>
+          <span class="name">The Live Preview</span>
+          <span class="mode">Dark</span>
+        </div>
+        <p class="thesis">You can see what I would build for you before you pay me anything.</p>
+        <p class="effect"><b>Effect:</b> type a business name and a search result plus a site card assemble from it, in reading order.</p>
+        <a class="open" href="hero-01-live-preview.html" target="_blank" rel="noopener">Open full size</a>
+      </div>
+    </article>
+
+    <article class="card" data-src="hero-02-blueprint.html">
+      <div class="shot"></div>
+      <div class="meta">
+        <div class="meta-top">
+          <span class="num">02</span>
+          <span class="name">The Drafting Table</span>
+          <span class="mode">Light</span>
+        </div>
+        <p class="thesis">I draw the plan before I build the thing, and I tell you why every part is there.</p>
+        <p class="effect"><b>Effect:</b> an architectural drawing that drafts itself, then dimensions and annotates its own decisions.</p>
+        <a class="open" href="hero-02-blueprint.html" target="_blank" rel="noopener">Open full size</a>
+      </div>
+    </article>
+
+    <article class="card" data-src="hero-03-invoice.html">
+      <div class="shot"></div>
+      <div class="meta">
+        <div class="meta-top">
+          <span class="num">03</span>
+          <span class="name">The Whole Price</span>
+          <span class="mode">Dark</span>
+        </div>
+        <p class="thesis">The number is the scariest part of hiring anyone, so the number goes first.</p>
+        <p class="effect"><b>Effect:</b> a price breakdown that totals itself, including the lines that cost nothing.</p>
+        <a class="open" href="hero-03-invoice.html" target="_blank" rel="noopener">Open full size</a>
+      </div>
+    </article>
+
+    <article class="card" data-src="hero-04-the-reply.html">
+      <div class="shot"></div>
+      <div class="meta">
+        <div class="meta-top">
+          <span class="num">04</span>
+          <span class="name">The Reply</span>
+          <span class="mode">Light</span>
+        </div>
+        <p class="thesis">What actually broke last time was that somebody stopped answering.</p>
+        <p class="effect"><b>Effect:</b> a real exchange played at human pace with honest timestamps. The reply takes nine minutes, and says so.</p>
+        <a class="open" href="hero-04-the-reply.html" target="_blank" rel="noopener">Open full size</a>
+      </div>
+    </article>
+
+    <article class="card" data-src="hero-05-cutaway.html">
+      <div class="shot"></div>
+      <div class="meta">
+        <div class="meta-top">
+          <span class="num">05</span>
+          <span class="name">The Cutaway</span>
+          <span class="mode">Dark</span>
+        </div>
+        <p class="thesis">You are not buying a picture. You are buying five layers of work.</p>
+        <p class="effect"><b>Effect:</b> an orthographic exploded diagram that separates on load and lifts the exact layer you point at.</p>
+        <a class="open" href="hero-05-cutaway.html" target="_blank" rel="noopener">Open full size</a>
+      </div>
+    </article>
+
+    <article class="card" data-src="hero-06-proof-marks.html">
+      <div class="shot"></div>
+      <div class="meta">
+        <div class="meta-top">
+          <span class="num">06</span>
+          <span class="name">Proof Marks</span>
+          <span class="mode">Light</span>
+        </div>
+        <p class="thesis">A site feels cheap for a hundred reasons nobody can name.</p>
+        <p class="effect"><b>Effect:</b> restraint. Ask it to, and it draws the real typographic system it was set on, measured live from the rendered text.</p>
+        <a class="open" href="hero-06-proof-marks.html" target="_blank" rel="noopener">Open full size</a>
+      </div>
+    </article>
+
+    <article class="card" data-src="hero-07-build-log.html">
+      <div class="shot"></div>
+      <div class="meta">
+        <div class="meta-top">
+          <span class="num">07</span>
+          <span class="name">The Build Log</span>
+          <span class="mode">Dark</span>
+        </div>
+        <p class="thesis">Anyone can show you the finished site. Showing the days it went wrong is the believable version.</p>
+        <p class="effect"><b>Effect:</b> a scrubbable twenty-one day record the visitor drags through. Two of the nine entries are failures, marked and unsoftened.</p>
+        <a class="open" href="hero-07-build-log.html" target="_blank" rel="noopener">Open full size</a>
+      </div>
+    </article>
+
+    <article class="card" data-src="hero-08-status.html">
+      <div class="shot"></div>
+      <div class="meta">
+        <div class="meta-top">
+          <span class="num">08</span>
+          <span class="name">The Desk</span>
+          <span class="mode">Light</span>
+        </div>
+        <p class="thesis">Every site claims to be available. This one tells the truth, including when the truth is that I am asleep.</p>
+        <p class="effect"><b>Effect:</b> a genuinely live status. Real Denton time via Intl, a real weekday and hour test, and a response estimate that changes to match.</p>
+        <a class="open" href="hero-08-status.html" target="_blank" rel="noopener">Open full size</a>
+      </div>
+    </article>
+
+    <article class="card" data-src="hero-09-objections.html">
+      <div class="shot"></div>
+      <div class="meta">
+        <div class="meta-top">
+          <span class="num">09</span>
+          <span class="name">What Is Stopping You</span>
+          <span class="mode">Dark</span>
+        </div>
+        <p class="thesis">Ask which case the visitor needs made, then make that one.</p>
+        <p class="effect"><b>Effect:</b> the hero rewrites itself. Headline, body, evidence and call to action all change to answer the specific fear picked.</p>
+        <a class="open" href="hero-09-objections.html" target="_blank" rel="noopener">Open full size</a>
+      </div>
+    </article>
+
+    <article class="card" data-src="hero-10-open-file.html">
+      <div class="shot"></div>
+      <div class="meta">
+        <div class="meta-top">
+          <span class="num">10</span>
+          <span class="name">The Open File</span>
+          <span class="mode">Light</span>
+        </div>
+        <p class="thesis">The usual way this goes wrong is that the person who built your site owns your domain.</p>
+        <p class="effect"><b>Effect:</b> a working inspector over the eight handover items. The owner field reads "You" on all eight, and you find that out by clicking.</p>
+        <a class="open" href="hero-10-open-file.html" target="_blank" rel="noopener">Open full size</a>
+      </div>
+    </article>
+
+  </div>
+
+  <footer>
+    Ten heroes &middot; ten distinct mechanisms &middot; no effect repeated from sections 0001 to 0026 of the library
+  </footer>
+</div>
+
+<script>
+(function () {
+  var grid  = document.getElementById('grid');
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.card'));
+  var bD    = document.getElementById('btnDesktop');
+  var bP    = document.getElementById('btnPhone');
+
+  var SIZES = {
+    desktop: { w: 1440, h: 900 },
+    phone:   { w: 375,  h: 812 }
+  };
+  var mode = 'desktop';
+
+  /* Each iframe is laid out at the real target width and then scaled to fit
+     the card. The wrapper's height is set from the scaled height so the card
+     does not keep a gap under the preview. */
+  function fit(card) {
+    var shot   = card.querySelector('.shot');
+    var frame  = shot.querySelector('iframe');
+    if (!frame) return;
+
+    var size  = SIZES[mode];
+    var avail = shot.clientWidth;
+    var scale = avail / size.w;
+
+    frame.style.width  = size.w + 'px';
+    frame.style.height = size.h + 'px';
+    frame.style.transform = 'scale(' + scale + ')';
+    shot.style.height = Math.round(size.h * scale) + 'px';
+  }
+
+  function build(card) {
+    var shot = card.querySelector('.shot');
+    if (shot.querySelector('iframe')) return;
+
+    var f = document.createElement('iframe');
+    f.setAttribute('loading', 'lazy');
+    f.setAttribute('tabindex', '-1');
+    f.setAttribute('title', card.querySelector('.name').textContent + ' preview');
+    f.setAttribute('scrolling', 'no');
+    f.src = card.getAttribute('data-src');
+    shot.appendChild(f);
+    f.addEventListener('load', function () { fit(card); });
+    fit(card);
+  }
+
+  /* Ten live heroes at once is a lot of animation and a lot of timers, so
+     each one is only built when it is close to the viewport. */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { build(e.target); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '300px' });
+    cards.forEach(function (c) { io.observe(c); });
+  } else {
+    cards.forEach(build);
+  }
+
+  function setMode(next) {
+    mode = next;
+    bD.setAttribute('aria-pressed', next === 'desktop' ? 'true' : 'false');
+    bP.setAttribute('aria-pressed', next === 'phone'   ? 'true' : 'false');
+    grid.classList.toggle('phone', next === 'phone');
+
+    /* Re-fit after the grid has reflowed to the new column width. */
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { cards.forEach(fit); });
+    });
+  }
+
+  bD.addEventListener('click', function () { setMode('desktop'); });
+  bP.addEventListener('click', function () { setMode('phone'); });
+
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () { cards.forEach(fit); }, 120);
+  });
+})();
+</script>
+
+</body>
+</html>

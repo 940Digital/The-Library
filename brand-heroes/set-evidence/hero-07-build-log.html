@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital Hero 07 | Twenty-one days, including the bad ones</title>
+<meta name="description" content="The real log of a build, day by day, including what went wrong. 940Digital builds websites and search presence for small businesses in Dallas-Fort Worth and Denton.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   940DIGITAL HERO 07 - "THE BUILD LOG"
+   Thesis: anybody can show you the finished thing. Showing the
+   two days it went wrong, and what was done about it, is the
+   only version a person who has been burned will believe.
+   Signature effect: a scrubbable record. The visitor drags
+   through a real twenty-one day build at their own pace. It
+   does not play at them, it answers them. Two of the nine
+   entries are failures, and they are not buried.
+   ============================================================ */
+
+:root {
+  --charcoal:      #1B1D21;
+  --charcoal-lift: #212429;
+  --charcoal-edge: #2E333A;
+  --blue:          #3194E0;
+  --sand:          #F7F1E7;
+  --white:         #FFFFFF;
+  --grey:          #A8B0BA;   /* 7.70:1 */
+  --grey-quiet:    #8A9099;   /* 5.25:1 */
+  --amber:         #E8B84B;   /* 9.6:1 on charcoal, marks the bad days */
+
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--charcoal);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  background: var(--charcoal);
+  color: var(--white);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(820px 640px at 74% 26%, rgba(49,148,224,.11), transparent 64%);
+  pointer-events: none;
+}
+
+.wrap { position: relative; width: 100%; max-width: 1220px; margin: 0 auto; padding: 0 32px; }
+
+.masthead { padding: 30px 0 0; }
+.wordmark { display: inline-flex; align-items: baseline; gap: 1px; font-size: 20px; letter-spacing: -0.02em; text-decoration: none; }
+.wm-num    { font-weight: 700; color: var(--white); }
+.wm-script { font-family: var(--font-mono); font-weight: 500; color: var(--blue); }
+
+.core {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  align-items: center;
+  gap: 68px;
+  padding: 54px 0 44px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--blue); margin: 0 0 22px;
+}
+h1 {
+  margin: 0 0 22px;
+  font-size: clamp(2.2rem, 4vw, 3.35rem);
+  font-weight: 500; line-height: 1.07; letter-spacing: -0.032em;
+  max-width: 15ch;
+}
+.lede {
+  margin: 0 0 30px;
+  font-size: 1.0625rem; line-height: 1.62;
+  color: var(--grey); max-width: 43ch;
+}
+.pull {
+  border-left: 2px solid var(--amber);
+  padding: 4px 0 4px 18px;
+  margin: 0 0 32px;
+  font-size: 0.9375rem; line-height: 1.6;
+  color: var(--grey); max-width: 42ch;
+}
+.pull b { color: var(--white); font-weight: 600; }
+
+.actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center;
+  background: var(--blue); color: var(--charcoal);   /* 5.18:1 */
+  font-weight: 700; font-size: 0.95rem; letter-spacing: -0.01em;
+  padding: 13px 24px; border-radius: 6px; text-decoration: none;
+  transition: background .16s ease, transform .16s ease;
+}
+.btn:hover { background: #46A2E8; transform: translateY(-1px); }
+.btn:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+.link-quiet {
+  font-size: 0.9375rem; color: var(--grey); text-decoration: none;
+  border-bottom: 1px solid rgba(168,176,186,.35); padding-bottom: 2px;
+}
+.link-quiet:hover { color: var(--white); border-color: var(--white); }
+
+/* ============================================================
+   THE INSTRUMENT
+   ============================================================ */
+.log {
+  background: var(--charcoal-lift);
+  border: 1px solid var(--charcoal-edge);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 34px 72px -34px rgba(0,0,0,.8);
+}
+.log-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 22px;
+  border-bottom: 1px solid var(--charcoal-edge);
+  background: rgba(0,0,0,.16);
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--grey-quiet);
+}
+.log-head .drag-hint { margin-left: auto; color: var(--blue); }
+
+.log-body { padding: 26px 22px 20px; }
+
+.day-line {
+  display: flex; align-items: baseline; gap: 14px;
+  margin-bottom: 16px;
+}
+.day-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 2.6rem; font-weight: 700; letter-spacing: -0.045em;
+  line-height: 1; color: var(--white);
+  white-space: nowrap; flex: none;
+}
+.day-of {
+  font-family: var(--font-mono);
+  font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--grey-quiet);
+}
+.day-flag {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--amber);
+  border: 1px solid rgba(232,184,75,.45);
+  border-radius: 3px;
+  padding: 4px 8px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.entry.bad .day-flag { opacity: 1; }
+
+/* Every entry stays in the markup. Without JavaScript all nine simply
+   render in order, which is a perfectly good version of this hero. */
+.entry { display: none; }
+.entry.on { display: block; }
+
+.entry h2 {
+  margin: 0 0 8px;
+  font-size: 1.3rem; font-weight: 600; letter-spacing: -0.022em;
+  line-height: 1.2; color: var(--white);
+}
+.entry.bad h2 { color: var(--amber); }
+.entry p {
+  margin: 0;
+  font-size: 0.9375rem; line-height: 1.6;
+  color: var(--grey);
+  min-height: 4.8em;
+}
+
+/* ---------- the rail ---------- */
+.rail-wrap {
+  position: relative;
+  padding: 22px 22px 20px;
+  border-top: 1px solid var(--charcoal-edge);
+  background: rgba(0,0,0,.14);
+}
+.ticks {
+  position: relative;
+  height: 16px;
+  margin: 0 0 2px;
+  pointer-events: none;
+}
+.tick {
+  position: absolute;
+  top: 0;
+  width: 1px; height: 8px;
+  background: var(--charcoal-edge);
+  transform: translateX(-0.5px);
+  transition: background .2s ease, height .2s ease;
+}
+.tick.bad { background: rgba(232,184,75,.55); height: 12px; }
+.tick.done { background: rgba(49,148,224,.7); }
+.tick.here { background: var(--white); height: 14px; width: 2px; }
+
+/* A real range input. It brings keyboard control, touch dragging, and a
+   correct screen reader announcement for free, and nothing hand-rolled
+   would do any of those three as well. */
+.rail {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 26px;
+  background: transparent;
+  margin: 0;
+  cursor: grab;
+  display: block;
+}
+.rail:active { cursor: grabbing; }
+.rail:focus { outline: none; }
+.rail:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; border-radius: 4px; }
+
+.rail::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    var(--blue) 0 var(--pct, 0%),
+    var(--charcoal-edge) var(--pct, 0%) 100%
+  );
+}
+.rail::-moz-range-track {
+  height: 2px; border-radius: 2px; background: var(--charcoal-edge);
+}
+.rail::-moz-range-progress { height: 2px; border-radius: 2px; background: var(--blue); }
+
+.rail::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px; height: 18px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 4px solid var(--charcoal-lift);
+  box-shadow: 0 0 0 1px var(--blue);
+  transition: transform .16s ease;
+}
+.rail::-moz-range-thumb {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 4px solid var(--charcoal-lift);
+  box-shadow: 0 0 0 1px var(--blue);
+}
+.rail:active::-webkit-slider-thumb { transform: scale(1.12); }
+
+.rail-ends {
+  display: flex; justify-content: space-between;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--grey-quiet);
+}
+
+/* A single nudge on first sight, so the control reads as draggable without
+   a tooltip explaining it. It runs once and never again. */
+@keyframes nudge {
+  0%, 100% { transform: translateX(0); }
+  40%      { transform: translateX(7px); }
+}
+.rail.hint::-webkit-slider-thumb { animation: nudge 1.05s ease-in-out 1; }
+
+@media (max-width: 980px) {
+  .core { grid-template-columns: 1fr; gap: 42px; padding: 38px 0 32px; }
+  h1 { max-width: 18ch; }
+}
+@media (max-width: 560px) {
+  .wrap { padding: 0 18px; }
+  h1 { font-size: 2rem; }
+  .log-body { padding: 20px 16px 16px; }
+  .rail-wrap { padding: 18px 16px 16px; }
+  .day-num { font-size: 2.1rem; }
+  .day-line { flex-wrap: wrap; gap: 8px 12px; }
+  .day-flag { margin-left: 0; }
+  .entry h2 { font-size: 1.15rem; }
+  .entry p { min-height: 0; }
+  .btn { width: 100%; justify-content: center; }
+  .actions { gap: 18px; }
+  .log-head .drag-hint { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail.hint::-webkit-slider-thumb { animation: none; }
+  .tick, .day-flag, .rail::-webkit-slider-thumb { transition: none; }
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="masthead">
+    <div class="wrap">
+      <a href="/" class="wordmark" aria-label="940Digital home">
+        <span class="wm-num">940</span><span class="wm-script">Digital</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="wrap core">
+
+    <div class="say">
+      <p class="eyebrow">Denton &amp; Dallas-Fort Worth</p>
+
+      <h1>Twenty-one days, including the two that went wrong.</h1>
+
+      <p class="lede">
+        This is the actual log from a recent build. Not a process diagram with
+        four friendly steps. Drag through it and read what happened on any
+        given day.
+      </p>
+
+      <p class="pull">
+        <b>Two entries are failures.</b> They are marked, they are not at the
+        end, and they are not softened. Anyone can show you the finished site.
+      </p>
+
+      <div class="actions">
+        <a class="btn" href="/contact">Start your twenty-one days</a>
+        <a class="link-quiet" href="/work">See the finished site</a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="log">
+        <div class="log-head">
+          <span>Build log</span>
+          <span>&middot;</span>
+          <span>Five page site</span>
+          <span class="drag-hint">Drag to read</span>
+        </div>
+
+        <div class="log-body">
+          <div class="day-line">
+            <span class="day-num" id="dayNum">01</span>
+            <span class="day-of">of twenty-one</span>
+            <span class="day-flag" id="dayFlag">This one went wrong</span>
+          </div>
+
+          <!-- aria-live so scrubbing with a keyboard reads the entry out,
+               rather than announcing a bare number with no content. -->
+          <div id="entries" aria-live="polite">
+            <article class="entry on" data-day="1">
+              <h2>The call</h2>
+              <p>Forty minutes. You talk, I take notes. No slide deck, no
+              discovery fee, no three week strategy phase. At the end of it I
+              know what you sell, who buys it, and what you are tired of
+              explaining on the phone.</p>
+            </article>
+
+            <article class="entry" data-day="2">
+              <h2>What I found</h2>
+              <p>Your current site, your Google listing, and the three
+              businesses that show up above you. Sent to you as a plain list of
+              what is wrong and what it is costing, not as a branded PDF with
+              a cover page.</p>
+            </article>
+
+            <article class="entry" data-day="4">
+              <h2>The plan, on one page</h2>
+              <p>Every page, what it says, and why it exists. You read it and
+              approve it before a single line of code is written. If something
+              on that page does not earn its place, it comes off now instead
+              of after you have paid for it.</p>
+            </article>
+
+            <article class="entry" data-day="7">
+              <h2>A version you can actually open</h2>
+              <p>Live on a real address, on your phone, in your hand. Not a
+              picture of a website in a presentation. You can show it to your
+              spouse and your best customer and tell me what is wrong with it.</p>
+            </article>
+
+            <article class="entry bad" data-day="9">
+              <h2>It was too slow, and that was on me</h2>
+              <p>Your gallery photos were four megabytes each and I had shipped
+              them straight through. On a phone away from wifi the page took
+              six seconds. I rebuilt how images load and it came down to under
+              one. You should never have had to know that number existed.</p>
+            </article>
+
+            <article class="entry" data-day="12">
+              <h2>Your words, not mine</h2>
+              <p>We read every line on the site out loud on a call. Anything
+              that did not sound like something you would actually say got cut
+              and rewritten. This is the step most people skip, and it is why
+              most small business sites read like they were written by nobody.</p>
+            </article>
+
+            <article class="entry" data-day="15">
+              <h2>Making sure you can be found</h2>
+              <p>Google Business Profile, the site, and every directory listing
+              made to agree on one address, one phone number, one set of hours.
+              Search engines treat disagreement as doubt, and doubt costs you
+              the map result.</p>
+            </article>
+
+            <article class="entry bad" data-day="18">
+              <h2>You broke the contact form on purpose</h2>
+              <p>You asked what happens if somebody hits send with an empty
+              message. It sent. An empty email, no name, no way to call them
+              back. A real customer would have thought they had contacted you
+              and then waited. Fixed that afternoon, and I now test it that way
+              on every build.</p>
+            </article>
+
+            <article class="entry" data-day="21">
+              <h2>Live, and you hold the keys</h2>
+              <p>Domain registered in your name. Hosting on your account. Every
+              password handed over in writing. My mobile number in your phone.
+              If you ever want to leave, you take all of it with you and you do
+              not need my permission.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="rail-wrap">
+          <div class="ticks" id="ticks" aria-hidden="true"></div>
+          <input class="rail" id="rail" type="range"
+                 min="0" max="8" step="1" value="0"
+                 aria-label="Day of the build">
+          <div class="rail-ends">
+            <span>Day 1</span>
+            <span>Day 21</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+(function () {
+  var rail    = document.getElementById('rail');
+  var ticks   = document.getElementById('ticks');
+  var dayNum  = document.getElementById('dayNum');
+  var flag    = document.getElementById('dayFlag');
+  var entries = Array.prototype.slice.call(document.querySelectorAll('.entry'));
+  var reduce  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var days  = entries.map(function (e) { return parseInt(e.getAttribute('data-day'), 10); });
+  var LAST  = 21;
+  var maxIx = entries.length - 1;
+
+  /* Ticks are placed by actual day number, not by index, so the gaps between
+     entries are true to the calendar. Day 9 sits at 9/21 across, not at
+     five ninths. */
+  var tickEls = days.map(function (d, i) {
+    var t = document.createElement('span');
+    t.className = 'tick' + (entries[i].classList.contains('bad') ? ' bad' : '');
+    t.style.left = ((d - 1) / (LAST - 1) * 100) + '%';
+    ticks.appendChild(t);
+    return t;
+  });
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function show(ix) {
+    ix = Math.max(0, Math.min(maxIx, ix));
+
+    entries.forEach(function (e, i) { e.classList.toggle('on', i === ix); });
+
+    var bad = entries[ix].classList.contains('bad');
+    dayNum.textContent = pad(days[ix]);
+    flag.style.opacity = bad ? '1' : '0';
+
+    tickEls.forEach(function (t, i) {
+      t.classList.toggle('done', i < ix);
+      t.classList.toggle('here', i === ix);
+    });
+
+    /* Paint the filled portion of the WebKit track, which has no native
+       progress element the way Firefox does. */
+    rail.style.setProperty('--pct', (ix / maxIx * 100) + '%');
+  }
+
+  rail.addEventListener('input', function () {
+    rail.classList.remove('hint');
+    show(parseInt(rail.value, 10));
+  });
+
+  show(0);
+
+  /* One nudge, the first time it comes into view, then never again. */
+  if (!reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        setTimeout(function () { rail.classList.add('hint'); }, 700);
+        setTimeout(function () { rail.classList.remove('hint'); }, 2200);
+      });
+    }, { threshold: 0.4 });
+    io.observe(rail);
+  }
+})();
+</script>
+
+</body>
+</html>

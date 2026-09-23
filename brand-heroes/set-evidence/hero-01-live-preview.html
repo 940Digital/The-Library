@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>940Digital Hero 01 | See it before you pay for it</title>
+<meta name="description" content="940Digital builds websites and search presence for small businesses in Dallas-Fort Worth. Type your business name and watch the result build itself.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   940DIGITAL HERO 01 - "THE LIVE PREVIEW"
+   Thesis: you can see exactly what I would do for you before
+   you hand over a dollar. The effect is not decoration. It is
+   the business model, rendered.
+   ============================================================ */
+
+:root {
+  --charcoal:      #1B1D21;
+  --charcoal-lift: #212429;
+  --charcoal-edge: #2B2F36;
+  --blue:          #3194E0;
+  --blue-deep:     #1F6FB0;
+  --sand:          #F7F1E7;
+  --white:         #FFFFFF;
+
+  /* Neutrals verified against #1B1D21: 7.7:1 and 5.25:1 */
+  --grey:          #A8B0BA;
+  --grey-quiet:    #8A9099;
+
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* Spacing rhythm: a 4px base, stepped so the hero has one ruler */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--charcoal);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  color: var(--white);
+  overflow: hidden;
+}
+
+/* A single very wide, very quiet wash. No particles, no network.
+   The background's only job is to sit still. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px 620px at 12% -8%, rgba(49,148,224,.13), transparent 62%),
+    linear-gradient(180deg, transparent 55%, rgba(0,0,0,.28) 100%);
+  pointer-events: none;
+}
+
+.wrap {
+  position: relative;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 var(--s5);
+}
+
+/* ---------- masthead ---------- */
+.masthead { padding: var(--s6) 0 0; }
+.wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+.wm-num    { font-family: var(--font-display); font-weight: 700; color: var(--white); }
+.wm-script { font-family: var(--font-mono);    font-weight: 500; color: var(--blue); }
+
+/* ---------- main grid ---------- */
+/* Two columns, two rows. The stage spans both rows so it stays optically
+   centred, while the actions sit under the copy. On mobile this collapses to
+   say -> stage -> actions, which is the honest reading order: you type, you
+   see the result, then you decide. */
+.core {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
+  grid-template-rows: auto auto;
+  align-content: center;
+  gap: var(--s6) var(--s8);
+  padding: var(--s8) 0;
+}
+.say    { grid-column: 1; grid-row: 1; }
+.actions-row { grid-column: 1; grid-row: 2; align-self: start; }
+.stage  { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 0 0 var(--s5);
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+.eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(49,148,224,.5), transparent);
+}
+
+/* Display weight 500, not 700. Measured on reference sites: premium
+   reads come from restraint in weight, not from heaviness. */
+h1 {
+  margin: 0 0 var(--s5);
+  font-size: clamp(2.35rem, 4.6vw, 3.9rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.032em;
+  color: var(--white);
+  max-width: 15ch;
+}
+h1 em {
+  font-style: normal;
+  color: var(--blue);
+}
+.lede {
+  margin: 0 0 var(--s6);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--grey);
+  max-width: 44ch;
+}
+
+/* ---------- the input: the whole point of this hero ---------- */
+.ask { max-width: 430px; }
+.ask-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey-quiet);
+  margin-bottom: var(--s3);
+}
+.field {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--charcoal-edge);
+  border-radius: 8px;
+  background: var(--charcoal-lift);
+  overflow: hidden;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.field:focus-within {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(49,148,224,.18);
+}
+.field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  padding: 14px var(--s4);
+  outline: none;
+}
+.field input::placeholder { color: #6E747D; }
+.field-tag {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--s4);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey-quiet);
+  border-left: 1px solid var(--charcoal-edge);
+  white-space: nowrap;
+}
+.ask-note {
+  margin: var(--s3) 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--grey-quiet);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s5);
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  /* Charcoal on royal blue is 5.18:1. White on this blue is only
+     3.26:1 and would fail AA, so the dark label is the correct one. */
+  background: var(--blue);
+  color: var(--charcoal);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  padding: 13px 22px;
+  border-radius: 7px;
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .16s ease, background .16s ease;
+}
+.btn:hover { background: #46A2E8; transform: translateY(-1px); }
+.btn:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+.link-quiet {
+  font-size: 0.9375rem;
+  color: var(--grey);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(168,176,186,.35);
+  padding-bottom: 2px;
+  transition: color .16s ease, border-color .16s ease;
+}
+.link-quiet:hover { color: var(--white); border-color: var(--white); }
+
+/* ============================================================
+   THE RESULT PANEL
+   Everything here is generated from what the visitor types.
+   ============================================================ */
+.stage { position: relative; }
+
+.panel {
+  background: var(--charcoal-lift);
+  border: 1px solid var(--charcoal-edge);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px -30px rgba(0,0,0,.75);
+}
+.panel-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: 11px var(--s4);
+  border-bottom: 1px solid var(--charcoal-edge);
+  background: rgba(0,0,0,.16);
+}
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #3A3F47; }
+.panel-title {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey-quiet);
+  margin-left: var(--s2);
+}
+.panel-live {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.pulse {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity: .35; } 50% { opacity: 1; } }
+
+.panel-body { padding: var(--s6) var(--s5) var(--s5); }
+
+/* --- the search result --- */
+.result { margin-bottom: var(--s6); }
+.result-url {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin-bottom: 7px;
+}
+.favi {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  background: var(--blue);
+  color: var(--charcoal);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.url-text {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--grey-quiet);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.result-title {
+  font-size: 1.175rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: #8DC5F2;
+  margin: 0 0 6px;
+}
+.result-desc {
+  font-size: 0.8125rem;
+  line-height: 1.62;
+  color: var(--grey);
+  margin: 0 0 var(--s3);
+}
+.result-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  font-size: 0.75rem;
+  color: var(--grey-quiet);
+  flex-wrap: wrap;
+}
+.stars { color: #E8B84B; letter-spacing: 1px; font-size: 0.8rem; }
+
+/* --- the site card --- */
+.divider {
+  height: 1px;
+  background: var(--charcoal-edge);
+  margin: 0 0 var(--s5);
+}
+.mini {
+  border: 1px solid var(--charcoal-edge);
+  border-radius: 9px;
+  overflow: hidden;
+  background: var(--charcoal);
+}
+.mini-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px var(--s3);
+  border-bottom: 1px solid var(--charcoal-edge);
+}
+.mini-brand {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+}
+.mini-links { display: flex; gap: 7px; }
+.mini-links span {
+  width: 22px; height: 4px; border-radius: 2px;
+  background: #343941;
+}
+.mini-links span:last-child { background: var(--blue); width: 30px; }
+.mini-hero { padding: var(--s5) var(--s3) var(--s4); }
+.mini-h {
+  height: 9px; border-radius: 3px;
+  background: #4A5058;
+  margin-bottom: 7px;
+}
+.mini-h.w1 { width: 72%; }
+.mini-h.w2 { width: 48%; background: #3A3F47; }
+.mini-cta {
+  margin-top: var(--s4);
+  width: 82px; height: 22px;
+  border-radius: 5px;
+  background: var(--blue);
+}
+.mini-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+  padding: 0 var(--s3) var(--s4);
+}
+.mini-card {
+  height: 42px;
+  border-radius: 5px;
+  background: #23272D;
+  border: 1px solid #2E333A;
+}
+
+/* Staged reveal. Each piece is its own element so the assembly is
+   choreographed rather than a single blanket fade. */
+.stagger {
+  opacity: 0;
+  transform: translateY(7px);
+}
+.stagger.on {
+  animation: rise .44s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+.footnote {
+  display: flex;
+  gap: var(--s5);
+  flex-wrap: wrap;
+  padding: 0 0 var(--s6);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--grey-quiet);
+}
+.footnote b { color: var(--grey); font-weight: 500; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 940px) {
+  .core {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    gap: var(--s7);
+    padding: var(--s7) 0;
+  }
+  .say, .actions-row, .stage {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  h1 { max-width: 20ch; }
+}
+@media (max-width: 560px) {
+  :root { --s8: 40px; }
+  .wrap { padding: 0 18px; }
+  h1 { font-size: 2.05rem; letter-spacing: -0.028em; }
+  .lede { font-size: 1rem; }
+  .ask { max-width: none; }
+  .field-tag { display: none; }
+  .actions { gap: var(--s4); }
+  .btn { width: 100%; justify-content: center; }
+  .panel-body { padding: var(--s5) var(--s4) var(--s4); }
+  .footnote { gap: var(--s3) var(--s5); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stagger, .stagger.on {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .pulse { animation: none; opacity: 1; }
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <header class="masthead">
+    <div class="wrap">
+      <a href="/" class="wordmark" aria-label="940Digital home">
+        <span class="wm-num">940</span><span class="wm-script">Digital</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="wrap core">
+
+    <div class="say">
+      <p class="eyebrow">Denton &amp; Dallas-Fort Worth</p>
+
+      <h1>See what I would build for you, <em>before</em> you pay me anything.</h1>
+
+      <p class="lede">
+        Most people who call me have already been burned once. So I do it
+        backwards: you get a real working version of your site first, and you
+        decide after you have seen it.
+      </p>
+
+      <div class="ask">
+        <label class="ask-label" for="bizname">Put your business in</label>
+        <div class="field">
+          <input
+            id="bizname"
+            type="text"
+            autocomplete="organization"
+            spellcheck="false"
+            value="Kessler Park Plumbing"
+            placeholder="Your business name">
+          <span class="field-tag" aria-hidden="true">Live</span>
+        </div>
+        <p class="ask-note">
+          Nothing is sent anywhere. This runs in your browser so you can see the
+          shape of it without filling out a form first.
+        </p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="panel">
+        <div class="panel-bar">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="panel-title">Preview</span>
+          <span class="panel-live"><span class="pulse" aria-hidden="true"></span>Building</span>
+        </div>
+
+        <div class="panel-body">
+          <!-- aria-live so a screen reader hears the result change instead of
+               silently missing the entire point of the section -->
+          <div class="result" id="result" aria-live="polite" aria-atomic="true">
+            <div class="result-url stagger" data-step="1">
+              <span class="favi" id="favi" aria-hidden="true">KP</span>
+              <span class="url-text" id="urlText">kesslerparkplumbing.com</span>
+            </div>
+            <h2 class="result-title stagger" data-step="2" id="resTitle">
+              Kessler Park Plumbing | Dallas, TX
+            </h2>
+            <p class="result-desc stagger" data-step="3" id="resDesc">
+              Kessler Park Plumbing serves Dallas and the surrounding metroplex.
+              Licensed, insured, and answering the phone. Request a quote today.
+            </p>
+            <div class="result-meta stagger" data-step="4">
+              <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span>Rated 5.0 &middot; 38 reviews</span>
+              <span aria-hidden="true">&middot;</span>
+              <span>Open now</span>
+            </div>
+          </div>
+
+          <div class="divider" aria-hidden="true"></div>
+
+          <div class="mini stagger" data-step="5" aria-hidden="true">
+            <div class="mini-nav">
+              <span class="mini-brand" id="miniBrand">Kessler Park Plumbing</span>
+              <span class="mini-links"><span></span><span></span><span></span></span>
+            </div>
+            <div class="mini-hero">
+              <div class="mini-h w1"></div>
+              <div class="mini-h w2"></div>
+              <div class="mini-cta"></div>
+            </div>
+            <div class="mini-cards">
+              <div class="mini-card"></div>
+              <div class="mini-card"></div>
+              <div class="mini-card"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions-row">
+      <div class="actions">
+        <a class="btn" href="/contact">Start a real one</a>
+        <a class="link-quiet" href="/work">See sites I have shipped</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="wrap">
+    <p class="footnote">
+      <span><b>One person.</b> You talk to me every time.</span>
+      <span><b>Hosting and edits</b> included, not billed later.</span>
+      <span><b>No contract</b> to get started.</span>
+    </p>
+  </div>
+
+</section>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var input     = document.getElementById('bizname');
+  var favi      = document.getElementById('favi');
+  var urlText   = document.getElementById('urlText');
+  var resTitle  = document.getElementById('resTitle');
+  var resDesc   = document.getElementById('resDesc');
+  var miniBrand = document.getElementById('miniBrand');
+  var steps     = Array.prototype.slice.call(document.querySelectorAll('.stagger'));
+
+  /* Words that should not be pulled into a two-letter monogram, and should
+     not survive into a domain. Keeps "The Oak Cliff Bakery" reading as OC,
+     not TO. */
+  var SKIP = { the: 1, and: 1, of: 1, a: 1, an: 1, at: 1, on: 1, in: 1, to: 1, 'for': 1 };
+
+  function words(raw) {
+    return raw
+      .replace(/[^A-Za-z0-9&' ]+/g, ' ')
+      .split(/\s+/)
+      .filter(Boolean);
+  }
+
+  function monogram(raw) {
+    var w = words(raw).filter(function (x) { return !SKIP[x.toLowerCase()]; });
+    if (!w.length) return '94';
+    if (w.length === 1) return w[0].slice(0, 2).toUpperCase();
+    return (w[0][0] + w[1][0]).toUpperCase();
+  }
+
+  function domain(raw) {
+    var w = words(raw).filter(function (x) { return !SKIP[x.toLowerCase()]; });
+    var slug = w.join('').toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (!slug) slug = 'yourbusiness';
+    /* A realistic domain, not a 60-character one. Long names get trimmed to
+       the first two meaningful words the way a real registrar purchase would. */
+    if (slug.length > 26 && w.length > 2) {
+      slug = w.slice(0, 2).join('').toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+    return slug + '.com';
+  }
+
+  function tidy(raw) {
+    var t = raw.trim().replace(/\s+/g, ' ');
+    return t || 'Your Business';
+  }
+
+  function render(raw) {
+    var name = tidy(raw);
+    var dom  = domain(name);
+
+    favi.textContent      = monogram(name);
+    urlText.textContent   = dom;
+    resTitle.textContent  = name + ' | Dallas, TX';
+    miniBrand.textContent = name;
+    resDesc.textContent   =
+      name + ' serves Dallas and the surrounding metroplex. Licensed, ' +
+      'insured, and answering the phone. Request a quote today.';
+  }
+
+  /* Choreographed assembly. Each element has its own delay so the panel
+     builds in reading order instead of appearing all at once. */
+  var timers = [];
+  function play() {
+    timers.forEach(clearTimeout);
+    timers = [];
+    steps.forEach(function (el) { el.classList.remove('on'); });
+
+    if (reduce) {
+      steps.forEach(function (el) { el.classList.add('on'); });
+      return;
+    }
+    /* Force reflow so removing and re-adding the class actually restarts
+       the animation rather than being collapsed into one style recalc. */
+    void document.body.offsetWidth;
+
+    steps.forEach(function (el) {
+      var i = parseInt(el.getAttribute('data-step'), 10) || 1;
+      timers.push(setTimeout(function () { el.classList.add('on'); }, i * 95));
+    });
+  }
+
+  var debounce;
+  input.addEventListener('input', function () {
+    clearTimeout(debounce);
+    debounce = setTimeout(function () {
+      render(input.value);
+      play();
+    }, 260);
+  });
+
+  input.addEventListener('focus', function () { input.select(); });
+
+  render(input.value);
+  play();
+})();
+</script>
+
+</body>
+</html>
