@@ -14,6 +14,7 @@ sections/
     meta.json      # id, website, type, emotions, features, notes...
     section.html   # self-contained: opens directly in a browser, no
                     # external stylesheet or shared nav required
+    README.md      # optional drop-in notes (see 0037–0039)
   0002/
   ...
 index.json          # generated — every meta.json in one searchable file
@@ -39,11 +40,21 @@ To add a section, see **Adding a new section** in [docs/schema.md](docs/schema.m
 
 ## Current count
 
-36 sections. 11 adapted and de-identified from 5 real client builds spanning a
-real range of tone; 15 original library builds covering tones the client work
+39 sections. 11 adapted and de-identified from 5 real client builds spanning a
+real range of tone; 18 original library builds covering tones the client work
 did not; and 10 more (0027 to 0036) built as the 940Digital brand hero series,
 which are the only sections carrying real rather than de-identified branding
 (see **Own-brand sections** in [docs/schema.md](docs/schema.md)).
+
+## Drop-in sections
+
+0037, 0038, and 0039 are original patterns meant to be copied into a static client site. Each `section.html` is still self-contained (that is what the gallery iframes). CSS and, where needed, a few lines of script are inline, between `COPY START` / `COPY END` comments. Theme them with `--brand` and `--accent`. There is a short README in each folder.
+
+| ID | What it is | Demo |
+|---|---|---|
+| [0037](sections/0037/README.md) | Sticky call / text / book bar. Fixed on a phone, in the page from 48rem up. | [section.html](sections/0037/section.html) |
+| [0038](sections/0038/README.md) | Before/after compare. `clip-path` plus a native range input. | [section.html](sections/0038/section.html) |
+| [0039](sections/0039/README.md) | Scroll reveals with `animation-timeline: view()`. Visible without support, off under reduced motion. | [section.html](sections/0039/section.html) |
 
 The 940Digital series has its own log, contact sheet and written
 recommendation in [brand-heroes/set-evidence/](brand-heroes/set-evidence/).

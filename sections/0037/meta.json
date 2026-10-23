@@ -1,0 +1,37 @@
+{
+  "id": "0037",
+  "number": 37,
+  "name": "Sticky mobile call, text, and book bar, reshaped into the page on desktop",
+  "website": "ACME Everything",
+  "type": "contact",
+  "emotions": [
+    "direct",
+    "urgent",
+    "trustworthy",
+    "confident",
+    "grounded"
+  ],
+  "features": [
+    "sticky-mobile-action-bar",
+    "phone-tel-link",
+    "sms-link",
+    "safe-area-inset",
+    "desktop-reshape",
+    "css-custom-property-theming"
+  ],
+  "colorMode": "light",
+  "palette": [
+    "#14352c",
+    "#e0a04a",
+    "#f6f3ea",
+    "#f4f0e6",
+    "#1c1915"
+  ],
+  "fonts": [
+    "Palatino",
+    "system-ui"
+  ],
+  "dateAdded": "2026-10-23",
+  "file": "section.html",
+  "notes": "Original library pattern, not pulled from a client build. Behavior is the mobile call bar used by Benjamin Franklin Plumbing (a fixed Call control on small screens, out of the way on a desktop) extended with Text and Book, which is the set owner-run trades actually use. No animation. Copy the nav and the CSS between the COPY comments, add class has-callbar to body, and put viewport-fit=cover on the viewport meta or the iOS home-indicator inset stays zero. Theme --brand and --accent. The number (555) 010-0137 is fictional — replace the tel: href, the sms: href, and the visible digits together. Point Book at the real scheduler. Breakpoint is 48rem, in one media query. The phone frame in the demo is not part of the copy; it only exists so the pinned bar is visible in the gallery at desktop width. On a real phone the single nav is position: fixed and body padding matches its height, including env(safe-area-inset-bottom)."
+}

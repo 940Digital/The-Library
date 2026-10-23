@@ -1,15 +1,18 @@
 # meta.json schema
 
-Every section is a folder `sections/<id>/` containing exactly two files:
+Every section is a folder `sections/<id>/`. `meta.json` and `section.html` are required. `README.md` is optional.
 
 ```
 sections/0001/
 ├── meta.json       # metadata described below
-└── section.html    # a single self-contained HTML file (inline <style>, no
+├── section.html    # a single self-contained HTML file (inline <style>, no
                      # external stylesheet). Font links and CDN scripts are
                      # fine; anything site-specific (a shared stylesheet,
                      # a global nav) is not — the section must render on
                      # its own when opened directly in a browser.
+└── README.md       # optional. Drop-in notes: what it is, where the idea
+                     # came from, how to copy it, who it fits. build_index.py
+                     # ignores it. sections 0037–0039 are the pattern.
 ```
 
 ## Image placeholders
@@ -28,6 +31,11 @@ Real client photos aren't kept in this library. Every section's `<img>`/`<source
 | `dynamic-sprint.jpg` | Sprinters bursting from starting blocks | Dynamic/high-energy heroes |
 | `brutalist-terracotta.jpg` | Graphic terracotta roofline against sky | Brutalist/industrial heroes wanting a warmer, second option |
 | `city-lights-night.jpg` | Starry night skyline, saturated red/teal/blue light reflections on water | Night/urban/tech-forward heroes, especially any invert-filter or color-mask text effect |
+| `compare-before.svg` | Drawn diagram: same house, bare yard. Stamped “PLACEHOLDER” and “NOT A REAL PHOTO” | Before half of a compare slider. Not a photograph |
+| `compare-after.svg` | Drawn diagram: the same house and sky marks, planted yard | After half of a compare slider. Share the before file’s crop |
+| `marked-kit.svg` | Drawn diagram: bucket, rake, folded towels | Generic trade still-life when a photo would imply a finished job |
+
+The three SVGs are drawn for the library (sections 0038 and 0039), not stock photos. A before/after needs a matched pair; two unrelated photographs would read as a job that did not happen. Reuse them only when the picture must obviously be a placeholder. For a normal hero, keep using the photographs above.
 
 When adding a section, point its images at whichever of these fits best (relative path from `sections/000X/` is `../../assets/placeholders/<name>.jpg`) instead of the original site's now-broken asset path — add a new one only if nothing existing fits the vibe at all (the first 5 are deliberately generic/reusable across many trades; the rest are vibe-specific, added for a specific tone rather than a specific trade). Always mark it with an HTML comment (`<!-- LIBRARY PLACEHOLDER: swap for the target site's own photo -->`) so it's obvious this isn't the real content. Whoever pulls a section into a real build swaps in that site's own photo before shipping.
 
@@ -71,6 +79,12 @@ Common ones already in use: `full-bleed-background-image`, `split-layout`,
 `label-tag`, `eyebrow-label`, `centered-layout`, `asymmetric-layout`,
 `bulleted-capability-list`, `image-placeholder-comment`,
 `prefers-reduced-motion-fallback`.
+
+Added with the drop-in patterns (0037–0039): `sticky-mobile-action-bar`,
+`sms-link`, `safe-area-inset`, `desktop-reshape`,
+`css-custom-property-theming`, `before-after-compare`,
+`clip-path-image-compare`, `lazy-loaded-images`,
+`scroll-driven-view-timeline`, `intersection-observer-fallback`.
 
 Run `grep -h features -A5 sections/*/meta.json` or just read `index.json` to see the full current set before coining a duplicate under a different name.
 
