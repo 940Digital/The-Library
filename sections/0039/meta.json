@@ -1,0 +1,36 @@
+{
+  "id": "0039",
+  "number": 39,
+  "name": "Scroll-driven card and image reveals with a reduced-motion and no-support fallback",
+  "website": "ACME Everything",
+  "type": "feature-grid",
+  "emotions": [
+    "airy",
+    "clear",
+    "calm",
+    "quiet"
+  ],
+  "features": [
+    "scroll-driven-view-timeline",
+    "intersection-observer-fallback",
+    "prefers-reduced-motion-fallback",
+    "lazy-loaded-images",
+    "css-custom-property-theming",
+    "image-placeholder-comment"
+  ],
+  "colorMode": "light",
+  "palette": [
+    "#14352c",
+    "#e0a04a",
+    "#f4f0e6",
+    "#fffcf7",
+    "#1c1915"
+  ],
+  "fonts": [
+    "Palatino",
+    "system-ui"
+  ],
+  "dateAdded": "2026-10-23",
+  "file": "section.html",
+  "notes": "Original library pattern, not pulled from a client build. The motion is the view() timeline pattern documented at scroll-driven-animations.style: opacity and translate tied to how far the element has entered the screen, not a time delay. Rules live inside @supports (animation-timeline: view()) and inside prefers-reduced-motion: no-preference. Outside that, .reveal is opacity 1, so a browser without the feature, or a visitor who asked for less motion, sees the content immediately. No layout properties animate, and images sit in aspect-ratio frames, so there is no shift. The optional script at the bottom is an IntersectionObserver fallback, clearly marked, and it bails out when view() exists or motion is reduced. In-view items are flagged in the same turn the hiding class is added. Delete the script and the .js-reveal-fallback rules together if you do not want it. Images are the drawn placeholders compare-before.svg, compare-after.svg, and marked-kit.svg. Theme --brand and --accent. Copy is placeholder steps, not a testimonial and not a result claim."
+}

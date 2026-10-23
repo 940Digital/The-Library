@@ -1,0 +1,36 @@
+{
+  "id": "0038",
+  "number": 38,
+  "name": "Before/after image compare, clip-path split driven by a native range input",
+  "website": "ACME Everything",
+  "type": "gallery",
+  "emotions": [
+    "clear",
+    "confident",
+    "grounded",
+    "capable"
+  ],
+  "features": [
+    "before-after-compare",
+    "clip-path-image-compare",
+    "native-range-slider",
+    "lazy-loaded-images",
+    "css-custom-property-theming",
+    "image-placeholder-comment"
+  ],
+  "colorMode": "light",
+  "palette": [
+    "#14352c",
+    "#e0a04a",
+    "#f4f0e6",
+    "#f4ecdf",
+    "#5f8f4e"
+  ],
+  "fonts": [
+    "Palatino",
+    "system-ui"
+  ],
+  "dateAdded": "2026-10-23",
+  "file": "section.html",
+  "notes": "Original library pattern, not pulled from a client build. The interaction is the before/after drag used on Yardzen project stories: one frame, a vertical seam, labels on each side. Implemented with CSS clip-path and a real range input so keyboard, touch, and screen readers come from the browser. The script only writes --val. Images are drawn diagrams (assets/placeholders/compare-before.svg and compare-after.svg), stamped as placeholders, because a before/after made of two unrelated stock photos would imply a job that did not happen. The house, clouds, and stamp are identical in both files so the seam does not jump; only the yard changes. Swap both for a real pair of the same crop before shipping, and if this is the hero set the top image to loading=eager. --thumb is 44px and must match the knob. 0 and 100 stop half a knob in from the edge so the handle stays on the picture. Without the script the split stays at 50/50. The drag is user-controlled, so prefers-reduced-motion does not remove it. Theme --brand."
+}

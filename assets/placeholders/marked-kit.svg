@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <title>Placeholder diagram of tools</title>
+  <rect width="1200" height="800" fill="#e7efe8"/>
+  <rect x="70" y="150" width="1060" height="520" rx="28" fill="#f7f4ec"/>
+  <ellipse cx="600" cy="430" rx="420" ry="180" fill="#e7e0d2" opacity="0.65"/>
+  <g stroke="#24342e" stroke-width="3" stroke-linejoin="round">
+    <rect x="150" y="300" width="190" height="230" rx="18" fill="#14352c"/>
+    <rect x="138" y="286" width="214" height="36" rx="10" fill="#1c4a3d"/>
+    <path d="M168 286c0-70 34-110 77-110s77 40 77 110" fill="none" stroke="#e0a04a" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <g stroke="#8d5a32" stroke-width="16" stroke-linecap="round" fill="none">
+    <line x1="470" y1="560" x2="760" y2="250"/>
+  </g>
+  <g transform="translate(760 250) rotate(-48)">
+    <rect x="-70" y="-16" width="150" height="32" rx="6" fill="#4a453c" stroke="#24342e" stroke-width="3"/>
+    <g stroke="#4a453c" stroke-width="6" stroke-linecap="round">
+      <line x1="-56" y1="16" x2="-64" y2="48"/>
+      <line x1="-28" y1="16" x2="-32" y2="50"/>
+      <line x1="0" y1="16" x2="0" y2="52"/>
+      <line x1="28" y1="16" x2="32" y2="50"/>
+      <line x1="56" y1="16" x2="64" y2="48"/>
+    </g>
+  </g>
+  <g stroke="#24342e" stroke-width="3">
+    <rect x="860" y="340" width="180" height="120" rx="10" fill="#f4ecdf" transform="rotate(-8 950 400)"/>
+    <rect x="880" y="390" width="180" height="120" rx="10" fill="#e7d3b4" transform="rotate(4 970 450)"/>
+    <rect x="900" y="430" width="170" height="28" fill="#e0a04a" transform="rotate(4 985 444)" stroke="none"/>
+  </g>
+  <g transform="translate(28 28)">
+    <rect width="196" height="32" rx="16" fill="#1c1915"/>
+    <text x="98" y="21" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#f4f0e6" letter-spacing="1.5">NOT A REAL PHOTO</text>
+  </g>
+  <g transform="translate(600 120) rotate(-4)" opacity="0.78">
+    <rect x="-168" y="-26" width="336" height="52" rx="4" fill="none" stroke="#1c1915" stroke-width="3"/>
+    <text x="0" y="9" text-anchor="middle" font-family="sans-serif" font-size="26" font-weight="700" fill="#1c1915" letter-spacing="3">PLACEHOLDER</text>
+  </g>
+</svg>

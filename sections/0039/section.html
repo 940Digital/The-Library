@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scroll reveal — Acme Everything</title>
+<meta name="description" content="Demo of scroll-driven card and image reveals. Placeholder drawings only. No reviews and no project claims.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    color-scheme: light;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, p, ol, figure { margin: 0; }
+  img { display: block; max-width: 100%; }
+  .page {
+    width: min(100% - 2.5rem, 68rem);
+    margin: 0 auto;
+    padding: 1.75rem 0 4rem;
+  }
+  .mark { font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.85rem; }
+  .mark span { color: var(--brand); }
+  .kicker {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 0.55rem;
+  }
+  h1 {
+    font-family: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(2rem, 4vw, 3.35rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 16ch;
+  }
+  .lede {
+    max-width: 38rem;
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-top: 0.85rem;
+  }
+  .band { margin-top: 3.25rem; }
+  .band h2 {
+    font-family: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(1.45rem, 2vw, 1.9rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .foot {
+    margin-top: 3rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  /* ============================================================
+     COPY START: scroll reveals
+     Default is fully visible. The motion only exists inside
+     @supports (animation-timeline: view()) and only when the
+     visitor has not asked for reduced motion.
+     Theme --brand and --accent. Cards and images use .reveal.
+     animation-duration: auto is required; a shorthand animation
+     declaration would reset it and the timeline would not run.
+     ============================================================ */
+  :root {
+    --brand: #14352c;
+    --accent: #e0a04a;
+    --on-brand: #f6f3ea;
+    --ink: #1c1915;
+    --muted: #4a453c;
+    --paper: #f4f0e6;
+    --card: #fffcf7;
+    --line: #e0d8cb;
+  }
+
+  .cards {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 48rem) {
+    .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .cards--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 0.9rem;
+    padding: 1.2rem 1.2rem 1.3rem;
+  }
+  .card__step {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 0.55rem;
+  }
+  .card h3 {
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+  }
+  .card p { color: var(--muted); }
+
+  .shots {
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (min-width: 48rem) {
+    .shots--pair { grid-template-columns: 1.15fr 0.85fr; align-items: start; }
+  }
+  .shot__frame {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: 0.9rem;
+    background: #e4ddd0;
+  }
+  .shot__frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .shot figcaption {
+    margin-top: 0.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  /* Visible with no support and with scripting off. Do not set opacity here. */
+  .reveal { opacity: 1; }
+
+  @keyframes reveal-rise {
+    from { opacity: 0; translate: 0 1.25rem; }
+    to { opacity: 1; translate: 0 0; }
+  }
+  @keyframes reveal-media {
+    from { opacity: 0; scale: 0.98; }
+    to { opacity: 1; scale: 1; }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        animation-name: reveal-rise;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-duration: auto;
+        animation-timeline: view();
+        animation-range: entry 0% entry 42%;
+      }
+      .cards .reveal:nth-child(2) { animation-range: entry 8% entry 50%; }
+      .cards .reveal:nth-child(3) { animation-range: entry 16% entry 58%; }
+      .reveal--media {
+        animation-name: reveal-media;
+        animation-range: entry 0% cover 38%;
+      }
+    }
+  }
+
+  /* OPTIONAL IntersectionObserver fallback.
+     Inactive until the script adds .js-reveal-fallback.
+     Delete this block if you delete the script. */
+  .js-reveal-fallback .reveal {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .js-reveal-fallback .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+  .js-reveal-fallback .cards .reveal:nth-child(2) { transition-delay: 0.08s; }
+  .js-reveal-fallback .cards .reveal:nth-child(3) { transition-delay: 0.16s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .js-reveal-fallback .reveal,
+    .js-reveal-fallback .reveal.is-in {
+      animation: none;
+      opacity: 1;
+      translate: none;
+      scale: none;
+      transform: none;
+      transition: none;
+    }
+  }
+  /* COPY END: scroll reveals */
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <p class="mark"><span>Acme</span> Everything</p>
+    <p class="kicker">Scroll reveal</p>
+    <h1>They arrive as you scroll.</h1>
+    <p class="lede">Cards and images ease in with a CSS view timeline. If the browser cannot do that, or motion is reduced, they are simply here. Nothing on this page is a review or a finished job.</p>
+  </header>
+
+  <section class="band">
+    <h2>Three placeholder steps</h2>
+    <ol class="cards">
+      <li class="card reveal">
+        <p class="card__step">01</p>
+        <h3>Write it down</h3>
+        <p>Placeholder. Say what the visit is for, in the owner’s words.</p>
+      </li>
+      <li class="card reveal">
+        <p class="card__step">02</p>
+        <h3>Do the work</h3>
+        <p>Placeholder. Name the actual task. Leave out any claim you cannot prove.</p>
+      </li>
+      <li class="card reveal">
+        <p class="card__step">03</p>
+        <h3>Leave it clear</h3>
+        <p>Placeholder. Say what the owner has in hand when you leave.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="band">
+    <h2>Images, same idea</h2>
+    <div class="shots shots--pair">
+      <figure class="shot reveal reveal--media">
+        <div class="shot__frame">
+          <!-- LIBRARY PLACEHOLDER: drawn diagram, swap for the target site's own photo -->
+          <img src="../../assets/placeholders/compare-before.svg" width="1200" height="800" alt="Placeholder diagram of a house with bare ground and an empty bed. Stamped placeholder, not a photograph." loading="lazy" decoding="async">
+        </div>
+        <figcaption>Placeholder drawing. Swap for a real photo.</figcaption>
+      </figure>
+      <figure class="shot reveal reveal--media">
+        <div class="shot__frame">
+          <!-- LIBRARY PLACEHOLDER: drawn diagram, swap for the target site's own photo -->
+          <img src="../../assets/placeholders/compare-after.svg" width="1200" height="800" alt="Placeholder diagram of the same house with a lawn, shrubs, and a path. Stamped placeholder, not a photograph." loading="lazy" decoding="async">
+        </div>
+        <figcaption>A second placeholder, so the pair can be compared by scrolling, not by a claim.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="band">
+    <figure class="shot reveal reveal--media">
+      <div class="shot__frame">
+        <!-- LIBRARY PLACEHOLDER: drawn diagram, swap for the target site's own photo -->
+        <img src="../../assets/placeholders/marked-kit.svg" width="1200" height="800" alt="Placeholder diagram of a bucket, a rake, and folded towels. Stamped placeholder, not a photograph of a job." loading="lazy" decoding="async">
+      </div>
+      <figcaption>Tools, drawn as a diagram. Not a photo of anyone’s truck or yard.</figcaption>
+    </figure>
+  </section>
+
+  <section class="band">
+    <h2>Two more, lower on the page</h2>
+    <ul class="cards cards--two">
+      <li class="card reveal">
+        <p class="card__step">04</p>
+        <h3>Keep the type still</h3>
+        <p>Headings on this page do not move. Only the cards and the pictures do, and only with opacity and transform, so the layout does not jump.</p>
+      </li>
+      <li class="card reveal">
+        <p class="card__step">05</p>
+        <h3>Leave a way out</h3>
+        <p>Reduced motion turns the effect off. So does a browser that does not understand view timelines, unless you keep the optional script.</p>
+      </li>
+    </ul>
+  </section>
+
+  <p class="foot">End of the demo. Scroll back up. The blocks you already passed stay visible.</p>
+</div>
+
+<script>
+/* OPTIONAL IntersectionObserver fallback. DELETE THIS WHOLE SCRIPT
+   if you only want the CSS view() timeline. Also delete the
+   ".js-reveal-fallback" rules in the stylesheet.
+   It does nothing when animation-timeline: view() is supported,
+   nothing when the visitor prefers reduced motion, and nothing
+   if IntersectionObserver is missing. Without it, content stays
+   at full opacity. In-view items are marked in the same turn the
+   hiding class is added, so the first screen does not flash blank. */
+(function () {
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (window.CSS && CSS.supports && CSS.supports("(animation-timeline: view())")) return;
+  if (!("IntersectionObserver" in window)) return;
+
+  var nodes = document.querySelectorAll(".reveal");
+  var pending = [];
+  Array.prototype.forEach.call(nodes, function (node) {
+    var rect = node.getBoundingClientRect();
+    var inView = rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+    if (inView) node.classList.add("is-in");
+    else pending.push(node);
+  });
+  document.documentElement.classList.add("js-reveal-fallback");
+
+  if (!pending.length) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-in");
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
+  pending.forEach(function (node) { io.observe(node); });
+})();
+</script>
+</body>
+</html>
